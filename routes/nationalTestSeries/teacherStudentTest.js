@@ -387,6 +387,77 @@ router.delete("/delete/:id", async (req, res) => {
     res.status(500).json({ success: false, msg: "Server error" });
   }
 });
+
+// ================= MAKE TEST LIVE =================
+
+router.post("/live/:id", async (req, res) => {
+
+  try {
+
+    const token = req.cookies.token;
+
+    if (!token) {
+
+      return res.status(401).json({
+        success: false,
+        msg: "Login required"
+      });
+
+    }
+
+    const decoded = jwt.verify(
+      token,
+      process.env.JWT_SECRET
+    );
+
+    const test = await TeacherTest.findById(
+      req.params.id
+    );
+
+    if (!test) {
+
+      return res.status(404).json({
+        success: false,
+        msg: "Test not found"
+      });
+
+    }
+
+    // OWNER CHECK
+    if (
+      test.createdBy.toString()
+      !== decoded.userId
+    ) {
+
+      return res.status(403).json({
+        success: false,
+        msg: "Unauthorized"
+      });
+
+    }
+
+    test.status = "published";
+    test.visibility = "public";
+
+    await test.save();
+
+    res.json({
+      success: true
+    });
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+
+    res.status(500).json({
+      success: false
+    });
+
+  }
+
+});
 // ================= TEST DETAILS PAGE =================
 router.get("/test-details", (req, res) => {
   res.render("NationalTestSeries/test-details");

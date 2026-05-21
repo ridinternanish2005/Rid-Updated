@@ -6,222 +6,638 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Your Tests - RIDTECH</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-   <link rel="stylesheet" href="/css/Allindiatestserice/teacher/channel.css">
+    <style>
+        /* ----- GLOBAL RESET ----- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+            background-color: #f9f9f9;
+            transition: background 0.2s;
+        }
+
+        body.dark-mode {
+            background-color: #121212;
+        }
+
+        /* ===== TESTS CONTAINER - GRID ===== */
+        .tests-container {
+            display: grid;
+            /* Mobile: 1 column */
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 16px 14px 40px 14px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Tablet: 2 columns */
+        @media (min-width: 600px) {
+            .tests-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                padding: 20px 20px 40px 20px;
+            }
+        }
+
+        /* Desktop: 3 columns */
+        @media (min-width: 1024px) {
+            .tests-container {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 24px;
+                padding: 24px 28px 48px 28px;
+            }
+        }
+
+        /* ===== CARD ===== */
+        .test-item {
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border: 1px solid #ebebeb;
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .test-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 32px rgba(0,0,0,0.13);
+        }
+
+        /* ===== THUMBNAIL AREA ===== */
+        .test-thumb {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            background: #eef2f6;
+            border-radius: 18px 18px 0 0;
+        }
+
+        .test-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .test-item:hover .test-thumb img {
+            transform: scale(1.04);
+        }
+
+        /* LIVE badge */
+        .live-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff3b30;
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 10px 3px 8px;
+            border-radius: 30px;
+            letter-spacing: 0.4px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 5;
+            box-shadow: 0 2px 8px rgba(255,59,48,0.4);
+        }
+
+        .live-badge::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            background: #fff;
+            border-radius: 50%;
+            flex-shrink: 0;
+            animation: livePulse 1.2s infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.7); }
+        }
+
+        /* Three dots button on thumbnail */
+        .test-actions {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            z-index: 10;
+        }
+
+        .three-dots-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(30,30,30,0.65);
+            backdrop-filter: blur(4px);
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.18s;
+            line-height: 1;
+        }
+
+        .three-dots-btn:hover {
+            background: rgba(0,0,0,0.82);
+        }
+
+        /* Dropdown menu */
+        .action-menu {
+            position: absolute;
+            right: 0;
+            top: 42px;
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 28px rgba(0,0,0,0.18);
+            z-index: 200;
+            display: none;
+            min-width: 140px;
+            overflow: hidden;
+        }
+
+        .action-menu.show {
+            display: block;
+        }
+
+        .action-menu div {
+            padding: 12px 18px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.15s;
+            font-weight: 500;
+            color: #222;
+        }
+
+        .action-menu div:hover {
+            background: #f5f5f5;
+        }
+
+        .action-menu .delete-test {
+            color: #d32f2f;
+        }
+
+        /* ===== CARD BODY ===== */
+        .test-body {
+            padding: 12px 14px 14px 14px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        /* Avatar circle */
+        .test-avatar {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            font-weight: 700;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+
+        .test-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .test-title {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 1.4;
+            color: #0f0f0f;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+
+        .test-subject {
+            font-size: 12px;
+            color: #606060;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .test-meta {
+            font-size: 11.5px;
+            color: #606060;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 2px;
+        }
+
+        .test-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ===== DARK MODE ===== */
+        body.dark-mode .test-item {
+            background: #1e1e2f;
+            border-color: #2c2c3a;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+        }
+
+        body.dark-mode .test-item:hover {
+            box-shadow: 0 12px 30px rgba(0,0,0,0.55);
+        }
+
+        body.dark-mode .test-title {
+            color: #f1f1f1;
+        }
+
+        body.dark-mode .test-subject,
+        body.dark-mode .test-meta {
+            color: #aaa;
+        }
+
+        body.dark-mode .action-menu {
+            background: #2c2c3a;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+        }
+
+        body.dark-mode .action-menu div {
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .action-menu div:hover {
+            background: #3a3a4c;
+        }
+
+        body.dark-mode .test-thumb {
+            background: #2a2a3a;
+        }
+
+        /* ===== HEADER ===== */
+        .tests-header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tests-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        body.dark-mode .tests-header h2 {
+            background: linear-gradient(135deg, #c0e0ff, #8ab3ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        #createNewTestBtn {
+            background: #1a73e8;
+            color: #fff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        #createNewTestBtn:hover {
+            background: #0c5fcf;
+            transform: scale(1.03);
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .tests-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 56px 20px;
+            background: #f4f6fa;
+            border-radius: 24px;
+            font-size: 16px;
+            color: #4a5568;
+        }
+
+        body.dark-mode .tests-empty {
+            background: #1a1a24;
+            color: #b9c3d4;
+        }
+
+        /* ===== MOBILE TWEAKS ===== */
+        @media (max-width: 599px) {
+            .test-body {
+                padding: 10px 12px 12px 12px;
+            }
+
+            .test-title {
+                font-size: 13px;
+            }
+
+            .test-avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
 
 <body>
 
+    <!-- Your existing header include -->
     <%- include("../common/allindiatestheader.ejs") %>
 
-        <!-- Hidden wrapper – content will be moved into #dynamicContent -->
-        <div id="testsPageContent" style="display: none;">
-            <div class="tests-container">
-                <div class="tests-header">
-                    <h2><i class="fas fa-video"></i> Your Tests</h2>
+    <div id="testsPageContent" style="display:none;">
+        <div class="tests-container">
+            <div class="tests-header">
+                <h2><i class="fas fa-file-alt" style="margin-right:8px;"></i>Your Tests</h2>
+               
+            </div>
 
-                </div>
+            <% if(tests && tests.length > 0) { %>
+                <% tests.forEach(test => { %>
+                    <div class="test-item" data-test-id="<%= test._id %>">
 
-                <% if(tests && tests.length> 0){ %>
-                    <% tests.forEach(test=> { %>
-                        <div class="test-item" data-test-id="<%= test._id %>">
-                            <div class="test-left"
-                                onclick="window.location.href='/National-Test-Series/test/<%= test._id %>'">
-                                <div class="test-thumb">
+                        <!-- THUMBNAIL -->
+                        <div class="test-thumb"
+                            onclick="window.location.href='/National-Test-Series/test/<%= test._id %>'">
 
-                                    <img src="<%= test.thumbnail && test.thumbnail !== '' ? test.thumbnail : 'https://picsum.photos/200/120' %>"
-                                        alt="thumbnail" onerror="this.src='https://picsum.photos/200/120'">
+                            <% if(test.status === "published") { %>
+                                <div class="live-badge">LIVE</div>
+                            <% } %>
+                              <img
+                                src="<%= test.thumbnail && test.thumbnail !== '' ? test.thumbnail : 'https://picsum.photos/seed/' + test._id + '/400/225' %>"
+                              alt="<%= test.name %>"
+                            onerror="this.src='https://picsum.photos/400/225'">
 
-                                </div>
-                                <div class="test-info">
-                                    <div class="test-title">
-                                        <%= test.name %>
-                                    </div>
-                                    <div class="test-subject">
-                                        <%= test.subject %>
-                                    </div>
-                                    <div class="test-stats">
-                                        <span><i class="fas fa-eye"></i>
-                                            <%= test.views || 0 %> views
-                                        </span>
-                                        <span><i class="fas fa-heart" style="color:red;"></i>
-                                            <%= test.likes || 0 %> likes
-                                        </span>
-                                        <span><i class="fas fa-calendar"></i>
-                                            <%= new Date(test.createdAt).toLocaleDateString() %>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- THREE DOTS on thumbnail -->
                             <div class="test-actions">
-                                <span class="three-dots">⋮</span>
+                                <button class="three-dots-btn" title="More options">⋮</button>
                                 <div class="action-menu">
-                                    <div class="edit-test" data-id="<%= test._id %>">✏️ Edit</div>
-                                    <div class="delete-test" data-id="<%= test._id %>">🗑️ Delete</div>
+
+    <% if(test.status !== "published") { %>
+        <div class="go-live-test" data-id="<%= test._id %>">
+            🔴 Publish (Public)
+        </div>
+    <% } %>
+
+    <div class="edit-test" data-id="<%= test._id %>">
+        ✏️ Edit
+    </div>
+
+    <div class="delete-test" data-id="<%= test._id %>">
+        🗑️ Delete
+    </div>
+
+</div>
+                            </div>
+                        </div>
+
+                        <!-- CARD BODY -->
+                        <div class="test-body"
+                            onclick="window.location.href='/National-Test-Series/test/<%= test._id %>'">
+                            <div class="test-avatar">
+                                <%= test.creatorName ? test.creatorName.charAt(0).toUpperCase() : 'U' %>
+                            </div>
+                            <div class="test-info">
+                                <div class="test-title"><%= test.name %></div>
+                                <div class="test-subject"><%= test.subject %></div>
+                                <div class="test-meta">
+                                    <span><i class="fas fa-user" style="font-size:10px;"></i> <%= test.creatorName || 'Unknown' %></span>
+                                    <span><i class="fas fa-calendar" style="font-size:10px;"></i> <%= new Date(test.createdAt).toLocaleDateString() %></span>
+                                </div>
+                                <div class="test-meta" style="margin-top:3px;">
+                                    <span><i class="fas fa-eye" style="font-size:10px;"></i> <%= test.views || 0 %> views</span>
+                                    <span><i class="fas fa-heart" style="color:red;font-size:10px;"></i> <%= test.likes || 0 %> likes</span>
                                 </div>
                             </div>
                         </div>
-                        <% }) %>
-                            <% } else { %>
-                                <p style="padding: 40px 0; text-align: center; color: #606060;">
-                                    <i class="fas fa-folder-open"></i> No tests created yet
-                                </p>
-                                <% } %>
-            </div>
+
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="tests-empty">
+                    <i class="fas fa-folder-open" style="font-size:32px;margin-bottom:12px;display:block;"></i>
+                    No tests created yet. Click "Create new test" to begin.
+                </div>
+            <% } %>
         </div>
+    </div>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Move content into #dynamicContent
+            const dynamicContent = document.getElementById("dynamicContent");
+            const tempContent = document.getElementById("testsPageContent");
 
-                const dynamicContent = document.getElementById("dynamicContent");
-                const tempContent = document.getElementById("testsPageContent");
-
-                if (dynamicContent && tempContent) {
-                    const container = tempContent.querySelector(".tests-container");
-                    if (container) {
-                        dynamicContent.innerHTML = "";
-                        dynamicContent.appendChild(container);
-                    }
-                    tempContent.remove();
+            if (dynamicContent && tempContent) {
+                const container = tempContent.querySelector(".tests-container");
+                if (container) {
+                    dynamicContent.innerHTML = "";
+                    dynamicContent.appendChild(container);
                 }
+                tempContent.remove();
+            }
 
-                // ✅ Create new test button
-                const createBtn = document.getElementById("createNewTestBtn");
-                if (createBtn) {
-                    createBtn.addEventListener("click", () => {
-                        window.location.href = "/create-test";
-                    });
-                }
+            // Create test button
+            const createBtn = document.getElementById("createNewTestBtn");
+            if (createBtn) {
+                createBtn.addEventListener("click", () => {
+                    window.location.href = "/create-test";
+                });
+            }
 
-                // ================= MENU HANDLING =================
-                function closeAllMenus() {
-                    document.querySelectorAll('.action-menu').forEach(menu => {
-                        menu.classList.remove('show');
-                    });
-                }
+            // ---------- MENU HANDLING ----------
+            function closeAllMenus() {
+                document.querySelectorAll('.action-menu').forEach(m => m.classList.remove('show'));
+            }
 
-                document.querySelectorAll('.test-actions').forEach(actionsDiv => {
+            document.querySelectorAll('.test-actions').forEach(actionsDiv => {
+                const btn = actionsDiv.querySelector('.three-dots-btn');
+                const menu = actionsDiv.querySelector('.action-menu');
 
-                    const dots = actionsDiv.querySelector('.three-dots');
-                    const menu = actionsDiv.querySelector('.action-menu');
-
-                    // 🔥 OPEN MENU
-                    dots.addEventListener('click', (e) => {
+                if (btn) {
+                    btn.addEventListener('click', (e) => {
                         e.stopPropagation();
                         closeAllMenus();
                         menu.classList.toggle('show');
                     });
-
-                    // ================= DELETE =================
-                    const deleteOption = menu.querySelector('.delete-test');
-
-                    if (deleteOption) {
-                        deleteOption.addEventListener('click', async (e) => {
-                            e.stopPropagation();
-
-                            const testId = deleteOption.getAttribute('data-id');
-
-                            if (!testId) {
-                                alert("Invalid test ID ❌");
-                                return;
-                            }
-
-                            if (!confirm("Delete this test permanently?")) return;
-
-                            try {
-                                const res = await fetch(`/National-Test-Series/delete/${testId}`, {
-                                    method: "DELETE",
-                                    headers: {
-                                        "Content-Type": "application/json"
-                                    }
-                                });
-
-                                const data = await res.json(); // 🔥 IMPORTANT
-
-                                // 🔐 NOT LOGGED IN
-                                if (res.status === 401) {
-                                    alert("Please login first 🔐");
-                                    window.location.href = "/login";
-                                    return;
-                                }
-
-                                // 🚫 NOT OWNER
-                                if (res.status === 403) {
-                                    alert("You can delete only your own test ❌");
-                                    return;
-                                }
-
-                                // ❌ OTHER ERROR
-                                if (!res.ok || !data.success) {
-                                    alert(data.msg || "Delete failed ❌");
-                                    return;
-                                }
-
-                                // ✅ SUCCESS → REMOVE UI
-                                const testItem = actionsDiv.closest('.test-item');
-                                if (testItem) testItem.remove();
-
-                                // ✅ EMPTY STATE
-                                if (document.querySelectorAll('.test-item').length === 0) {
-                                    const container = document.querySelector('.tests-container');
-                                    const noMsg = document.createElement('p');
-                                    noMsg.style.padding = "40px 0";
-                                    noMsg.style.textAlign = "center";
-                                    noMsg.style.color = "#606060";
-                                    noMsg.innerHTML = '<i class="fas fa-folder-open"></i> No tests created yet';
-                                    container.appendChild(noMsg);
-                                }
-
-                            } catch (err) {
-                                console.error("DELETE ERROR:", err);
-                                alert("Server error ❌");
-                            }
-
-                            closeAllMenus();
-                        });
-                    }
-
-                    // ================= EDIT =================
-                    const editOption = menu.querySelector('.edit-test');
-
-                    if (editOption) {
-                        editOption.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            const testId = editOption.getAttribute('data-id');
-                            window.location.href = `/National-Test-Series/edit/${testId}`;
-                        });
-                    }
-
-                });
-
-                // 🔥 CLICK OUTSIDE → CLOSE MENU
-                document.addEventListener('click', (e) => {
-                    if (!e.target.closest('.test-actions')) {
-                        closeAllMenus();
-                    }
-                });
-
-            });
-            function executeSearch(query) {
-                const cards = document.querySelectorAll(".test-item"); // 🔥 FIX
-                const q = query.toLowerCase().trim();
-
-                if (q === "") {
-                    cards.forEach(card => card.style.display = "flex");
-                    return;
                 }
 
-                cards.forEach(card => {
-                    const text = card.innerText.toLowerCase();
+                // Delete
+                const deleteOption = menu?.querySelector('.delete-test');
+                if (deleteOption) {
+                    deleteOption.addEventListener('click', async (e) => {
+                        e.stopPropagation();
+                        const testId = deleteOption.getAttribute('data-id');
+                        if (!testId || !confirm("Delete this test permanently?")) return;
 
-                    if (text.includes(q)) {
-                        card.style.display = "flex";
-                    } else {
-                        card.style.display = "none";
+                        try {
+                            const res = await fetch(`/National-Test-Series/delete/${testId}`, {
+                                method: "DELETE",
+                                headers: { "Content-Type": "application/json" }
+                            });
+                            const data = await res.json();
+
+                            if (res.status === 401) { alert("Please login first 🔐"); window.location.href = "/login"; return; }
+                            if (res.status === 403) { alert("You can delete only your own test ❌"); return; }
+                            if (!res.ok || !data.success) { alert(data.msg || "Delete failed ❌"); return; }
+
+                            const testItem = actionsDiv.closest('.test-item');
+                            if (testItem) testItem.remove();
+
+                            const container = document.querySelector('.tests-container');
+                            if (container && document.querySelectorAll('.test-item').length === 0) {
+                                const el = document.createElement('div');
+                                el.className = 'tests-empty';
+                                el.innerHTML = '<i class="fas fa-folder-open" style="font-size:32px;margin-bottom:12px;display:block;"></i>No tests created yet.';
+                                container.appendChild(el);
+                            }
+                        } catch (err) {
+                            console.error("DELETE ERROR:", err);
+                            alert("Server error ❌");
+                        }
+                        closeAllMenus();
+                    });
+                }
+// ================= GO LIVE =================
+
+const goLiveOption = menu?.querySelector('.go-live-test');
+
+if (goLiveOption) {
+
+    goLiveOption.addEventListener('click', async (e) => {
+
+        e.stopPropagation();
+
+        const testId =
+            goLiveOption.getAttribute('data-id');
+
+        if (!testId) return;
+
+        try {
+
+            const res = await fetch(
+                `/National-Test-Series/live/${testId}`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
                     }
-                });
-            }
-        </script>
+                }
+            );
 
+            const data = await res.json();
+
+            if (!res.ok || !data.success) {
+
+                alert(data.msg || "Failed to go live ❌");
+                return;
+
+            }
+
+            // LIVE badge add
+            const testItem =
+                actionsDiv.closest('.test-item');
+
+            const thumb =
+                testItem.querySelector('.test-thumb');
+
+            // already exists check
+            if (
+                !thumb.querySelector('.live-badge')
+            ) {
+
+                const badge =
+                    document.createElement('div');
+
+                badge.className = 'live-badge';
+
+                badge.innerHTML = 'LIVE';
+
+                thumb.prepend(badge);
+
+            }
+
+            // remove go live option
+            goLiveOption.remove();
+
+            alert("Test is LIVE now 🚀");
+
+        }
+
+        catch (err) {
+
+            console.log(err);
+
+            alert("Server error ❌");
+
+        }
+
+        closeAllMenus();
+
+    });
+
+}
+                // Edit
+                const editOption = menu?.querySelector('.edit-test');
+                if (editOption) {
+                    editOption.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const testId = editOption.getAttribute('data-id');
+                        window.location.href = `/National-Test-Series/edit/${testId}`;
+                    });
+                }
+            });
+
+            // Close menus on outside click
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.test-actions')) closeAllMenus();
+            });
+        });
+
+        // Global search function
+        function executeSearch(query) {
+            const cards = document.querySelectorAll(".test-item");
+            const q = query.toLowerCase().trim();
+            cards.forEach(card => {
+                card.style.display = (q === "" || card.innerText.toLowerCase().includes(q)) ? "" : "none";
+            });
+        }
+    </script>
 
 </body>
-
 </html>
