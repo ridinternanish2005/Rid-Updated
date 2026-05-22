@@ -11,7 +11,8 @@ const state = {
     dashboardAnimationsPlayed: false,
     profilePhoto: null,
     editingQuestionId: null,
-    editingTestId: null
+    editingTestId: null,
+    currentCourseName: null
 };
 
 // Course Data
@@ -995,7 +996,8 @@ function showDashboard() {
     updateActiveNav('nav-dashboard');
     state.currentSection = 'dashboard-section';
 
-    // ✅ Real DB stats load karo
+    // Show local counts immediately, then refresh from server
+    updateDashboard();
     loadDashboardStats();
 
     if (!state.dashboardAnimationsPlayed) {
@@ -1410,9 +1412,15 @@ function translatorClearInputs() {
 // Animate dashboard elements
 function animateDashboard() {
     // Update progress bars with animation
-    const testsCount = state.tests.length;
-    const questionsCount = state.tests.reduce((total, test) => total + (test.questions ? test.questions.length : 0), 0);
-    const templatesCount = state.templates.length;
+    const testsCount = Array.isArray(state.tests) && state.tests.length > 0
+        ? state.tests.length
+        : Object.values(testServicesData).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
+
+    const questionsCount = Array.isArray(state.tests)
+        ? state.tests.reduce((total, test) => total + (test.questions ? test.questions.length : 0), 0)
+        : 0;
+
+    const templatesCount = state.templates.filter(t => t && t.active).length || Object.keys(testServicesData).length;
 
     // Set target values for progress bars
     const testsTarget = 50;
@@ -1434,6 +1442,7 @@ function animateDashboard() {
     animateCounter(totalQuestionsElement, questionsCount);
     animateCounter(activeTemplatesElement, templatesCount);
 }
+
 
 // Animate progress bar
 function animateProgressBar(progressBar, percentage, valueElement, textElement) {
@@ -2128,12 +2137,19 @@ function resetTestForm() {
 // Update dashboard
 function updateDashboard() {
     // Update statistics
-    totalTestsElement.textContent = state.tests.length;
+    const totalTests = Array.isArray(state.tests) && state.tests.length > 0
+        ? state.tests.length
+        : Object.values(testServicesData).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
 
-    const totalQuestions = state.tests.reduce((total, test) => total + (test.questions ? test.questions.length : 0), 0);
+    totalTestsElement.textContent = totalTests;
+
+    const totalQuestions = Array.isArray(state.tests)
+        ? state.tests.reduce((total, test) => total + (test.questions ? test.questions.length : 0), 0)
+        : 0;
+
     totalQuestionsElement.textContent = totalQuestions;
 
-    const activeTemplates = state.templates.filter(t => t.active).length;
+    const activeTemplates = state.templates.filter(t => t && t.active).length || Object.keys(testServicesData).length;
     activeTemplatesElement.textContent = activeTemplates;
 
     // Update dashboard animations if dashboard is visible
@@ -2141,6 +2157,7 @@ function updateDashboard() {
         animateDashboard();
     }
 }
+
 
 // Render all courses
 function renderCourses() {
@@ -2286,7 +2303,7 @@ data-id="${service._id || service.id}"
 style="background: linear-gradient(90deg, #9b59b6, #8e44ad);">
 <i class="fas fa-chart-bar"></i> Result
 </button>
-${(service.status || "").toLowerCase() === "published"
+${String(service.status || "").toLowerCase() === "published"
                 ? `
 <button 
     class="action-btn-modern publish-btn-modern"
@@ -2329,7 +2346,7 @@ function showTestServicesPage(courseName) {
     const course = coursesData.find(c => c.title === courseName);
 
     if (!course) return;
-
+    state.currentCourseName = courseName;
     // Update page content
     // serviceTitle.textContent = `${courseName} Test Services`;
     // serviceDescription.textContent = `Explore all ${testServicesData[courseName]?.length || 0} test services available for ${courseName}. From beginner to advanced level tests.`;
@@ -2418,42 +2435,50 @@ async function loadTestsFromDB() {
         const res = await fetch("/teacher-tests/api/my-tests");
         const tests = await res.json();
 
+        // Keep a local copy for dashboard counts and animations
+        state.tests = Array.isArray(tests) ? tests : [];
+
         // RESET
         coursesData.length = 0;
         Object.keys(testServicesData).forEach(k => delete testServicesData[k]);
 
         const subjectsMap = {};
 
-        tests.forEach(test => {
+        state.tests.forEach(test => {
+
+            const subjectKey = test.subject || "Uncategorized";
 
             // 👉 अगर subject नहीं है तो new main card बनाओ
-            if (!subjectsMap[test.subject]) {
-                subjectsMap[test.subject] = {
+            if (!subjectsMap[subjectKey]) {
+                subjectsMap[subjectKey] = {
                     id: Date.now() + Math.random(),
-                    title: test.subject,
-                    icon: getIconForSubject(test.subject),
+                    title: subjectKey,
+                    icon: getIconForSubject(subjectKey),
                     color: getRandomColor(),
                     viewers: 1,
                     level: test.difficulty,
                     levelClass: getLevelClass(test.difficulty),
-                    description: test.description || `Test for ${test.subject}`
+                    description: test.description || `Test for ${subjectKey}`
                 };
 
-                coursesData.push(subjectsMap[test.subject]);
-                testServicesData[test.subject] = [];
+                coursesData.push(subjectsMap[subjectKey]);
+                testServicesData[subjectKey] = [];
             }
 
             // 👉 sub card add
-            testServicesData[test.subject].push({
+            testServicesData[subjectKey].push({
                 id: test._id,
                 name: test.name,
-                icon: getIconForSubject(test.subject),
+                icon: getIconForSubject(subjectKey),
                 level: test.difficulty,
                 levelClass: getLevelClass(test.difficulty),
-                description: test.description,
-                duration: test.duration + " min",
-                students: 0,
-                color: subjectsMap[test.subject].color
+                description: test.description || "",
+                duration: `${test.duration || 0} min`,
+                questions: Array.isArray(test.questions) ? test.questions.length : 0,
+                students: test.students || 0,
+                color: subjectsMap[subjectKey].color,
+                status: test.status || "draft",
+                visibility: test.visibility || "private"
             });
         });
 
@@ -2471,11 +2496,22 @@ async function loadTestsFromDB() {
 
         renderCourses();
         updateCourseCount();
+        updateDashboard();
+
+        if (state.currentCourseName && testServicesData[state.currentCourseName]) {
+            renderTestServices(state.currentCourseName);
+        }
+
+        // If dashboard is already visible, refresh it with the latest data
+        if (state.currentSection === "dashboard-section") {
+            loadDashboardStats();
+        }
 
     } catch (err) {
         console.error("Error loading tests:", err);
     }
 }
+
 
 
 function openRequestModal() {
@@ -2910,24 +2946,36 @@ async function loadDashboardStats() {
 
         console.log("Dashboard data:", data);
 
-        const totalTests = data.totalTests || 0;
-        const totalAttempts = data.totalAttempts || 0;
-        const totalStudents = data.totalStudents || 0;
-        const totalTemplates = data.totalTemplates || 0;
+        const localTotalTests = Array.isArray(state.tests) && state.tests.length > 0
+            ? state.tests.length
+            : Object.values(testServicesData).reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0);
 
-        const studentCountToShow =
-            totalAttempts > 0 ? totalAttempts : totalStudents;
+        const localTotalQuestions = Array.isArray(state.tests)
+            ? state.tests.reduce((sum, test) => sum + (Array.isArray(test.questions) ? test.questions.length : 0), 0)
+            : 0;
+
+        const localActiveTemplates = state.templates.filter(t => t && t.active).length || Object.keys(testServicesData).length;
+
+        const totalTestsRaw = Number(data.totalTests);
+        const totalAttemptsRaw = Number(data.totalAttempts);
+        const totalStudentsRaw = Number(data.totalStudents);
+        const totalTemplatesRaw = Number(data.totalTemplates);
+
+        const totalTests = totalTestsRaw > 0 ? totalTestsRaw : localTotalTests;
+        const totalQuestions = totalAttemptsRaw > 0 ? totalAttemptsRaw : (totalStudentsRaw > 0 ? totalStudentsRaw : localTotalQuestions);
+        const totalTemplates = totalTemplatesRaw > 0 ? totalTemplatesRaw : localActiveTemplates;
 
         document.getElementById("total-tests").textContent = totalTests;
-        document.getElementById("total-questions").textContent = studentCountToShow;
+        document.getElementById("total-questions").textContent = totalQuestions;
         document.getElementById("active-templates").textContent = totalTemplates;
 
         updateProgress("tests", totalTests, 50);
-        updateProgress("questions", studentCountToShow, 200);
+        updateProgress("questions", totalQuestions, 200);
         updateProgress("templates", totalTemplates, 20);
 
     } catch (err) {
         console.error("Dashboard load error:", err);
+        updateDashboard();
     }
 }
 
@@ -3170,78 +3218,44 @@ async function publishTest(testId) {
     }
 }
 async function makeTestLive(testId) {
-
     try {
-
-        const res = await fetch(
-            `/National-Test-Series/live/${testId}`,
-            {
-                method: "POST"
-            }
-        );
+        const res = await fetch(`/National-Test-Series/live/${testId}`, {
+            method: "POST"
+        });
 
         const data = await res.json();
 
         if (data.success) {
-
-            // ✅ LOCAL STATE UPDATE
-            const index = state.tests.findIndex(
-                t => (t._id || t.id) === testId
-            );
+            const index = state.tests.findIndex(t => (t._id || t.id) === testId);
 
             if (index !== -1) {
-
                 state.tests[index].status = "published";
-
                 state.tests[index].visibility = "public";
-
             }
 
-            // ✅ UPDATE CARD DATA ALSO
             Object.keys(testServicesData).forEach(course => {
-
-                testServicesData[course] =
-                    testServicesData[course].map(service => {
-
-                        if ((service._id || service.id) === testId) {
-
-                            return {
-                                ...service,
-                                status: "published",
-                                visibility: "public"
-                            };
-                        }
-
-                        return service;
-                    });
+                testServicesData[course] = testServicesData[course].map(service => {
+                    if ((service._id || service.id) === testId) {
+                        return {
+                            ...service,
+                            status: "published",
+                            visibility: "public"
+                        };
+                    }
+                    return service;
+                });
             });
 
-            // ✅ RE-RENDER CURRENT PAGE
-            const currentCourse =
-                document.getElementById("service-title")?.textContent;
-
-            if (currentCourse) {
-
-                renderTestServices(currentCourse);
-
+            if (state.currentCourseName) {
+                renderTestServices(state.currentCourseName);
             }
 
-            showNotification(
-                "Test Published Successfully",
-                "success"
-            );
-
+            showNotification("Test Published Successfully", "success");
         } else {
-
             alert(data.msg || "Publish failed");
-
         }
-
     } catch (err) {
-
         console.log(err);
-
         alert("Server error");
-
     }
 }

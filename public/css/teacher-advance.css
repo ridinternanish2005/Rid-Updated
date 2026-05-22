@@ -3084,6 +3084,7 @@ textarea.custom-input {
   z-index: 9999;
 }
 
+
 .invite-box {
   background: #fff;
   padding: 25px;
@@ -3808,4 +3809,8 @@ iframe,
     .action-btn-modern{
         width:100%;
     }
+}
+.publish-btn-modern:disabled{
+    pointer-events:none;
+    filter:grayscale(0.1);
 }
