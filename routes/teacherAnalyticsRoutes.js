@@ -5,7 +5,7 @@ const ensureTeacher = require("../middleware/authMiddleware");
 const TestAttempt = require("../models/TestAttempt");
 const Student = require("../models/Student");
 const TeacherTest = require("../models/teacherTestModel");
-
+const Test = require("../models/Test");
 const ExcelJS = require("exceljs");
 const PDFDocument = require("pdfkit");
 
@@ -20,10 +20,10 @@ router.get(
       const { testId } = req.params;
 
       // ✅ Check test belongs to teacher
-      const test = await TeacherTest.findOne({
-        _id: testId,
-        teacher: req.user._id
-      });
+      const test = await Test.findOne({
+  _id: testId,
+  teacherId: req.user._id
+});
 
       if (!test) {
         return res.json([]);
@@ -63,10 +63,10 @@ router.get(
       const { testId } = req.params;
 
       // ✅ Check ownership
-      const test = await TeacherTest.findOne({
-        _id: testId,
-        teacher: req.user._id
-      });
+      const test = await Test.findOne({
+  _id: testId,
+  teacherId: req.user._id
+});
 
       if (!test) {
         return res.status(403).send("Unauthorized");
@@ -130,10 +130,10 @@ router.get(
       const { testId } = req.params;
 
       // ✅ Check ownership
-      const test = await TeacherTest.findOne({
-        _id: testId,
-        teacher: req.user._id
-      });
+      const test = await Test.findOne({
+  _id: testId,
+  teacherId: req.user._id
+});
 
       if (!test) {
         return res.status(403).send("Unauthorized");
@@ -180,4 +180,99 @@ router.get(
   }
 );
 
+/* =========================================================
+   🔹 ANALYTICS CARDS DATA
+   ========================================================= */
+router.get(
+  "/api/my-tests",
+  ensureTeacher,
+  async (req, res) => {
+    try {
+
+    const tests = await TeacherTest.find({
+  createdBy: req.user._id
+}).sort({ createdAt: -1 });
+
+      const analytics = await Promise.all(
+
+        tests.map(async (test) => {
+
+          const attempts = await TestAttempt.find({
+            testId: test._id
+          });
+
+          const students = attempts.length;
+
+          let avgScore = 0;
+
+          if (students > 0) {
+
+            const total = attempts.reduce(
+              (sum, item) => sum + (item.score || 0),
+              0
+            );
+
+            avgScore = (total / students).toFixed(1);
+          }
+
+          return {
+            _id: test._id,
+            testName: test.name || "Untitled Test",
+            subject: test.subject || "N/A",
+            students,
+            avgScore,
+            time: new Date(test.createdAt)
+              .toLocaleDateString()
+          };
+        })
+      );
+
+      res.json(analytics);
+
+    } catch (err) {
+
+      console.error("My Tests Analytics Error:", err);
+
+      res.status(500).json({
+        success: false,
+        message: "Server Error"
+      });
+    }
+  }
+);
+/* =========================================================
+   🔹 ANALYTICS PAGE
+========================================================= */
+router.get(
+  "/teacher/analytics/:testId",
+  ensureTeacher,
+  async (req, res) => {
+
+    try {
+
+      const { testId } = req.params;
+
+      const test = await TeacherTest.findById(testId);
+
+      if (!test) {
+        return res.send("Test not found");
+      }
+
+      res.render(
+        "tracher_deshboard/advance-version/sendtestprocess/analytics",
+        {
+          testId,
+          testName: test.name || "Untitled Test"
+        }
+      );
+
+    } catch (err) {
+
+      console.log(err);
+
+      res.send("Server Error");
+
+    }
+  }
+);
 module.exports = router;

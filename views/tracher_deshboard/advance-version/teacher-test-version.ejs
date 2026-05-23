@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/css/teacher-advance.css">
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
-<link rel="icon" type="image/png" href="/assets/signup.png">
+    <link rel="icon" type="image/png" href="/assets/signup.png">
 
 
 </head>
@@ -16,7 +16,7 @@
 <body>
     <script>
         const TEACHER_ID = "<%= teacher._id %>";
-        const initialStudents = <%- JSON.stringify(students || []) %>;
+        const initialStudents = <% - JSON.stringify(students || []) %>;
     </script>
 
     <div class="main-container">
@@ -51,7 +51,7 @@
                     <a href="#">
                         <i class="fas fa-file-powerpoint"></i>
                         <span>Create PPT</span>
-                        
+
                     </a>
                 </li>
 
@@ -59,7 +59,7 @@
                     <a href="#">
                         <i class="fas fa-file-pdf"></i>
                         <span>Research Papers</span>
-                        
+
                     </a>
                 </li>
 
@@ -67,7 +67,7 @@
                     <a href="/rts/birthday-software">
                         <i class="fas fa-birthday-cake"></i>
                         <span>Birthday Software</span>
-                        
+
                     </a>
                 </li>
 
@@ -79,21 +79,21 @@
                     </a>
                 </li>
 
-                
 
 
-              <li class="nav-item" id="top-nav-send-request">
-    <a href="#">
-        <i class="fas fa-paper-plane"></i>
-        <span>Send Request</span>
-    </a>
-</li>
 
-                <li class="nav-item" id="top-nav-alerts">
+                <li class="nav-item" id="top-nav-send-request">
+                    <a href="#">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Send Request</span>
+                    </a>
+                </li>
+
+                <li class="nav-item" id="top-nav-alerts" style="display: none;">
                     <a href="#">
                         <i class="fas fa-envelope"></i>
                         <span>Email/SMS Alerts</span>
-                        
+
                     </a>
                 </li>
 
@@ -101,7 +101,7 @@
                     <a href="#" id="top-nav-python-link">
                         <i class="fas fa-language"></i>
                         <span>Translator</span>
-                        
+
                     </a>
                 </li>
 
@@ -109,9 +109,16 @@
                     <a href="#">
                         <i class="fas fa-calculator"></i>
                         <span>Calculator</span>
-                        
+
                     </a>
                 </li>
+                 <li class="nav-item" id="nav-ebooks">
+                        <a href="/ebook">
+                            <i class="fas fa-book"></i>
+                            <span>E-Book Library</span>
+
+                        </a>
+                    </li>
             </ul>
         </div>
 
@@ -128,7 +135,7 @@
                         <a href="#">
                             <i class="fas fa-tachometer-alt"></i>
                             <span>Dashboard</span>
-                            
+
                         </a>
                     </li>
 
@@ -143,19 +150,19 @@
                         </a>
                     </li>
                     <li class="nav-item" id="nav-send-request">
-    <a href="#">
-        <i class="fas fa-paper-plane"></i>
-        <span>Send Request</span>
-    </a>
-</li>
+                        <a href="#">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Request</span>
+                        </a>
+                    </li>
 
-                    
+
 
                     <li class="nav-item" id="nav-students">
                         <a href="#">
                             <i class="fas fa-users"></i>
                             <span>Add Students</span>
-                            
+
                         </a>
                     </li>
 
@@ -163,7 +170,7 @@
                         <a href="#">
                             <i class="fas fa-clipboard-list"></i>
                             <span>Test Category</span>
-                            
+
                         </a>
                     </li>
 
@@ -172,14 +179,14 @@
                         <a href="#">
                             <i class="fas fa-layer-group"></i>
                             <span>Assignment Creator</span>
-                            
+
                         </a>
                     </li>
                     <li class="nav-item" id="nav-analytics">
                         <a href="#">
                             <i class="fas fa-chart-line"></i>
                             <span>Result</span>
-                            
+
                         </a>
                     </li>
 
@@ -191,7 +198,7 @@
                         <a href="/ebook">
                             <i class="fas fa-book"></i>
                             <span>E-Book Library</span>
-                            
+
                         </a>
                     </li>
 
@@ -199,7 +206,7 @@
                         <a href="#">
                             <i class="fas fa-file-pdf"></i>
                             <span>Research Papers</span>
-                            
+
                         </a>
                     </li>
 
@@ -207,7 +214,7 @@
                         <a href="#">
                             <i class="fas fa-book-open"></i>
                             <span>Notes Upload & Share</span>
-                            
+
                         </a>
                     </li>
 
@@ -216,7 +223,7 @@
                         <a href="#">
                             <i class="fas fa-folder-open"></i>
                             <span>Previous Year Papers</span>
-                            
+
                         </a>
                     </li>
 
@@ -225,7 +232,7 @@
                         <a href="#">
                             <i class="fas fa-list"></i>
                             <span>Syllabus Manager</span>
-                            
+
                         </a>
                     </li>
 
@@ -245,7 +252,7 @@
                         <a href="#">
                             <i class="fas fa-calculator"></i>
                             <span>Calculator</span>
-                            
+
                         </a>
                     </li>
 
@@ -254,7 +261,7 @@
                         <a href="#">
                             <i class="fas fa-language"></i>
                             <span>Translator</span>
-                            
+
                         </a>
                     </li>
 
@@ -266,7 +273,7 @@
                         <a href="#">
                             <i class="fas fa-calendar-alt"></i>
                             <span>Calendar</span>
-                            
+
                         </a>
                     </li>
 
@@ -274,7 +281,7 @@
                         <a href="/rts/birthday-software">
                             <i class="fas fa-birthday-cake"></i>
                             <span>Birthday Software </span>
-                            
+
                         </a>
                     </li>
 
@@ -285,15 +292,15 @@
                         <a href="#">
                             <i class="fas fa-bullhorn"></i>
                             <span>Announcement System</span>
-                            
+
                         </a>
                     </li>
 
-                    <li class="nav-item" id="nav-alerts">
+                    <li class="nav-item" id="nav-alerts" style="display: none;">
                         <a href="#">
                             <i class="fas fa-envelope"></i>
                             <span>Email/SMS Alerts</span>
-                            
+
                         </a>
                     </li>
 
@@ -305,11 +312,11 @@
                         <a href="#">
                             <i class="fas fa-cog"></i>
                             <span>Settings</span>
-                            
+
                         </a>
                     </li>
                     <!-- Payment -->
-</ul>
+                </ul>
             </nav>
 
 
@@ -416,19 +423,20 @@
                         </div>
 
                         <div class="card">
-                            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+                            <div
+                                style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
                                 <div>
                                     <h3><i class="fas fa-user-graduate"></i> Manage Students</h3>
                                     <p>View and add students directly from your teacher dashboard.</p>
                                 </div>
 
-                                 <button onclick="openInviteModal()" class="btn btn-primary">
-    <i class="fas fa-link"></i> Invite Students
-</button>
+                                <button onclick="openInviteModal()" class="btn btn-primary">
+                                    <i class="fas fa-link"></i> Invite Students
+                                </button>
                                 <button class="btn btn-primary" id="add-student-btn">
                                     <i class="fas fa-user-plus"></i> Add Student
                                 </button>
-                               
+
                             </div>
 
                             <div class="form-group" style="margin-top: 20px;">
@@ -487,7 +495,7 @@
                                     <label for="test-duration">Duration (minutes)</label>
                                     <input type="number" id="test-duration" min="5" max="180" value="60" disabled>
                                 </div>
-                                
+
 
                                 <!-- <div class="form-group">
                                     <label for="test-difficulty">Difficulty Level</label>
@@ -523,13 +531,13 @@
                                         Form</button>
                                     <button type="submit" class="btn btn-primary disabled" disabled>Create Test
                                         Cards</button>
-                                    <button type="button" class="btn btn-success disabled create-test-card-btn" style="display: none;"
-                                        id="create-test-card-btn" disabled>
+                                    <button type="button" class="btn btn-success disabled create-test-card-btn"
+                                        style="display: none;" id="create-test-card-btn" disabled>
                                         <i class="fas fa-plus-circle"></i> Create Test Card Only
                                     </button>
                                     <button class="send-request-btn" onclick="openRequestModal()">
-    <i class="fas fa-paper-plane"></i> Send Request
-</button>
+                                        <i class="fas fa-paper-plane"></i> Send Request
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -602,7 +610,7 @@
                             </div>
 
                             <div class="cards-container" id="courses-container">
-                               
+
                             </div>
 
                             <footer>
@@ -922,32 +930,41 @@
                             <div style="display:flex; flex-wrap:wrap; gap:20px; justify-content:space-between;">
                                 <div style="flex:1; min-width:280px;">
                                     <label for="translator-from-lang">From</label>
-                                    <select id="translator-from-lang" style="width:100%; padding:10px; border-radius:10px; border:1px solid #ddd; margin-bottom:10px;">
+                                    <select id="translator-from-lang"
+                                        style="width:100%; padding:10px; border-radius:10px; border:1px solid #ddd; margin-bottom:10px;">
                                         <option value="auto">Auto Detect</option>
                                         <option value="en">English</option>
                                         <option value="hi">Hindi</option>
                                     </select>
-                                    <textarea id="translator-input-text" placeholder="Type or speak... (Hinglish bhi chalega)" style="width:100%; min-height:160px; padding:12px; border-radius:12px; border:1px solid #ddd; resize:vertical;"></textarea>
-                                    <button type="button" class="btn btn-secondary" id="translator-voice-btn" style="margin-top:10px;">🎤 Voice Input</button>
+                                    <textarea id="translator-input-text"
+                                        placeholder="Type or speak... (Hinglish bhi chalega)"
+                                        style="width:100%; min-height:160px; padding:12px; border-radius:12px; border:1px solid #ddd; resize:vertical;"></textarea>
+                                    <button type="button" class="btn btn-secondary" id="translator-voice-btn"
+                                        style="margin-top:10px;">🎤 Voice Input</button>
                                 </div>
                                 <div style="flex:1; min-width:280px;">
                                     <label for="translator-to-lang">To</label>
-                                    <select id="translator-to-lang" style="width:100%; padding:10px; border-radius:10px; border:1px solid #ddd; margin-bottom:10px;">
+                                    <select id="translator-to-lang"
+                                        style="width:100%; padding:10px; border-radius:10px; border:1px solid #ddd; margin-bottom:10px;">
                                         <option value="en">English</option>
                                         <option value="hi">Hindi</option>
                                     </select>
-                                    <textarea id="translator-output-text" placeholder="Translation..." readonly style="width:100%; min-height:160px; padding:12px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9; resize:none;"></textarea>
-                                    <button type="button" class="btn" id="translator-speak-btn" style="margin-top:10px;">🔊 Speak</button>
+                                    <textarea id="translator-output-text" placeholder="Translation..." readonly
+                                        style="width:100%; min-height:160px; padding:12px; border-radius:12px; border:1px solid #ddd; background:#f9f9f9; resize:none;"></textarea>
+                                    <button type="button" class="btn" id="translator-speak-btn"
+                                        style="margin-top:10px;">🔊 Speak</button>
                                 </div>
                             </div>
                             <div style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
-                                <button type="button" class="btn btn-primary" id="translator-translate-btn">Translate</button>
+                                <button type="button" class="btn btn-primary"
+                                    id="translator-translate-btn">Translate</button>
                                 <button type="button" class="btn warn" id="translator-swap-btn">🔁 Swap</button>
                                 <button type="button" class="btn danger" id="translator-clear-btn">Clear</button>
                             </div>
                             <div class="history" style="background:#f7fafc; padding:15px; border-radius:12px;">
                                 <h4 style="margin-bottom:10px;">🕘 History</h4>
-                                <div id="translator-history-list" style="display:grid; gap:8px; max-height:180px; overflow-y:auto;">
+                                <div id="translator-history-list"
+                                    style="display:grid; gap:8px; max-height:180px; overflow-y:auto;">
                                     <p style="color:#7f8c8d;">No history yet.</p>
                                 </div>
                             </div>
@@ -997,10 +1014,10 @@
                 <!-- Email Alerts Section -->
                 <div id="alerts-section" class="hidden">
 
-                    <div class="page-title">
+                    <!-- <div class="page-title">
                         <i class="fas fa-envelope"></i>
                         <h2>Email / SMS Alerts</h2>
-                    </div>
+                    </div> -->
                     <form id="email-form">
 
                         <div class="card">
@@ -1188,134 +1205,135 @@
     </div>
 
     <!-- Modal for Create Test - MOBILE LAYOUT (Buttons at Bottom) -->
-<!-- Modal for Create Test - DESKTOP + MOBILE RESPONSIVE -->
-<div class="modal" id="createTestModal">
-    <div class="modal-content responsive-modal">
-        <div class="modal-header">
-            <h2><i class="fas fa-pen-alt"></i> Create Test Questions</h2>
-            <button class="close-btn" onclick="closeModal('createTestModal')">&times;</button>
-        </div>
-        
-        <div class="modal-body responsive-modal-body">
-            
-            <!-- LEFT COLUMN: Added Questions -->
-            <div class="left-column">
-                <div class="panel-title">
-                    <i class="fas fa-list"></i>
-                    <span>Added Questions</span>
-                    <span class="question-badge" id="questionCountBadge">0</span>
-                </div>
-                
-                <div class="questions-container" id="questionList">
-                    <div class="empty-state">
-                        <i class="fas fa-question-circle"></i>
-                        <p>No questions added yet.</p>
-                        <small>Add your first question below 👇</small>
-                    </div>
-                </div>
-                
-                <!-- DESKTOP BUTTONS (Left Panel ke andar) - सिर्फ डेस्कटॉप पर दिखेगा -->
-                <div class="desktop-buttons">
-                    <button class="btn-cancel-desktop" onclick="closeModal('createTestModal')">
-                        <i class="fas fa-times"></i> Cancel
-                    </button>
-                    <button type="button" class="btn-save-desktop" id="saveQuestionsBtn">
-                        <i class="fas fa-save"></i> Save All
-                    </button>
-                </div>
+    <!-- Modal for Create Test - DESKTOP + MOBILE RESPONSIVE -->
+    <div class="modal" id="createTestModal">
+        <div class="modal-content responsive-modal">
+            <div class="modal-header">
+                <h2><i class="fas fa-pen-alt"></i> Create Test Questions</h2>
+                <button class="close-btn" onclick="closeModal('createTestModal')">&times;</button>
             </div>
 
-            <!-- RIGHT COLUMN: Add New Question -->
-            <div class="right-column">
-                <div class="panel-title">
-                    <i class="fas fa-plus-circle"></i>
-                    <span>Add New Question</span>
-                </div>
-                
-                <!-- Question Type + Marks -->
-                <div class="row-2cols">
-                    <div class="form-group-custom">
-                        <label>Question Type</label>
-                        <select id="questionType" class="custom-input">
-                            <option value="multiple-choice">Multiple Choice (MCQ)</option>
-                            <option value="true-false">True/False</option>
-                            <option value="short-answer">Short Answer</option>
-                        </select>
-                    </div>
-                    <div class="form-group-custom">
-                        <label>Marks</label>
-                        <input type="number" id="questionPoints" class="custom-input" value="1" min="1">
-                    </div>
-                </div>
+            <div class="modal-body responsive-modal-body">
 
-                <!-- Write Your Question -->
-                <div class="form-group-custom">
-                    <label>Write Your Question</label>
-                    <textarea id="questionText" class="custom-input" rows="2" placeholder="Enter your question..."></textarea>
-                </div>
+                <!-- LEFT COLUMN: Added Questions -->
+                <div class="left-column">
+                    <div class="panel-title">
+                        <i class="fas fa-list"></i>
+                        <span>Added Questions</span>
+                        <span class="question-badge" id="questionCountBadge">0</span>
+                    </div>
 
-                <!-- Options (MCQ) -->
-                <div id="optionsContainer">
-                    <label>Options (For MCQ)</label>
-                    <div id="optionsList" class="options-grid-custom">
-                        <div class="option-row-custom">
-                            <input type="radio" name="correctOption" value="0">
-                            <input type="text" id="option0" class="custom-input" placeholder="Option A">
-                        </div>
-                        <div class="option-row-custom">
-                            <input type="radio" name="correctOption" value="1">
-                            <input type="text" id="option1" class="custom-input" placeholder="Option B">
-                        </div>
-                        <div class="option-row-custom">
-                            <input type="radio" name="correctOption" value="2">
-                            <input type="text" id="option2" class="custom-input" placeholder="Option C">
-                        </div>
-                        <div class="option-row-custom">
-                            <input type="radio" name="correctOption" value="3">
-                            <input type="text" id="option3" class="custom-input" placeholder="Option D">
+                    <div class="questions-container" id="questionList">
+                        <div class="empty-state">
+                            <i class="fas fa-question-circle"></i>
+                            <p>No questions added yet.</p>
+                            <small>Add your first question below 👇</small>
                         </div>
                     </div>
-                    <button type="button" class="add-option-custom" id="addOptionBtn">
-                        <i class="fas fa-plus"></i> Add More Options
-                    </button>
-                </div>
 
-                <!-- Difficulty + Translate -->
-                <div class="row-2cols">
-                    <div class="form-group-custom">
-                        <label>Difficulty</label>
-                        <select id="questionDifficulty" class="custom-input">
-                            <option value="Easy">Easy</option>
-                            <option value="Medium" selected>Medium</option>
-                            <option value="Hard">Hard</option>
-                        </select>
-                    </div>
-                    <div class="form-group-custom">
-                        <label>&nbsp;</label>
-                        <button type="button" class="translate-custom" onclick="translateAuto()">
-                            <i class="fas fa-language"></i> Auto Translate
+                    <!-- DESKTOP BUTTONS (Left Panel ke andar) - सिर्फ डेस्कटॉप पर दिखेगा -->
+                    <div class="desktop-buttons">
+                        <button class="btn-cancel-desktop" onclick="closeModal('createTestModal')">
+                            <i class="fas fa-times"></i> Cancel
+                        </button>
+                        <button type="button" class="btn-save-desktop" id="saveQuestionsBtn">
+                            <i class="fas fa-save"></i> Save All
                         </button>
                     </div>
                 </div>
 
-                <!-- Add Question Button -->
-                <button class="add-question-custom" id="addQuestionBtn">
-                    <i class="fas fa-plus"></i> Add Question to Test
+                <!-- RIGHT COLUMN: Add New Question -->
+                <div class="right-column">
+                    <div class="panel-title">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Add New Question</span>
+                    </div>
+
+                    <!-- Question Type + Marks -->
+                    <div class="row-2cols">
+                        <div class="form-group-custom">
+                            <label>Question Type</label>
+                            <select id="questionType" class="custom-input">
+                                <option value="multiple-choice">Multiple Choice (MCQ)</option>
+                                <option value="true-false">True/False</option>
+                                <option value="short-answer">Short Answer</option>
+                            </select>
+                        </div>
+                        <div class="form-group-custom">
+                            <label>Marks</label>
+                            <input type="number" id="questionPoints" class="custom-input" value="1" min="1">
+                        </div>
+                    </div>
+
+                    <!-- Write Your Question -->
+                    <div class="form-group-custom">
+                        <label>Write Your Question</label>
+                        <textarea id="questionText" class="custom-input" rows="2"
+                            placeholder="Enter your question..."></textarea>
+                    </div>
+
+                    <!-- Options (MCQ) -->
+                    <div id="optionsContainer">
+                        <label>Options (For MCQ)</label>
+                        <div id="optionsList" class="options-grid-custom">
+                            <div class="option-row-custom">
+                                <input type="radio" name="correctOption" value="0">
+                                <input type="text" id="option0" class="custom-input" placeholder="Option A">
+                            </div>
+                            <div class="option-row-custom">
+                                <input type="radio" name="correctOption" value="1">
+                                <input type="text" id="option1" class="custom-input" placeholder="Option B">
+                            </div>
+                            <div class="option-row-custom">
+                                <input type="radio" name="correctOption" value="2">
+                                <input type="text" id="option2" class="custom-input" placeholder="Option C">
+                            </div>
+                            <div class="option-row-custom">
+                                <input type="radio" name="correctOption" value="3">
+                                <input type="text" id="option3" class="custom-input" placeholder="Option D">
+                            </div>
+                        </div>
+                        <button type="button" class="add-option-custom" id="addOptionBtn">
+                            <i class="fas fa-plus"></i> Add More Options
+                        </button>
+                    </div>
+
+                    <!-- Difficulty + Translate -->
+                    <div class="row-2cols">
+                        <div class="form-group-custom">
+                            <label>Difficulty</label>
+                            <select id="questionDifficulty" class="custom-input">
+                                <option value="Easy">Easy</option>
+                                <option value="Medium" selected>Medium</option>
+                                <option value="Hard">Hard</option>
+                            </select>
+                        </div>
+                        <div class="form-group-custom">
+                            <label>&nbsp;</label>
+                            <button type="button" class="translate-custom" onclick="translateAuto()">
+                                <i class="fas fa-language"></i> Auto Translate
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Add Question Button -->
+                    <button class="add-question-custom" id="addQuestionBtn">
+                        <i class="fas fa-plus"></i> Add Question to Test
+                    </button>
+                </div>
+            </div>
+
+            <!-- MOBILE BUTTONS (सिर्फ मोबाइल पर दिखेगा - सबसे नीचे) -->
+            <div class="mobile-bottom-buttons">
+                <button class="mobile-cancel" onclick="closeModal('createTestModal')">
+                    <i class="fas fa-times"></i> Cancel
+                </button>
+                <button type="button" class="mobile-save" id="saveQuestionsBtnMobile">
+                    <i class="fas fa-save"></i> Save All
                 </button>
             </div>
         </div>
-
-        <!-- MOBILE BUTTONS (सिर्फ मोबाइल पर दिखेगा - सबसे नीचे) -->
-        <div class="mobile-bottom-buttons">
-            <button class="mobile-cancel" onclick="closeModal('createTestModal')">
-                <i class="fas fa-times"></i> Cancel
-            </button>
-            <button type="button" class="mobile-save" id="saveQuestionsBtnMobile">
-                <i class="fas fa-save"></i> Save All 
-            </button>
-        </div>
     </div>
-</div>
 
     <!-- Modal for Add Student -->
     <div class="modal" id="addStudentModal" style="display:none;">
@@ -1329,21 +1347,25 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" id="student-first-name" class="form-control" placeholder="Enter first name" required>
+                            <input type="text" id="student-first-name" class="form-control"
+                                placeholder="Enter first name" required>
                         </div>
                         <div class="form-group">
                             <label>Last Name</label>
-                            <input type="text" id="student-last-name" class="form-control" placeholder="Enter last name" required>
+                            <input type="text" id="student-last-name" class="form-control" placeholder="Enter last name"
+                                required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Email Address</label>
-                        <input type="email" id="student-email-input" class="form-control" placeholder="Enter email address">
+                        <input type="email" id="student-email-input" class="form-control"
+                            placeholder="Enter email address">
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Class</label>
-                            <input type="text" id="student-class" class="form-control" placeholder="Enter class (e.g., 10-A)">
+                            <input type="text" id="student-class" class="form-control"
+                                placeholder="Enter class (e.g., 10-A)">
                         </div>
                         <div class="form-group">
                             <label>Roll Number</label>
@@ -1352,10 +1374,13 @@
                     </div>
                     <div class="form-group">
                         <label>Parent Contact</label>
-                        <input type="tel" id="student-parent-contact" class="form-control" placeholder="Enter parent contact">
+                        <input type="tel" id="student-parent-contact" class="form-control"
+                            placeholder="Enter parent contact">
                     </div>
-                    <div class="modal-footer" style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
-                        <button type="button" class="btn btn-secondary" onclick="closeModal('addStudentModal')">Cancel</button>
+                    <div class="modal-footer"
+                        style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+                        <button type="button" class="btn btn-secondary"
+                            onclick="closeModal('addStudentModal')">Cancel</button>
                         <button type="submit" class="btn btn-primary">Add Student</button>
                     </div>
                 </form>
@@ -1404,138 +1429,138 @@
     </div>
 
     <!-- MODAL -->
-<div id="requestModal" class="modal-overlay">
-  
-  <div class="modal-box">
-    
-    <span class="close-btn" onclick="closeRequestModal()">&times;</span>
+    <div id="requestModal" class="modal-overlay">
 
-    <h3>Send Test Request</h3>
+        <div class="modal-box">
 
-    <label>Upload Banner</label>
-    <input type="file" id="banner" accept="image/*"><br><br>
+            <span class="close-btn" onclick="closeRequestModal()">&times;</span>
 
-    <label>Upload Notes (PDF)</label>
-    <input type="file" id="notes" accept=".pdf,.doc,.docx"><br><br>
+            <h3>Send Test Request</h3>
 
-    <textarea id="description" placeholder="Description"></textarea><br><br>
+            <label>Upload Banner</label>
+            <input type="file" id="banner" accept="image/*"><br><br>
 
-    <button onclick="submitRequest()">Send</button>
+            <label>Upload Notes (PDF)</label>
+            <input type="file" id="notes" accept=".pdf,.doc,.docx"><br><br>
 
-  </div>
+            <textarea id="description" placeholder="Description"></textarea><br><br>
 
-</div>
-<div id="inviteModal" class="invite-modal">
-  <div class="invite-box">
+            <button onclick="submitRequest()">Send</button>
 
-    <h2><i class="fas fa-user-plus"></i> Invite Students</h2>
+        </div>
 
-    <p>Share this link with students to register</p>
+    </div>
+    <div id="inviteModal" class="invite-modal">
+        <div class="invite-box">
 
-    <div class="invite-link-box">
-      <input type="text" id="inviteLinkInput" readonly>
-      <button onclick="copyInviteLink()">
-        <i class="fas fa-copy"></i>
-      </button>
+            <h2><i class="fas fa-user-plus"></i> Invite Students</h2>
+
+            <p>Share this link with students to register</p>
+
+            <div class="invite-link-box">
+                <input type="text" id="inviteLinkInput" readonly>
+                <button onclick="copyInviteLink()">
+                    <i class="fas fa-copy"></i>
+                </button>
+            </div>
+
+            <div class="invite-actions">
+                <button onclick="shareWhatsApp()" class="whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </button>
+
+                <button onclick="downloadQR()" class="qr-btn">
+                    <i class="fas fa-download"></i> QR Code
+                </button>
+            </div>
+
+            <canvas id="qrCanvas"></canvas>
+
+            <!-- 🔥 NEW BUTTONS -->
+            <div class="invite-footer">
+                <button class="cancel-btn" onclick="closeInviteModal()">
+                    Cancel
+                </button>
+
+                <button class="close-btn" onclick="closeInviteModal()">
+                    Done
+                </button>
+            </div>
+
+        </div>
     </div>
 
-    <div class="invite-actions">
-      <button onclick="shareWhatsApp()" class="whatsapp-btn">
-        <i class="fab fa-whatsapp"></i> WhatsApp
-      </button>
+    <div id="viewStudentModal" class="student-modal">
 
-      <button onclick="downloadQR()" class="qr-btn">
-        <i class="fas fa-download"></i> QR Code
-      </button>
+        <div class="student-modal-box">
+
+            <div class="modal-header">
+                <h3><i class="fas fa-user"></i> Student Details</h3>
+                <span class="close-icon" onclick="closeViewStudent()">&times;</span>
+            </div>
+
+            <div id="studentDetails" class="modal-body"></div>
+
+            <div class="modal-footer">
+                <button onclick="closeViewStudent()" class="close-btn">Close</button>
+            </div>
+
+        </div>
+
     </div>
-
-    <canvas id="qrCanvas"></canvas>
-
-    <!-- 🔥 NEW BUTTONS -->
-    <div class="invite-footer">
-      <button class="cancel-btn" onclick="closeInviteModal()">
-        Cancel
-      </button>
-
-      <button class="close-btn" onclick="closeInviteModal()">
-        Done
-      </button>
-    </div>
-
-  </div>
-</div>
-
-<div id="viewStudentModal" class="student-modal">
-
-  <div class="student-modal-box">
-    
-    <div class="modal-header">
-      <h3><i class="fas fa-user"></i> Student Details</h3>
-      <span class="close-icon" onclick="closeViewStudent()">&times;</span>
-    </div>
-
-    <div id="studentDetails" class="modal-body"></div>
-
-    <div class="modal-footer">
-      <button onclick="closeViewStudent()" class="close-btn">Close</button>
-    </div>
-
-  </div>
-
-</div>
-<script>
-function openRequestModal() {
-  document.getElementById("requestModal").style.display = "block";
-}
+    <script>
+        function openRequestModal() {
+            document.getElementById("requestModal").style.display = "block";
+        }
 
 
-function submitRequest() {
+        function submitRequest() {
 
-  const bannerFile = document.getElementById("banner").files[0];
-  const notesFile = document.getElementById("notes").files[0];
-  const description = document.getElementById("description").value;
+            const bannerFile = document.getElementById("banner").files[0];
+            const notesFile = document.getElementById("notes").files[0];
+            const description = document.getElementById("description").value;
 
-  const formData = new FormData();
-  formData.append("banner", bannerFile);
-  formData.append("notes", notesFile);
-  formData.append("description", description);
+            const formData = new FormData();
+            formData.append("banner", bannerFile);
+            formData.append("notes", notesFile);
+            formData.append("description", description);
 
-  fetch("/teacher/send-request", {
-    method: "POST",
-    body: formData
-  })
-  .then(res => res.json())
-  .then(data => {
-    alert("Request Sent!");
-    location.reload();
-  });
-}
-// Sidebar + Top दोनों के लिए
-const navSendRequest = document.getElementById('nav-send-request');
-const topNavSendRequest = document.getElementById('top-nav-send-request');
+            fetch("/teacher/send-request", {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    alert("Request Sent!");
+                    location.reload();
+                });
+        }
+        // Sidebar + Top दोनों के लिए
+        const navSendRequest = document.getElementById('nav-send-request');
+        const topNavSendRequest = document.getElementById('top-nav-send-request');
 
-function handleSendRequestClick(e) {
-    e.preventDefault();
+        function handleSendRequestClick(e) {
+            e.preventDefault();
 
-    if (!state.paymentCompleted) {
-        alert('Please complete payment first.');
-        showDashboard();
-        return;
-    }
+            if (!state.paymentCompleted) {
+                alert('Please complete payment first.');
+                showDashboard();
+                return;
+            }
 
-    openRequestModal();
-}
+            openRequestModal();
+        }
 
-// Sidebar click
-if (navSendRequest) {
-    navSendRequest.addEventListener('click', handleSendRequestClick);
-}
+        // Sidebar click
+        if (navSendRequest) {
+            navSendRequest.addEventListener('click', handleSendRequestClick);
+        }
 
-// Top navbar click
-if (topNavSendRequest) {
-    topNavSendRequest.addEventListener('click', handleSendRequestClick);
-}
-</script>
+        // Top navbar click
+        if (topNavSendRequest) {
+            topNavSendRequest.addEventListener('click', handleSendRequestClick);
+        }
+    </script>
 
     <script src="js/teacher-advance-version/desbord.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>

@@ -17,6 +17,16 @@ const configureMiddleware = require("./config/middleware");
 dotenv.config();
 // Initialize express app
 const app = express();
+app.use(cookieParser());
+
+app.use(express.json({
+  limit: "50mb"
+}));
+
+app.use(express.urlencoded({
+  extended: true,
+  limit: "50mb"
+}));
 const port = process.env.PORT || 9191;
 const http = require("http");
 const server = http.createServer(app);
@@ -220,10 +230,7 @@ io.on("connection", (socket) => {
     io.emit("onlineUsers", onlineTestUsers);
   });
 });
-// 🔥 IMPORTANT PART
-app.listen = function () {
-  return server.listen.apply(server, arguments);
-};
+
   // ========== RTS INTEGRATION ==========
   app.use("/RTS/public", express.static(path.join(__dirname, "RTS", "public")));
   app.use("/rts", express.static(path.join(__dirname, "RTS", "public")));
@@ -402,12 +409,6 @@ app.get("/logout", (req, res) => {
 const birthdaygift = require("./middleware/birthdaygift");
 
 app.use(birthdaygift);
-
-app.use(express.json());
-
-app.use(express.urlencoded({
-    extended: true
-}));
 configureMiddleware(app);
 configureViews();
 // ======= RTS AUTH ROUTES (MUST BE BEFORE 404) =======
@@ -537,7 +538,7 @@ app.get("/admin/dashboard", requireAdmin, (req, res) => {
 app.get("/offerlatter",(req,res)=>{
   res.render("Admin/offerlatter/offerlatter-form.ejs")
 })
-app.use(express.urlencoded({ extended: true }));
+
 app.use(express.static("public"));
 
 const offerRoutes = require("./routes/offerRoutes");
@@ -621,21 +622,45 @@ configureRoutes();
 // ========== START SERVER ==========
 // ================== DB + SERVER START ==================
 async function startServer() {
+
   try {
-    console.log("🔗 Connecting MongoDB...");
 
-    await mongoose.connect(process.env.MONGODB_URI);
+    console.log(
+      "🔗 Connecting MongoDB..."
+    );
 
-    console.log("✅ MongoDB Connected Successfully");
+    await mongoose.connect(
+      process.env.MONGODB_URI
+    );
 
-    app.listen(port, () => {
-      console.log(`🚀 Server running on http://localhost:${port}`);
-    });
+    console.log(
+      "✅ MongoDB Connected Successfully"
+    );
 
-  } catch (err) {
-    console.error("❌ MongoDB Error:", err);
-    process.exit(1);
+    server.listen(
+      port,
+      () => {
+
+        console.log(
+          `🚀 Server running on http://localhost:${port}`
+        );
+
+      }
+    );
+
   }
+
+  catch (err) {
+
+    console.error(
+      "❌ MongoDB Error:",
+      err
+    );
+
+    process.exit(1);
+
+  }
+
 }
 startServer();
 // ✅ SOCKET.IO AFTER SERVER

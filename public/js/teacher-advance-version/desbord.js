@@ -708,7 +708,7 @@ function setupEventListeners() {
                 : e.target.closest('.view-btn');
 
             const testId = button.getAttribute('data-id');
-            window.location.href = `/teacher-tests/view/${testId}`;
+            window.location.href = `/teacher/analytics/${testId}`;
         }
 
         // Enroll buttons
@@ -725,7 +725,7 @@ function setupEventListeners() {
                 : e.target.closest('.view-btn');
 
             const testId = button.getAttribute('data-id');
-            window.location.href = `/teacher-tests/view/${testId}`;
+            window.location.href = `/teacher/analytics/${testId}`;
         }
 
         // ✅ RESULT BUTTON (ADD THIS HERE)
@@ -3257,5 +3257,98 @@ async function makeTestLive(testId) {
     } catch (err) {
         console.log(err);
         alert("Server error");
+    }
+}
+
+// ================= LOAD ANALYTICS =================
+
+async function loadAnalyticsCards() {
+
+    try {
+
+        const res = await fetch("/api/my-tests");
+
+        const response = await res.json();
+
+        const tests = Array.isArray(response)
+    ? response
+    : (response.tests || []);
+
+        const container =
+            document.getElementById("analytics-cards-container");
+
+        if (!container) return;
+
+        // EMPTY
+        if (!tests.length) {
+
+            container.innerHTML = `
+                <tr>
+                    <td colspan="7"
+                        style="text-align:center;padding:20px;">
+                        No analytics yet
+                    </td>
+                </tr>
+            `;
+
+            return;
+        }
+
+        container.innerHTML = "";
+
+        tests.forEach((test, index) => {
+
+            const submissions = test.submissions || 0;
+
+            const avgMarks =
+                submissions > 0
+                    ? (test.totalMarks || 0) / submissions
+                    : 0;
+
+            container.innerHTML += `
+                <tr>
+
+                    <td>${index + 1}</td>
+
+                    <td>${test.testName || test.title || test.name || "-"}</td>
+
+                    <td>${test.subject || "-"}</td>
+
+                    <td>${submissions}</td>
+
+                    <td>${avgMarks.toFixed(1)}</td>
+
+                    <td>
+                       ${test.time || "-"}
+                    </td>
+
+                    <td style="display:flex;gap:8px;flex-wrap:wrap;">
+
+                       <a
+  href="/teacher/analytics/${test._id}?testId=${test._id}"
+  style="
+    background:#3498db;
+    color:white;
+    padding:6px 12px;
+    border-radius:6px;
+    text-decoration:none;
+    font-size:13px;
+  "
+>
+  View
+</a>
+
+                    </td>
+
+                </tr>
+            `;
+        });
+
+    } catch (err) {
+
+        console.log(
+            "Analytics Load Error:",
+            err
+        );
     }
 }

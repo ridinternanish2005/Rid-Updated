@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const TeacherTest = require("../models/teacherTestModel");
 const ensureTeacher = require("../middleware/authMiddleware");
+const TestAttempt = require("../models/TestAttempt");
 
 // ================= CREATE TEST =================
 router.post("/api/create-test", ensureTeacher, async (req, res) => {
@@ -42,14 +43,58 @@ req.body.questions = questions.map(q => ({
 
 // ================= GET MY TESTS (TEACHER ONLY) =================
 router.get("/api/my-tests", ensureTeacher, async (req, res) => {
+
     try {
+
         const tests = await TeacherTest.find({
-            createdBy: req.user._id  // ✅ filter by teacher
+            createdBy: req.user._id
         }).sort({ createdAt: -1 });
 
-        res.json(tests);
+        const analytics = await Promise.all(
+
+            tests.map(async (test) => {
+
+                const submissions =
+                    await TestAttempt.countDocuments({
+                        testId: test._id
+                    });
+
+                const attempts =
+                    await TestAttempt.find({
+                        testId: test._id
+                    });
+
+                let avgScore = 0;
+
+                if (attempts.length > 0) {
+
+                    const total = attempts.reduce(
+                        (sum, a) =>
+                            sum + (a.score || 0),
+                        0
+                    );
+
+                    avgScore =
+                        total / attempts.length;
+                }
+
+                return {
+                    ...test.toObject(),
+                    submissions,
+                    avgScore
+                };
+            })
+        );
+
+        res.json(analytics);
+
     } catch (err) {
-        console.error("Load teacher tests error:", err);
+
+        console.error(
+            "Load teacher tests error:",
+            err
+        );
+
         res.json([]);
     }
 });
@@ -160,7 +205,7 @@ router.put("/update/:id", ensureTeacher, async (req, res) => {
 
 router.put("/update/:id", async (req, res) => {
     try {
-        const updated = await Test.findByIdAndUpdate(
+        const updated = await TeacherTest.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true }

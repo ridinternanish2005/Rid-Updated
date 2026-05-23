@@ -505,264 +505,278 @@
     </div>
 
     <div id="toastMsg" class="toast"></div>
-<script>
+    <script>
 
-    // ---------- DOM elements ----------
-    const testNameField =
-        document.getElementById('testName');
+        // ---------- DOM elements ----------
+        const testNameField =
+            document.getElementById('testName');
 
-    const testDescField =
-        document.getElementById('testDesc');
+        const testDescField =
+            document.getElementById('testDesc');
 
-    const durationField =
-        document.getElementById('durationMinutes');
+        const durationField =
+            document.getElementById('durationMinutes');
 
-    const wordSpan =
-        document.getElementById('wordCountDisplay');
+        const wordSpan =
+            document.getElementById('wordCountDisplay');
 
-    const savePrivateBtn =
-        document.getElementById('savePrivateBtn');
+        const savePrivateBtn =
+            document.getElementById('savePrivateBtn');
 
-    const publishBtn =
-        document.getElementById('publishBtn');
+        const publishBtn =
+            document.getElementById('publishBtn');
 
-    // ---------- TOAST ----------
-    function showToast(
-        message,
-        isError = false
-    ) {
+        // ---------- TOAST ----------
+        function showToast(
+            message,
+            isError = false
+        ) {
 
-        const toast =
-            document.getElementById(
-                'toastMsg'
-            );
+            const toast =
+                document.getElementById(
+                    'toastMsg'
+                );
 
-        toast.textContent =
-            message;
+            toast.textContent =
+                message;
 
-        toast.style.background =
-            isError
-                ? '#2d1a1a'
-                : '#1e2a3a';
+            toast.style.background =
+                isError
+                    ? '#2d1a1a'
+                    : '#1e2a3a';
 
-        toast.style.borderColor =
-            isError
-                ? '#ef4444'
-                : '#4d9eff';
+            toast.style.borderColor =
+                isError
+                    ? '#ef4444'
+                    : '#4d9eff';
 
-        toast.classList.add(
-            'show'
-        );
-
-        setTimeout(() => {
-
-            toast.classList.remove(
+            toast.classList.add(
                 'show'
             );
 
-        }, 2600);
+            setTimeout(() => {
 
-    }
-
-    // ---------- WORD COUNT ----------
-    function countWords(str) {
-
-        if (!str.trim())
-            return 0;
-
-        return str
-            .trim()
-            .split(/\s+/)
-            .filter(w => w.length > 0)
-            .length;
-
-    }
-
-    // ---------- UPDATE WORD COUNT ----------
-    function updateWordCount() {
-
-        const rawText =
-            testDescField.value;
-
-        const wordCount =
-            countWords(rawText);
-
-        wordSpan.innerText =
-            wordCount;
-
-        if (wordCount > 50) {
-
-            wordSpan.classList.add(
-                'error'
-            );
-
-            wordSpan.style.color =
-                "#ffa69e";
-
-        }
-
-        else {
-
-            wordSpan.classList.remove(
-                'error'
-            );
-
-            wordSpan.style.color =
-                "";
-
-        }
-
-        return wordCount;
-
-    }
-
-    // ---------- VALIDATION ----------
-    function validateForm(
-        visibility
-    ) {
-
-        const name =
-            testNameField.value.trim();
-
-        const description =
-            testDescField.value.trim();
-
-        let duration =
-            parseInt(
-                durationField.value
-            );
-
-        // ✅ NAME REQUIRED
-        if (!name) {
-
-            showToast(
-                "❌ Test name is required",
-                true
-            );
-
-            testNameField.focus();
-
-            return null;
-
-        }
-
-        // ✅ DESCRIPTION LIMIT
-        const words =
-            countWords(description);
-
-        if (words > 50) {
-
-            showToast(
-                `❌ Description exceeds 50 words (${words})`,
-                true
-            );
-
-            testDescField.focus();
-
-            return null;
-
-        }
-
-        // ✅ DURATION FIX
-        if (
-            isNaN(duration) ||
-            duration < 1
-        ) {
-
-            duration = 60;
-
-        }
-
-        if (duration > 300) {
-
-            duration = 300;
-
-        }
-
-        // ✅ RETURN CLEAN DATA
-        return {
-
-            name,
-
-            description,
-
-            duration
-
-        };
-
-    }
-
-    // ---------- REALTIME DESCRIPTION ----------
-    testDescField.addEventListener(
-        'input',
-        () => {
-
-            updateWordCount();
-
-            const words =
-                countWords(
-                    testDescField.value
+                toast.classList.remove(
+                    'show'
                 );
 
-            if (words > 50) {
+            }, 2600);
 
-                testDescField.style.borderColor =
-                    "#ef4444";
+        }
+
+        // ---------- WORD COUNT ----------
+        function countWords(str) {
+
+            if (!str.trim())
+                return 0;
+
+            return str
+                .trim()
+                .split(/\s+/)
+                .filter(w => w.length > 0)
+                .length;
+
+        }
+
+        // ---------- UPDATE WORD COUNT ----------
+        function updateWordCount() {
+
+            const rawText =
+                testDescField.value;
+
+            const wordCount =
+                countWords(rawText);
+
+            wordSpan.innerText =
+                wordCount;
+
+            if (wordCount > 50) {
+
+                wordSpan.classList.add(
+                    'error'
+                );
+
+                wordSpan.style.color =
+                    "#ffa69e";
 
             }
 
             else {
 
-                testDescField.style.borderColor =
-                    "var(--border2)";
+                wordSpan.classList.remove(
+                    'error'
+                );
+
+                wordSpan.style.color =
+                    "";
 
             }
 
+            return wordCount;
+
         }
-    );
 
-    // ---------- DESCRIPTION BLUR ----------
-    testDescField.addEventListener(
-        'blur',
-        () => {
+        // ---------- VALIDATION ----------
+        function validateForm(
+            visibility
+        ) {
 
-            const words =
-                countWords(
-                    testDescField.value
+            const name =
+                testNameField.value.trim();
+
+            const description =
+                testDescField.value.trim();
+
+            let duration =
+                parseInt(
+                    durationField.value
                 );
+
+            // ✅ NAME REQUIRED
+            if (!name) {
+
+                showToast(
+                    "❌ Test name is required",
+                    true
+                );
+
+                testNameField.focus();
+
+                return null;
+
+            }
+
+            // ✅ DESCRIPTION LIMIT
+            const words =
+                countWords(description);
 
             if (words > 50) {
 
                 showToast(
-
-                    `❌ Description cannot exceed 50 words! Current: ${words} words.`,
-
+                    `❌ Description exceeds 50 words (${words})`,
                     true
-
                 );
 
                 testDescField.focus();
 
-            }
-
-            else {
-
-                testDescField.style.borderColor =
-                    "var(--border2)";
+                return null;
 
             }
+
+            // ✅ DURATION FIX
+            if (
+                isNaN(duration) ||
+                duration < 1
+            ) {
+
+                duration = 60;
+
+            }
+
+            if (duration > 300) {
+
+                duration = 300;
+
+            }
+
+            // ✅ RETURN CLEAN DATA
+            return {
+
+                name,
+
+                description,
+
+                duration
+
+            };
 
         }
-    );
 
-   // ---------- SUBMIT TEST ----------
-// ---------- SUBMIT TEST ----------
+        // ---------- REALTIME DESCRIPTION ----------
+        testDescField.addEventListener(
+            'input',
+            () => {
+
+                updateWordCount();
+
+                const words =
+                    countWords(
+                        testDescField.value
+                    );
+
+                if (words > 50) {
+
+                    testDescField.style.borderColor =
+                        "#ef4444";
+
+                }
+
+                else {
+
+                    testDescField.style.borderColor =
+                        "var(--border2)";
+
+                }
+
+            }
+        );
+
+        // ---------- DESCRIPTION BLUR ----------
+        testDescField.addEventListener(
+            'blur',
+            () => {
+
+                const words =
+                    countWords(
+                        testDescField.value
+                    );
+
+                if (words > 50) {
+
+                    showToast(
+
+                        `❌ Description cannot exceed 50 words! Current: ${words} words.`,
+
+                        true
+
+                    );
+
+                    testDescField.focus();
+
+                }
+
+                else {
+
+                    testDescField.style.borderColor =
+                        "var(--border2)";
+
+                }
+
+            }
+        );
+
+        // ---------- SUBMIT TEST ----------
+// ================= SUBMIT TEST =================
+
+let isSubmitting = false;
+
 async function submitTest(
-    visibility
+    visibility,
+    e
 ) {
 
-    // ✅ PREVENT DOUBLE CLICK
-    event?.preventDefault();
+    // ✅ STOP DEFAULT
+    if (e) {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+    }
+
+    // ✅ PREVENT DOUBLE SUBMIT
+    if (isSubmitting) return;
+
+    isSubmitting = true;
 
     // ✅ VALIDATE
     const validation =
@@ -770,17 +784,17 @@ async function submitTest(
             visibility
         );
 
-    if (!validation)
+    if (!validation) {
+
+        isSubmitting = false;
         return;
 
+    }
+
     const {
-
         name,
-
         description,
-
         duration
-
     } = validation;
 
     // ✅ ACTIVE BUTTON
@@ -796,8 +810,7 @@ async function submitTest(
         activeButton.innerHTML;
 
     // ✅ LOADING
-    activeButton.disabled =
-        true;
+    activeButton.disabled = true;
 
     activeButton.innerHTML =
 
@@ -838,21 +851,31 @@ async function submitTest(
             visibility
         );
 
-        // ✅ THUMBNAIL
+        // ✅ FILE INPUT SAFE
+        const fileInput =
+            document.getElementById(
+                "thumbnailInput"
+            );
+
+        // ✅ APPEND FILE SAFELY
         if (
-
-            selectedThumbnail &&
-
-            selectedThumbnail instanceof File
-
+            fileInput &&
+            fileInput.files &&
+            fileInput.files.length > 0
         ) {
 
+            const file =
+                fileInput.files[0];
+
+            console.log(
+                "APPENDING FILE:",
+                file
+            );
+
             formData.append(
-
                 "thumbnail",
-
-                selectedThumbnail
-
+                file,
+                file.name
             );
 
         }
@@ -884,19 +907,49 @@ async function submitTest(
 
                     method: "POST",
 
-                    body: formData,
+                    credentials: "include",
 
-                    credentials:
-                        "same-origin"
+                    body: formData
 
                 }
 
             );
 
-        // ✅ CHECK RESPONSE
-        if (!response.ok) {
+        // ✅ RESPONSE TEXT
+        const text =
+            await response.text();
+
+        console.log(
+            "RAW RESPONSE:",
+            text
+        );
+
+        let data = {};
+
+        try {
+
+            data =
+                JSON.parse(text);
+
+        }
+
+        catch {
 
             throw new Error(
+                "Invalid server response"
+            );
+
+        }
+
+        // ❌ FAILED
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+
+                data.msg ||
 
                 "Server response failed"
 
@@ -904,64 +957,33 @@ async function submitTest(
 
         }
 
-        // ✅ JSON
-        const data =
-            await response.json();
+        // ✅ SUCCESS
+        showToast(
 
-        console.log(
-            "SERVER RESPONSE:",
-            data
+            visibility === "public"
+
+                ? "🚀 Test Published Successfully"
+
+                : "💾 Draft Saved Successfully"
+
         );
 
-        // ✅ SUCCESS
-        if (data.success) {
+        // ✅ RESET INPUT
+        thumbnailInput.value =
+            "";
 
-            showToast(
+        uploadThumbBtn.innerHTML =
 
-                visibility === "public"
+            "📸 Upload thumbnail";
 
-                    ? "🚀 Test Published Successfully"
+        // ✅ REDIRECT
+        setTimeout(() => {
 
-                    : "💾 Draft Saved Successfully"
+            window.location.href =
 
-            );
+                "/National-Test-Series/teacher/channel";
 
-            // ✅ RESET THUMBNAIL
-            selectedThumbnail =
-                null;
-
-            thumbnailInput.value =
-                "";
-
-            uploadThumbBtn.innerHTML =
-
-                "📸 Upload thumbnail";
-
-            // ✅ REDIRECT
-            setTimeout(() => {
-
-                window.location.href =
-
-                    "/National-Test-Series/teacher/channel";
-
-            }, 1000);
-
-        }
-
-        // ❌ FAILED
-        else {
-
-            showToast(
-
-                data.msg ||
-
-                "Failed to create test",
-
-                true
-
-            );
-
-        }
+        }, 1000);
 
     }
 
@@ -985,7 +1007,7 @@ async function submitTest(
 
     }
 
-    // ✅ RESET BUTTON
+    // ✅ FINALLY
     finally {
 
         activeButton.disabled =
@@ -994,108 +1016,126 @@ async function submitTest(
         activeButton.innerHTML =
             originalText;
 
+        isSubmitting = false;
+
     }
 
 }
 
-    // ---------- EVENTS ----------
-    savePrivateBtn.onclick =
-        () => submitTest(
-            'private'
+// ================= EVENTS =================
+
+savePrivateBtn.onclick =
+    (e) => {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        submitTest(
+            "private",
+            e
         );
 
-    publishBtn.onclick =
-        () => submitTest(
-            'public'
+    };
+
+publishBtn.onclick =
+    (e) => {
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        submitTest(
+            "public",
+            e
         );
 
-    updateWordCount();
+    };
+        updateWordCount();
 
-    // ---------- THUMBNAIL ----------
-    const thumbnailInput =
-        document.getElementById(
-            "thumbnailInput"
-        );
-
-    const uploadThumbBtn =
-        document.getElementById(
-            "uploadThumbBtn"
-        );
-
-    let selectedThumbnail =
-        null;
-
-    uploadThumbBtn.addEventListener(
-        "click",
-        () => {
-
-            thumbnailInput.click();
-
-        }
-    );
-
-    thumbnailInput.addEventListener(
-        "change",
-        (e) => {
-
-            const file =
-                e.target.files[0];
-
-            if (!file)
-                return;
-
-            selectedThumbnail =
-                file;
-
-            uploadThumbBtn.innerHTML =
-
-                `✅ ${file.name}`;
-
-            showToast(
-                "Thumbnail selected successfully"
+        // ---------- THUMBNAIL ----------
+        const thumbnailInput =
+            document.getElementById(
+                "thumbnailInput"
             );
 
-        }
-    );
+        const uploadThumbBtn =
+            document.getElementById(
+                "uploadThumbBtn"
+            );
 
-    // ---------- DURATION VALIDATION ----------
-    durationField.addEventListener(
-        'blur',
-        () => {
+        let selectedThumbnail =
+            null;
 
-            let val =
-                parseInt(
-                    durationField.value,
-                    10
+        uploadThumbBtn.addEventListener(
+            "click",
+            () => {
+
+                thumbnailInput.click();
+
+            }
+        );
+
+        thumbnailInput.addEventListener(
+            "change",
+            (e) => {
+
+                const file =
+                    e.target.files[0];
+
+                if (!file)
+                    return;
+
+                selectedThumbnail =
+                    file;
+
+                uploadThumbBtn.innerHTML =
+
+                    `✅ ${file.name}`;
+
+                showToast(
+                    "Thumbnail selected successfully"
                 );
 
-            if (
-                isNaN(val) ||
-                val < 1
-            ) {
+            }
+        );
 
-                durationField.value =
-                    '';
+        // ---------- DURATION VALIDATION ----------
+        durationField.addEventListener(
+            'blur',
+            () => {
+
+                let val =
+                    parseInt(
+                        durationField.value,
+                        10
+                    );
+
+                if (
+                    isNaN(val) ||
+                    val < 1
+                ) {
+
+                    durationField.value =
+                        '';
+
+                }
+
+                else if (
+                    val > 300
+                ) {
+
+                    durationField.value =
+                        300;
+
+                }
 
             }
+        );
 
-            else if (
-                val > 300
-            ) {
+        console.log(
+            "✅ National Test Series Loaded Successfully"
+        );
 
-                durationField.value =
-                    300;
-
-            }
-
-        }
-    );
-
-    console.log(
-        "✅ National Test Series Loaded Successfully"
-    );
-
-</script>
+    </script>
 </body>
 
 </html>

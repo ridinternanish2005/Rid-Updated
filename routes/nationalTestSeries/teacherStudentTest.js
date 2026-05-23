@@ -2,12 +2,50 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 const TeacherTest = require("../../models/teacherTestModel");
-const upload =require("../../middlewares/upload");
+const upload = require("../../middlewares/upload");
+const cloudinary =
+  require("../../config/cloudinary");
+
+const streamifier =
+  require("streamifier");
 // 🔥 TEMP STORE (user wise questions)
 let tempQuestionsStore = {};
 
 
+function uploadToCloudinary(fileBuffer) {
 
+  return new Promise((resolve, reject) => {
+
+    const stream =
+      cloudinary.uploader.upload_stream(
+
+        {
+          folder: "RID-Bharat-Thumbnails"
+        },
+
+        (error, result) => {
+
+          if (error) {
+
+            reject(error);
+
+          } else {
+
+            resolve(result);
+
+          }
+
+        }
+
+      );
+
+    streamifier
+      .createReadStream(fileBuffer)
+      .pipe(stream);
+
+  });
+
+}
 // ================= SAVE TEMP QUESTIONS =================
 router.post("/save-temp-questions", (req, res) => {
   try {
@@ -27,7 +65,6 @@ router.post("/save-temp-questions", (req, res) => {
 
 
 // ================= CREATE TEST =================
-// ================= CREATE TEST =================
 router.post(
 
   "/create-test",
@@ -37,7 +74,6 @@ router.post(
     upload.single("thumbnail")(
 
       req,
-
       res,
 
       function (err) {
@@ -45,15 +81,17 @@ router.post(
         if (err) {
 
           console.log(
-            "MULTER ERROR:",
+            "UPLOAD ERROR:",
             err
           );
 
-          return res.json({
+          return res.status(500).json({
 
             success: false,
 
-            msg: "Thumbnail upload failed"
+            msg:
+              err.message ||
+              "Upload failed"
 
           });
 
@@ -71,33 +109,47 @@ router.post(
 
     try {
 
-      // ✅ TOKEN
+      console.log(
+        "BODY:",
+        req.body
+      );
+
+      console.log(
+        "FILE:",
+        req.file
+      );
+
+      // TOKEN
       const token =
         req.cookies.token;
 
       if (!token) {
 
-        return res.json({
+        return res.status(401).json({
 
           success: false,
 
-          msg: "Login required"
+          msg:
+            "Login required"
 
         });
 
       }
 
-      // ✅ VERIFY
+      // VERIFY
       const decoded =
         jwt.verify(
+
           token,
+
           process.env.JWT_SECRET
+
         );
 
-      // ✅ QUESTIONS
+      // QUESTIONS
       const rawQuestions =
         tempQuestionsStore[
-        decoded.userId
+          decoded.userId
         ] || [];
 
       if (!rawQuestions.length) {
@@ -106,13 +158,14 @@ router.post(
 
           success: false,
 
-          msg: "No questions found"
+          msg:
+            "No questions found"
 
         });
 
       }
 
-      // ✅ FORMAT QUESTIONS
+      // FORMAT QUESTIONS
       const formattedQuestions =
         rawQuestions.map((q) => {
 
@@ -126,23 +179,15 @@ router.post(
             options = [
 
               {
-
                 text: "True",
-
                 isCorrect:
-                  q.correctAnswer ===
-                  "True"
-
+                  q.correctAnswer === "True"
               },
 
               {
-
                 text: "False",
-
                 isCorrect:
-                  q.correctAnswer ===
-                  "False"
-
+                  q.correctAnswer === "False"
               }
 
             ];
@@ -153,19 +198,19 @@ router.post(
 
             options =
               (q.options || []).map(
+
                 (opt) => ({
 
                   text:
-                    typeof opt ===
-                      "string"
+                    typeof opt === "string"
                       ? opt
                       : opt.text,
 
                   isCorrect:
-                    opt.isCorrect ||
-                    false
+                    opt.isCorrect || false
 
                 })
+
               );
 
           }
@@ -173,8 +218,7 @@ router.post(
           return {
 
             text:
-              q.q ||
-              q.text,
+              q.q || q.text,
 
             type:
               q.type || "MCQ",
@@ -188,19 +232,22 @@ router.post(
 
         });
 
-      // ✅ THUMBNAIL
-     let thumbnailPath = "";
+      // THUMBNAIL
+      let thumbnailPath = "";
 
-console.log(req.file);
+      if (req.file) {
 
-if (req.file) {
+        const result =
+          await uploadToCloudinary(
+            req.file.buffer
+          );
 
-    thumbnailPath =
-    req.file.path;
+        thumbnailPath =
+          result.secure_url;
 
-}
+      }
 
-      // ✅ CREATE TEST
+      // CREATE TEST
       const newTest =
         new TeacherTest({
 
@@ -208,8 +255,7 @@ if (req.file) {
             decoded.userId,
 
           creatorModel:
-            decoded.role ===
-              "teacher"
+            decoded.role === "teacher"
               ? "Teacher"
               : "User",
 
@@ -220,12 +266,12 @@ if (req.file) {
             req.body.description,
 
           subject:
-            req.body.subject ||
-            "General",
+            req.body.subject || "General",
 
           duration:
-            req.body.duration ||
-            60,
+            Number(
+              req.body.duration
+            ) || 60,
 
           thumbnail:
             thumbnailPath,
@@ -239,16 +285,16 @@ if (req.file) {
 
           status:
             req.body.visibility ===
-              "public"
+            "public"
+
               ? "published"
+
               : "pending"
 
         });
 
-      // ✅ SAVE
       await newTest.save();
 
-      // ✅ CLEAR TEMP
       delete tempQuestionsStore[
         decoded.userId
       ];
@@ -264,7 +310,8 @@ if (req.file) {
         msg:
           "Test created successfully",
 
-        test: newTest
+        test:
+          newTest
 
       });
 
@@ -277,11 +324,13 @@ if (req.file) {
         err
       );
 
-      res.json({
+      res.status(500).json({
 
         success: false,
 
-        msg: "Server error"
+        msg:
+          err.message ||
+          "Server error"
 
       });
 
@@ -290,6 +339,9 @@ if (req.file) {
   }
 
 );
+
+
+
 // ================= MY CHANNEL =================
 router.get("/teacher/channel", async (req, res) => {
   try {
