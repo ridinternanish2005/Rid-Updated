@@ -1,7 +1,21 @@
-node_modules
+# Dependencies
+node_modules/
 
-uploads
+# Environment Variables
+.env
+.env.*
+
+# Uploads
+uploads/
+
+# Logs
 *.log
+
+# Cache
+.cache/
+
+# Archives
 *.zip
+
+# Documents
 *.pdf
-.cache
