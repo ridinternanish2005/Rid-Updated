@@ -9,16 +9,16 @@
   #All-India-Test{
     background-color: #ff6600;;
   }
-  .bada-bg-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center top;
-    z-index: -1;
-  }
+ .bada-bg-video{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center center;
+  z-index:-1;
+}
 
   .bada-overlay {
     position: absolute;
@@ -39,6 +39,7 @@
     color: #fff;
     max-width: 600px;
     width: 100%;
+    
   }
 
   .bada-site-name {
@@ -56,6 +57,7 @@
     list-style: none;
     padding: 0;
     margin: 0;
+
   }
 
   .bada-content ul li {
@@ -82,7 +84,7 @@
   /* TABLET */
   @media (max-width: 992px) {
     .bada-hero {
-      height: 55vh;
+      height: 6vh;
     }
     .bada-overlay {
       padding: 0 40px;
@@ -101,12 +103,13 @@
   /* MOBILE */
   @media (max-width: 600px) {
     .bada-hero {
-      min-height: 400px;
+      min-height: 300px;
     }
     .bada-overlay {
       justify-content: center;
-      text-align: center;
+      text-align:left;
       padding: 15px;
+      line-height: 13px;
     }
     .bada-content {
       max-width: 100%;
@@ -129,7 +132,7 @@
   /* SMALL DEVICES */
   @media (max-width: 400px) {
     .bada-hero {
-      height: 40vh;
+      height: 12vh;
     }
     .bada-site-name {
       font-size: 22px;

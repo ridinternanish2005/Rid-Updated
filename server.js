@@ -332,9 +332,17 @@ app.listen = function () {
     res.sendFile(path.join(__dirname, "public", "workshop/form.html"));
   });
 
-  app.get("/", (req, res) => {
-    res.render("index.ejs")
+ const Banner = require("./models/Bainar/Bainar");
+
+app.get("/", async (req, res) => {
+
+  const banner = await Banner.findOne();
+
+  res.render("index", {
+    banner
   });
+
+});
 
 
 
@@ -518,6 +526,9 @@ app.use("/api/candidates", candidateRoutes);
 const researchPaperRoutes = require("./routes/research/research-paper");
 app.use("/", researchPaperRoutes);
 
+// bainar upload system 
+const bannerRoute = require("./routes/banner");
+app.use(bannerRoute);
 // ye previous year paper ke liye h
 
 const previousRoutes = require("./routes/previousyear");

@@ -178,20 +178,179 @@ exports.forgotPassword = async (req, res) => {
   const { email } = req.body;
 
   if (!email) {
-    return res.status(400).json({ error: "Email is required" });
+    return res.status(400).json({
+      success: false,
+      error: "Email is required",
+    });
   }
 
   try {
+    const user = await findUserByEmail(email);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: "No account found with this email",
+      });
+    }
+
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
+
     await storeOTP(email, otp);
 
-    const message = `<p>Your OTP is ${otp}. It will expire in 10 minutes.</p>`;
-    await sendEmail(email, "Password Reset OTP", message);
+    const message = `
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    res.json({ message: "OTP sent to email" });
+<style>
+body{
+    margin:0;
+    padding:0;
+    background:#f4f7fb;
+    font-family:Arial,sans-serif;
+}
+
+.wrapper{
+    width:100%;
+    padding:30px 0;
+}
+
+.container{
+    max-width:650px;
+    margin:auto;
+    background:#ffffff;
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:0 8px 30px rgba(0,0,0,0.08);
+}
+
+.header{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    text-align:center;
+    padding:35px;
+}
+
+.header h1{
+    margin:0;
+    font-size:32px;
+}
+
+.header p{
+    margin-top:10px;
+    opacity:.9;
+}
+
+.content{
+    padding:35px;
+    color:#333;
+    line-height:1.8;
+}
+
+.otp-box{
+    margin:25px 0;
+    padding:20px;
+    text-align:center;
+    background:#f8fafc;
+    border:2px dashed #2563eb;
+    border-radius:12px;
+}
+
+.otp{
+    font-size:42px;
+    font-weight:bold;
+    letter-spacing:8px;
+    color:#2563eb;
+}
+
+.alert{
+    margin-top:20px;
+    background:#fff8e1;
+    border-left:5px solid #f59e0b;
+    padding:15px;
+    border-radius:8px;
+}
+
+.footer{
+    text-align:center;
+    background:#f8fafc;
+    padding:25px;
+    color:#666;
+    font-size:13px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+  <div class="container">
+
+    <div class="header">
+      <h1>RRID Tech Private Limited</h1>
+      <p>Password Reset Verification</p>
+    </div>
+
+    <div class="content">
+      <h2>Hello,</h2>
+
+      <p>
+        We received a request to reset the password for your RRID Tech Private Limited account.
+      </p>
+
+      <p>
+        Use the OTP below to continue:
+      </p>
+
+      <div class="otp-box">
+        <div class="otp">${otp}</div>
+      </div>
+
+      <p>
+        This OTP is valid for <strong>10 minutes</strong>.
+      </p>
+
+      <div class="alert">
+        <strong>Security Notice:</strong><br>
+        Never share this OTP with anyone.
+        RRID Tech Private Limited will never ask for your OTP via call, email or message.
+      </div>
+    </div>
+
+    <div class="footer">
+      © ${new Date().getFullYear()} RRID Tech Private Limited. All Rights Reserved.
+      <br>
+      This is an automated email. Please do not reply.
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
+`;
+
+    await sendEmail(
+      email,
+      "RID Bharat Password Reset OTP",
+      message
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "OTP sent successfully",
+    });
+
   } catch (error) {
     console.error("Error sending OTP:", error);
-    res.status(500).json({ error: "Internal server error" });
+
+    return res.status(500).json({
+      success: false,
+      error: "Internal server error",
+    });
   }
 };
 exports.resetPassword = async (req, res) => {
