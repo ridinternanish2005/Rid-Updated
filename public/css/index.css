@@ -4848,36 +4848,3 @@
       display: none;
     }
   }
-  .rh-tab{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    line-height:1.2;
-    outline:none;
-    -webkit-tap-highlight-color: transparent;
-}
-
-.rh-tab:focus,
-.rh-tab:focus-visible,
-.rh-tab:active{
-    outline:none !important;
-    box-shadow:none !important;
-    border-color:inherit !important;
-}
-@media (max-width:768px){
-    .rh-tab{
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-        padding:8px 12px;
-    }
-}
-a{
-    -webkit-tap-highlight-color: transparent;
-}
-
-a:focus{
-    outline:0 !important;
-}
