@@ -336,7 +336,7 @@ body.dark .timer-minutes-input {
     .summary { padding: 0.8rem 1rem; background: #1e1f2e; font-weight: 700; text-align: center; font-size: 0.9rem; border-top: 1px solid #3b3d5c; }
     .output-area { background: #0f0f1a; padding: 0.8rem; margin: 0.8rem 1rem; border-radius: 8px; font-family: monospace; font-size: 0.85rem; color: #79c99a; max-height: 150px; overflow-y: auto; }
     .output-area.error { color: #ff7b7b; }
-    .hint-panel { display: none; background: #2d2f4b; margin: 0 1rem 0.8rem 1rem; padding: 1rem; border-radius: 8px; }
+    .hint-panel { display: none; background: #2d2f4b; margin: 0 1rem 0.8rem 1rem;  border-radius: 8px; }
     .hint-panel.show { display: block; }
     .hint-level { padding: 0.3rem 0.8rem; background: #475569; border: none; border-radius: 20px; color: white; cursor: pointer; margin-right: 0.5rem; }
     .hint-level.active { background: #4f46e5; }
