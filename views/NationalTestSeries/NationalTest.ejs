@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/Allindiatestserice/testserice.css">
     <link rel="icon" type="image/png" href="/assets/Allindiatest/nationaltesticon1.jpeg">
-   
+
 </head>
 
 <body>
@@ -407,6 +407,31 @@
                 // Desktop search integration
                 const desktopSearchInput = document.getElementById("desktopSearchInput");
                 const desktopSearchBtn = document.getElementById("desktopSearchBtn");
+                const overlaySearchInput = document.getElementById("overlaySearchInput");
+
+if (overlaySearchInput) {
+
+    overlaySearchInput.addEventListener("input", function () {
+
+        currentSearchQuery = this.value.trim();
+
+        filterVideos();
+
+    });
+
+    overlaySearchInput.addEventListener("keypress", function (e) {
+
+        if (e.key === "Enter") {
+
+            currentSearchQuery = this.value.trim();
+
+            filterVideos();
+
+        }
+
+    });
+
+}
                 function updateSearch() {
 
                     currentSearchQuery =

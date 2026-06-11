@@ -436,9 +436,17 @@
     const searchOverlay = document.getElementById("searchOverlay");
     const closeSearch = document.getElementById("closeSearchOverlay");
 
-    searchIcon?.addEventListener("click", () => {
-        searchOverlay.classList.add("open");
-    });
+   searchIcon?.addEventListener("click", () => {
+
+    searchOverlay.classList.add("open");
+
+    setTimeout(() => {
+
+        document.getElementById("overlaySearchInput")?.focus();
+
+    }, 200);
+
+});
 
     closeSearch?.addEventListener("click", () => {
         searchOverlay.classList.remove("open");
@@ -515,15 +523,7 @@
         }
     });
 
-    // 🔍 SEARCH FUNCTION
-    function runMobileSearch() {
-        const query = overlayInputField.value.trim();
-
-        if (!query) return;
-
-        // redirect same as desktop
-        window.location.href = "/National-Test-Series?search=" + encodeURIComponent(query);
-    }
+    
 
 
     // setting parts code redirect to the  Rid-Bharat-main/views/NationalTestSeries/settings/setting.ejs
@@ -622,19 +622,22 @@
     }
 
 
-    // search function
     function runMobileSearch() {
 
-        const query = overlayInputField.value.trim();
+    const query = overlayInputField.value.trim();
 
-        if (!query) return;
+    if (!query) return;
 
-        // save history
-        saveSearchHistory(query);
+    saveSearchHistory(query);
 
-        window.location.href =
-            "/National-Test-Series?search=" + encodeURIComponent(query);
+    currentSearchQuery = query;
+
+    if (typeof filterVideos === "function") {
+        filterVideos();
     }
+
+    searchOverlay.classList.remove("open");
+}
 
 
     // overlay open hone par history show
