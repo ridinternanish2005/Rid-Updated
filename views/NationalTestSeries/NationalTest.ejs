@@ -107,14 +107,21 @@
 
                                                     <div class="video-actions">
 
-                                                        <button
-                                                            class="like-btn <%= (user && test.likedBy?.includes(user._id)) ? 'liked' : '' %>"
-                                                            onclick="event.stopPropagation(); toggleLike(this, '<%= test._id %>')">
-                                                            <i class="fas fa-heart"></i>
+                                                        <div class="like-wrapper">
+
+                                                            <button
+                                                                class="like-btn <%= (user && test.likedBy?.includes(user._id)) ? 'liked' : '' %>"
+                                                                onclick="event.stopPropagation(); toggleLike(this, '<%= test._id %>')">
+
+                                                                <i class="fas fa-heart"></i>
+
+                                                            </button>
+
                                                             <span class="like-count">
                                                                 <%= test.likes || 0 %>
                                                             </span>
-                                                        </button>
+
+                                                        </div>
 
                                                         <button class="like-btn"
                                                             onclick="event.stopPropagation(); shareTest('<%= test._id %>', '<%= test.name %>')">
@@ -218,18 +225,48 @@
             </div>
 
             <script>
-                // ========== YOUR ORIGINAL JS (unchanged) ==========
-                async function toggleLike(btn, testId) {
-                    try {
-                        const res = await fetch(`/National-Test-Series/like/${testId}`, { method: "POST" });
-                        const data = await res.json();
-                        btn.classList.toggle("liked", data.liked);
-                        btn.querySelector(".like-count").innerText = data.likes;
-                    } catch (err) {
-                        console.log(err);
-                    }
-                }
 
+                async function toggleLike(btn, testId) {
+
+                    try {
+
+                        const res = await fetch(
+                            `/National-Test-Series/like/${testId}`,
+                            {
+                                method: "POST"
+                            }
+                        );
+
+                        const data = await res.json();
+
+                        // 🔐 LOGIN REQUIRED
+                        if (res.status === 401 || data.loginRequired) {
+
+                            alert("Please login first");
+
+                            window.location.href =
+                                "/login?redirect=" +
+                                encodeURIComponent(window.location.pathname);
+
+                            return;
+                        }
+
+                        btn.classList.toggle(
+                            "liked",
+                            data.liked
+                        );
+
+                        btn.parentElement.querySelector(".like-count").innerText =
+                            data.likes;
+
+                    }
+                    catch (err) {
+
+                        console.log(err);
+
+                    }
+
+                }
                 let selectedTestId = null;
 
                 function openTestPopup(testId, testName) {
@@ -286,7 +323,8 @@
                     const q =
                         currentSearchQuery
                             .trim()
-                            .toLowerCase();
+                            .toLowerCase()
+                            .replace(/[.,!?;:"']/g, "");
 
                     function getMatchScore(text, query) {
 
@@ -409,29 +447,29 @@
                 const desktopSearchBtn = document.getElementById("desktopSearchBtn");
                 const overlaySearchInput = document.getElementById("overlaySearchInput");
 
-if (overlaySearchInput) {
+                if (overlaySearchInput) {
 
-    overlaySearchInput.addEventListener("input", function () {
+                    overlaySearchInput.addEventListener("input", function () {
 
-        currentSearchQuery = this.value.trim();
+                        currentSearchQuery = this.value.trim();
 
-        filterVideos();
+                        filterVideos();
 
-    });
+                    });
 
-    overlaySearchInput.addEventListener("keypress", function (e) {
+                    overlaySearchInput.addEventListener("keypress", function (e) {
 
-        if (e.key === "Enter") {
+                        if (e.key === "Enter") {
 
-            currentSearchQuery = this.value.trim();
+                            currentSearchQuery = this.value.trim();
 
-            filterVideos();
+                            filterVideos();
 
-        }
+                        }
 
-    });
+                    });
 
-}
+                }
                 function updateSearch() {
 
                     currentSearchQuery =
