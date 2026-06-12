@@ -13,6 +13,173 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="icon" type="image/png" href="/assets/signup.png">
+<style>
+  :root{
+  --primary:#0f4c81;
+  --secondary:#1e88e5;
+  --accent:#00b4d8;
+  --bg:#f4f8fc;
+  --white:#ffffff;
+  --text:#1f2937;
+  --light-text:#64748b;
+  --border:#e5edf7;
+  --shadow:0 15px 40px rgba(15,76,129,.12);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
+}
+
+/* Main Section */
+
+.terms-section{
+  padding:60px 20px;
+  max-width:1200px;
+  margin:auto;
+}
+
+/* Card */
+
+.terms-card{
+  background:var(--white);
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+}
+
+/* Header */
+
+.terms-header{
+  background:linear-gradient(135deg,#0f4c81,#1e88e5);
+  color:#fff;
+  padding:45px;
+  text-align:center;
+}
+
+.terms-header h1{
+  font-size:2.5rem;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.terms-header i{
+  margin-right:10px;
+}
+
+.terms-header p{
+  opacity:.9;
+  font-size:1rem;
+}
+
+/* Content */
+
+.terms-content{
+  padding:45px;
+}
+
+.terms-content p{
+  color:var(--light-text);
+  margin-bottom:18px;
+  font-size:1rem;
+}
+
+.terms-content h2{
+  margin-top:35px;
+  margin-bottom:15px;
+  color:var(--primary);
+  font-size:1.3rem;
+  font-weight:700;
+  padding-left:14px;
+  border-left:4px solid var(--secondary);
+}
+
+.terms-content ul{
+  margin:15px 0 20px 25px;
+}
+
+.terms-content li{
+  margin-bottom:10px;
+  color:var(--light-text);
+}
+
+.terms-content a{
+  text-decoration:none;
+  font-weight:600;
+  transition:.3s;
+}
+
+.terms-content a:hover{
+  color:var(--secondary);
+}
+
+/* Footer */
+
+.terms-footer{
+  text-align:center;
+  padding:25px;
+  background:#f8fbff;
+  border-top:1px solid var(--border);
+  font-weight:600;
+  color:var(--primary);
+}
+
+/* Scroll Animation */
+
+.terms-card{
+  animation:fadeUp .6s ease;
+}
+
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* Mobile */
+
+@media(max-width:768px){
+
+  .terms-section{
+    padding:30px 12px;
+  }
+
+  .terms-header{
+    padding:30px 20px;
+  }
+
+  .terms-header h1{
+    font-size:1.8rem;
+  }
+
+  .terms-content{
+    padding:25px 20px;
+  }
+
+  .terms-content h2{
+    font-size:1.1rem;
+  }
+
+  .terms-content p,
+  .terms-content li{
+    font-size:.95rem;
+  }
+}
+</style>
 </head>
 <body>
 
@@ -118,16 +285,8 @@
   <%- include("common/footer.ejs") %>
   <script>
     // ========== HEADER / FOOTER INTERACTIONS ==========
-    (function () {
-      const menuIcon = document.getElementById('menuIcon');
-      const menu = document.getElementById('innerCont');
-      if (menuIcon) {
-        menuIcon.addEventListener('click', function (e) {
-          e.stopPropagation();
-          this.classList.toggle('active');
-          if (menu) menu.classList.toggle('active');
-        });
-      }
+    
+     
 
       const loginBtn = document.getElementById("logInButton");
       const registerBtn = document.getElementById("signUpBtn");
@@ -152,7 +311,7 @@
           window.scrollTo({ top: 0, behavior: 'smooth' });
         });
       }
-    })();
+    
   </script>
 </body>
 </html>
