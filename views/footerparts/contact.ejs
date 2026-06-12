@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,353 +12,319 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="icon" type="image/png" href="/assets/signup.png">
+<link rel="stylesheet" href="/css/common/header.css">
+  <link rel="stylesheet" href="/css/common/footer.css">
   <style>
-    /* ========== GLOBAL STYLES ========== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+  /* =========================
+   GLOBAL
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --primary:#083d5d;
+    --secondary:#1e88e5;
+    --accent:#4da8da;
+    --bg:#f4f8fc;
+    --white:#ffffff;
+    --text:#334155;
+    --border:#e2e8f0;
+    
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    overflow-x:hidden;
+    padding-top:120px; /* fixed header ke liye */
+}
+
+/* =========================
+   CONTACT PAGE
+========================= */
+
+.contact-main-wrapper{
+    padding:40px 20px 80px;
+    background:linear-gradient(
+        180deg,
+        #f8fbff 0%,
+        #eef5fc 100%
+    );
+    min-height:70vh;
+}
+
+.contact-container{
+    max-width:1200px;
+    margin:auto;
+    background:#fff;
+    border-radius:24px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.contact-inner{
+    padding:50px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.contact-header{
+    text-align:center;
+    margin-bottom:45px;
+}
+
+.contact-header h1{
+    font-size:3rem;
+    font-weight:700;
+    color:var(--primary);
+    margin-bottom:12px;
+}
+
+.contact-header p{
+    max-width:700px;
+    margin:auto;
+    color:#64748b;
+    line-height:1.8;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.contact-grid{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:35px;
+}
+
+/* =========================
+   FORM CARD
+========================= */
+
+.form-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:30px;
+}
+
+.input-group{
+    margin-bottom:18px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+    color:var(--primary);
+}
+
+.input-group input,
+.input-group textarea{
+    width:100%;
+    padding:14px 16px;
+    border:1px solid #dbe4ee;
+    border-radius:12px;
+    background:#fff;
+    font-size:.95rem;
+    transition:.3s;
+}
+
+.input-group textarea{
+    resize:vertical;
+    min-height:140px;
+}
+
+.input-group input:focus,
+.input-group textarea:focus{
+    outline:none;
+    border-color:var(--secondary);
+    box-shadow:0 0 0 4px rgba(30,136,229,.12);
+}
+
+.submit-btn{
+    width:100%;
+    background:linear-gradient(
+        135deg,
+        var(--primary),
+        var(--secondary)
+    );
+    color:#fff;
+    border:none;
+    padding:15px;
+    border-radius:12px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.submit-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* =========================
+   INFO CARD
+========================= */
+
+.info-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:30px;
+}
+
+.info-title{
+    font-size:1.4rem;
+    color:var(--primary);
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.contact-details{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.info-item{
+    display:flex;
+    gap:15px;
+}
+
+.info-icon{
+    width:50px;
+    height:50px;
+    min-width:50px;
+    border-radius:50%;
+    background:#eaf4ff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.2rem;
+}
+
+.info-text h4{
+    color:var(--primary);
+    margin-bottom:4px;
+}
+
+.info-text p,
+.info-text a{
+    color:#64748b;
+    text-decoration:none;
+}
+
+/* =========================
+   MAP
+========================= */
+
+.map-placeholder{
+    margin-top:25px;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid #dbe4ee;
+}
+
+.map-container{
+    height:240px;
+}
+
+.google-map-embed{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.map-note{
+    padding:12px;
+    text-align:center;
+    background:#f8fbff;
+    color:#64748b;
+    font-size:.85rem;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast-msg{
+    visibility:hidden;
+    min-width:260px;
+    background:#26648b;
+    color:#fff;
+    text-align:center;
+    border-radius:50px;
+    padding:12px 20px;
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    opacity:0;
+    transition:.3s;
+    z-index:9999;
+}
+
+.toast-msg.show{
+    visibility:visible;
+    opacity:1;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:992px){
+
+    .contact-grid{
+        grid-template-columns:1fr;
     }
 
-    :root {
-      --primary: #083d5d;
-      --primary-dark: #062a41;
-      --secondary: #4da8da;
-      --accent: #ff6b35;
-      --light: #f2f7fc;
-      --dark: #333;
-      --gray: #555;
-      --light-gray: #e0e0e0;
-      --white: #ffffff;
-      --shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-      --transition: all 0.3s ease;
+}
+
+@media(max-width:768px){
+
+    body{
+        padding-top:90px;
     }
 
-    body {
-      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-      background: linear-gradient(145deg, #f4f9ff 0%, #eef2f8 100%);
-      color: #333;
-      line-height: 1.6;
-      padding-top: 130px;
-      overflow-x: hidden;
-      font-weight: 400;
-      min-height: 100vh;
+    .contact-main-wrapper{
+        padding:20px 12px 40px;
     }
 
-    input, button, textarea, select { font-family: inherit; font-size: inherit; line-height: inherit; }
-    a { text-decoration: none; color: inherit; transition: var(--transition); }
-    ul { list-style: none; }
-    button { cursor: pointer; border: none; outline: none; transition: var(--transition); }
-    img { max-width: 100%; height: auto; display: block; }
-
-    .container {
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
+    .contact-inner{
+        padding:25px;
     }
 
-    /* ========== HEADER STYLES (same as all previous tools) ========== */
-    .header-container { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
-    .top-header {
-      display: flex; justify-content: space-between; align-items: center;
-      background: linear-gradient(90deg, #062a41 0%, #0a4d6e 100%);
-      color: #fff; padding: 0 20px; height: 40px; font-size: 14px;
-      letter-spacing: 0.3px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
-    .web-text p { display: inline-block; font-size: 0.6rem; font-weight: 700; }
-    .web-text p span { font-weight: 300; }
-    .web-text p::after { content: "|"; margin: 0 10px; color: #fff; font-weight: 300; }
-    .web-text p:last-child::after { content: ""; }
-    .right-text { display: flex; flex-wrap: wrap; gap: 5px; }
-    .right-text a { font-size: 0.6rem; color: white; white-space: nowrap; }
-    .right-text a::after { content: "|"; margin: 0 8px; color: #fff; }
-    .right-text a:last-child::after { content: ""; }
-
-    .main-header {
-      border-bottom: 1px solid #083d5d;
-      background: rgba(255, 255, 255, 0.95);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.85);
-      border-bottom: 1px solid rgba(77, 168, 218, 0.3);
+    .contact-header h1{
+        font-size:2rem;
     }
 
-    .nav { display: flex; justify-content: space-between; align-items: center; height: 90px; padding: 0 20px; transition: all 0.3s ease; }
-    .logo { display: flex; align-items: center; flex: 1; gap: 15px; }
-    .logo img { height: 100px; max-height: 80px; transition: all 0.3s ease; }
-    .menu { display: flex; justify-content: flex-end; align-items: flex-end; flex-direction: column; }
-    .upperNav { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; justify-content: flex-end; }
-    .nav-button {
-      display: flex; justify-content: center; align-items: center; gap: 5px;
-      font-size: 0.9rem; font-weight: 600; padding: 8px 15px; border-radius: 30px;
-      cursor: pointer; border: none; outline: none; transition: all 0.3s ease;
-      background: linear-gradient(135deg, var(--primary) 0%, #1e5a7a 100%);
-      color: white; box-shadow: 0 4px 10px rgba(0, 53, 84, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    #onlineTest1 { background: linear-gradient(145deg, #dc143c, #b22222); }
-    #certificate { background: linear-gradient(145deg, #0b5e0b, #0a470a); }
-
-    .btn-box {
-      width: 250px; display: flex; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      border-radius: 30px; position: relative; background: rgba(240,240,240,0.6);
-      backdrop-filter: blur(4px); border: 1px solid rgba(8,61,93,0.2);
-      overflow: hidden;
-    }
-    .toggle-btn {
-      padding: 8px 26px; position: relative; outline: none; border: none;
-      background: transparent; font-size: 0.9rem; color: #000; display: flex;
-      justify-content: center; align-items: center; gap: 5px; z-index: 1;
-      width: 50%; cursor: pointer; transition: color 0.3s ease; font-weight: 600;
-    }
-    #swap-btn {
-      position: absolute; top: 0; left: 0; width: 50%; height: 100%;
-      background: #083d5d; border-radius: 30px; transition: all 0.4s ease;
-      z-index: 0;
-    }
-    #logInButton { color: white; }
-    .lowerNav { display: flex; gap: 22px; }
-    .lowerNav ul { display: flex; gap: 20px; }
-    .lowerNav li { position: relative; list-style-type: none; }
-    .lowerNav li a { font-size: 0.9rem; transition: all 0.3s ease-in-out; display: flex; align-items: center; text-decoration: none; color: #333; font-weight: 500; gap: 5px; }
-    .menu-link { display: flex; align-items: center; cursor: pointer; padding: 8px 0; }
-    .menu-link:hover { color: #083d5d; }
-
-    /* Menu Icon */
-    .menu-icon {
-      display: none;
-      flex-direction: column;
-      justify-content: space-between;
-      width: 30px;
-      height: 21px;
-      cursor: pointer;
-      margin-left: auto;
-      z-index: 1001;
-    }
-    .menu-icon span {
-      display: block;
-      height: 3px;
-      width: 100%;
-      background-color: var(--primary);
-      border-radius: 3px;
-      transition: all 0.3s ease;
-    }
-    .menu-icon.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-    .menu-icon.active span:nth-child(2) { opacity: 0; }
-    .menu-icon.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
-    /* Desktop hover */
-    @media (min-width: 769px) {
-      .menu-link::after {
-        content: ''; position: absolute; bottom: 0; left: 0;
-        width: 0; height: 2px; background: #083d5d; transition: width 0.3s ease;
-      }
-      .menu-link:hover::after { width: 100%; }
+    .contact-header p{
+        font-size:.9rem;
     }
 
-    /* ========== FOOTER STYLES ========== */
-    footer {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-      color: var(--white);
-      padding: 30px 0 0;
-      position: relative;
-      overflow: hidden;
-      width: 100%;
-      margin: 0;
-      margin-top: 2rem;
+    .form-card,
+    .info-card{
+        padding:20px;
     }
-    footer::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--secondary), var(--accent));
-    }
-    .footer-content { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
-    .footer-logo { display: flex; flex-direction: column; }
-    .footer-logo img { max-width: 180px; height: auto; margin-bottom: 10px; background: #fff; padding: 5px; border-radius: 6px; }
-    .footer-logo p { margin-bottom: 8px; color: var(--light-gray); font-size: 0.8rem; line-height: 1.4; }
-    .contact-info { margin-top: 5px; }
-    .contact-info p { margin-bottom: 4px; display: flex; align-items: center; gap: 6px; font-size: 0.8rem; }
-    .contact-info i { color: var(--secondary); width: 14px; font-size: 0.8rem; }
-    .footer-links h3, .footer-social h3 { font-size: 1rem; margin-bottom: 12px; position: relative; padding-bottom: 6px; font-weight: 600; }
-    .footer-links h3:after, .footer-social h3:after { content: ''; position: absolute; left: 0; bottom: 0; width: 30px; height: 2px; background: var(--secondary); border-radius: 2px; }
-    .footer-links ul li { margin-bottom: 8px; transition: transform 0.3s; }
-    .footer-links ul li:hover { transform: translateX(5px); }
-    .footer-links a { color: var(--light-gray); transition: color 0.3s; display: flex; align-items: center; gap: 5px; font-size: 0.8rem; }
-    .footer-links a:hover { color: var(--white); }
-    .footer-links a i { color: var(--secondary); font-size: 0.7rem; }
-    .footer-social ul { display: flex; flex-wrap: wrap; gap: 8px; }
-    .footer-social a { display: flex; align-items: center; gap: 5px; color: var(--light-gray); transition: all 0.3s; padding: 5px 10px; background: rgba(255,255,255,0.1); border-radius: 5px; font-size: 0.8rem; border-radius: 40px !important; }
-    .footer-social a:hover { color: var(--white); background: rgba(77,168,218,0.3); transform: translateY(-3px); }
-    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding: 15px 0; text-align: center; color: var(--light-gray); font-size: 0.75rem; position: relative; z-index: 1; }
-    .footer-links-bottom { display: flex; justify-content: center; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
-    .footer-links-bottom a { color: var(--light-gray); transition: color 0.3s; position: relative; font-size: 0.75rem; }
-    .footer-links-bottom a:not(:last-child)::after { content: '|'; position: absolute; right: -8px; color: var(--secondary); }
-    .footer-links-bottom a:hover { color: var(--white); }
-    .back-to-top { position: absolute; right: 15px; bottom: 20px; background: var(--secondary); color: var(--white); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
-    .back-to-top:hover { background: var(--accent); transform: translateY(-3px); }
 
-    /* ========== CONTACT PAGE STYLES ========== */
-    .contact-main-wrapper {
-      background: linear-gradient(145deg, #f4f9ff 0%, #eef2f8 100%);
-      min-height: calc(100vh - 130px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
+    .map-container{
+        height:180px;
     }
-    .contact-container {
-      max-width: 1280px;
-      width: 100%;
-      background: white;
-      border-radius: 1.5rem;
-      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
-      overflow: hidden;
-      margin: 0 auto;
-    }
-    .contact-inner { padding: 1.8rem 2rem; }
-    .contact-header { text-align: center; margin-bottom: 1.8rem; }
-    .contact-header h1 {
-      font-size: 2rem; font-weight: 700;
-      background: linear-gradient(135deg, #1a3c5e, #2b6a9f);
-      background-clip: text; -webkit-background-clip: text; color: transparent;
-      margin-bottom: 0.5rem;
-    }
-    .contact-header p { font-size: 0.9rem; color: #4a5b6e; max-width: 620px; margin: 0 auto; line-height: 1.4; }
-    .contact-grid { display: grid; grid-template-columns: 1fr 0.9fr; gap: 2rem; }
-    .form-card { background: #ffffff; border-radius: 1rem; }
-    .input-group { margin-bottom: 1rem; }
-    .input-group label { display: block; font-weight: 500; font-size: 0.85rem; color: #1f3b4c; margin-bottom: 0.3rem; }
-    .input-group input, .input-group textarea {
-      width: 100%; padding: 0.7rem 1rem; font-size: 0.9rem; background: #fdfdfd;
-      border: 1.5px solid #e2e9f2; border-radius: 0.8rem; transition: all 0.2s ease; outline: none;
-    }
-    .input-group input:focus, .input-group textarea:focus { border-color: #3f8ec7; box-shadow: 0 2px 8px rgba(55,114,161,0.1); }
-    .input-group textarea { resize: vertical; min-height: 90px; }
-    .submit-btn {
-      background: #2b6a9f; color: white; border: none; padding: 0.7rem 1.4rem; font-size: 0.95rem;
-      font-weight: 600; border-radius: 2rem; width: 100%; cursor: pointer;
-      transition: all 0.25s; margin-top: 0.5rem;
-    }
-    .submit-btn:hover { background: #1e517a; transform: translateY(-2px); }
-    .info-card { background: #fafcff; border-radius: 1rem; }
-    .info-title { font-size: 1.3rem; font-weight: 600; color: #1a3c5e; margin-bottom: 1rem; border-left: 4px solid #2b6a9f; padding-left: 1rem; }
-    .contact-details { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.2rem; }
-    .info-item { display: flex; align-items: flex-start; gap: 0.8rem; }
-    .info-icon { min-width: 2rem; height: 2rem; background: #e9f0f8; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #2b6a9f; font-size: 1rem; }
-    .info-text h4 { font-size: 0.9rem; font-weight: 600; color: #1f3b4c; margin-bottom: 0.2rem; }
-    .info-text p, .info-text a { color: #4e6b7e; font-size: 0.85rem; line-height: 1.35; }
-    .map-placeholder { margin-top: 0.5rem; border-radius: 1rem; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); background: #eef3fc; border: 1px solid #e2edf5; }
-    .map-container { width: 100%; height: 160px; background: #d9e6f2; }
-    .google-map-embed { width: 100%; height: 100%; border: 0; }
-    .map-note { font-size: 0.7rem; text-align: center; background: #fff9e8; padding: 0.3rem; color: #4d5a68; }
-    .toast-msg {
-      visibility: hidden; min-width: 240px; background-color: #26648b; color: #fff; text-align: center;
-      border-radius: 50px; padding: 10px 20px; position: fixed; bottom: 20px; left: 50%;
-      transform: translateX(-50%); font-size: 0.85rem; font-weight: 500; z-index: 1000;
-      opacity: 0; transition: opacity 0.3s; box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-      pointer-events: none; white-space: nowrap;
-    }
-    .toast-msg.show { visibility: visible; opacity: 1; }
-
-    /* ========== RESPONSIVE ========== */
-    @media (max-width: 768px) {
-      body { padding-top: 90px; }
-      .top-header { display: none; }
-      .menu-icon { display: flex; }
-      .nav { flex-direction: row; height: auto; padding: 10px 20px; }
-      .logo { width: 100%; }
-      .logo img { height: 70px; }
-      .menu {
-        position: fixed; top: 90px; left: 0; width: 100%; height: calc(100vh - 90px);
-        background: rgba(255,255,255,0.98); flex-direction: column; align-items: flex-start;
-        justify-content: flex-start; display: none; padding: 30px 20px 20px;
-        overflow-y: auto; z-index: 999; transform: translateX(-100%);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      }
-      .menu.active { display: flex; transform: translateX(0); }
-      .upperNav { flex-direction: column; width: 100%; gap: 15px; margin-bottom: 25px; }
-      .upperNav .nav-button { width: 90%; text-align: center; height: 48px; font-size: 1rem; justify-content: center; }
-      .btn-box { width: 90%; height: 38px; flex-direction: row; border-radius: 25px; background: #f0f0f0; overflow: hidden; margin-top: 10px; position: relative; }
-      .toggle-btn { width: 50%; font-size: 0.85rem; padding: 0; }
-      #swap-btn { width: 50%; height: 100%; border-radius: 25px; }
-      #certificate { width: 90%; max-width: 280px; height: 48px; font-size: 0.95rem; margin: 0 auto; }
-      .lowerNav { flex-direction: column; width: 100%; gap: 0; margin-top: 10px; }
-      .lowerNav ul { flex-direction: column; gap: 0; width: 100%; }
-      .lowerNav li { border-bottom: 1px solid #f0f0f0; }
-      .menu-link { padding: 16px 0; width: 100%; }
-      .contact-main-wrapper { padding: 1rem; }
-      .contact-inner { padding: 1rem; }
-      .contact-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-      .contact-header h1 { font-size: 1.8rem; }
-      .map-container { height: 150px; }
-      .footer-content { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-    }
-    @media (max-width: 600px) {
-      .contact-header h1 { font-size: 1.6rem; }
-      .footer-content { grid-template-columns: 1fr; text-align: center; }
-      .footer-logo { align-items: center; }
-      .footer-logo img { margin: 0 auto 10px; }
-      .contact-info p { justify-content: center; }
-      .footer-links h3::after, .footer-social h3::after { left: 50%; transform: translateX(-50%); }
-      .footer-links a { justify-content: center; }
-    }
+}
   </style>
 </head>
 <body>
-
-  <!-- ========== HEADER (same as all previous tools) ========== -->
-  <div class="header-container">
-    <div class="top-header">
-      <div class="web-text">
-        <p><span>RID Bharat Run by TWF</span></p>
-        <p>Helpline: <span>+91- 9202707903</span></p>
-        <p>Email: <span>ridorg.in@gmail.com</span></p>
-      </div>
-      <div class="right-text">
-        <a href="#">ISO:9001:2015 Certified</a>
-        <a href="#">TWF</a>
-        <a href="#">Reg.No:048884</a>
-        <a href="#">ESTD:2020</a>
-      </div>
-    </div>
-
-    <div class="main-header">
-      <div class="nav">
-        <div class="logo">
-          <img src="./assets/logo ridtech.jpeg" alt="RID Bharat Logo"
-            onerror="this.src='https://via.placeholder.com/260x70/083d5d/FFFFFF?text=RID+Bharat+Logo'">
-          <div class="menu-icon" id="menuIcon">
-            <span></span><span></span><span></span>
-          </div>
-        </div>
-        <div class="menu" id="innerCont">
-          <div class="upperNav">
-            <a href="/RTS/public/main.html" class="nav-button" id="onlineTest1">
-              <i class="fa-brands fa-servicestack"></i> Test Series
-            </a>
-            <button class="nav-button"><i class="fa-solid fa-book"></i> Service</button>
-            <div class="certificate">
-              <a href="/Certificate-Verification/verify.html"><button class="nav-button" id="certificate"><i class="fa-solid fa-certificate"></i> Certificate</button></a>
-            </div>
-            <div class="btn-box">
-              <div id="swap-btn"></div>
-              <a href="/login" class="toggle-btn" id="logInButton"><i class="fa-solid fa-right-to-bracket"></i> Login</a>
-              <a href="/form" class="toggle-btn" id="signUpBtn"><i class="fa-solid fa-user-plus"></i> Register</a>
-            </div>
-          </div>
-          <ul class="lowerNav">
-            <li><a class="menu-link" href="index.html"><i class="fa-solid fa-house"></i> Home</a></li>
-            <li><a class="menu-link" href="#"><i class="fa-solid fa-circle-info"></i> About Us</a></li>
-            <li><a class="menu-link" href="#"><i class="fa-solid fa-file-lines"></i> Research Papers</a></li>
-            <li><a class="menu-link" href="#"><i class="fa-solid fa-file-lines"></i> Internship</a></li>
-            <li><a class="menu-link" href="#"><i class="fa-solid fa-file-lines"></i> E-Book</a></li>
-            <li><a class="menu-link" href="/contact/contact.html"><i class="fa-solid fa-headset"></i> Tech Interview</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<%- include("common/header.ejs") %>
   <!-- ========== CONTACT SECTION (fully functional) ========== -->
   <div class="contact-main-wrapper">
     <div class="contact-container">
@@ -395,7 +362,7 @@
                 <div class="info-icon">📍</div>
                 <div class="info-text">
                   <h4>Visit Us</h4>
-                  <p>Mig, 72, Rajiv Nagar, A Sector, Aayodhya bypass Bhopal, Madhya Pradesh, India (462022)</p>
+                  <p>51 Indrapuri, Sector C. Jubali Gate, Near Croma, Bhel, Bhopal, Huzur, Madhya Pradesh, India, (402022)</p>
                 </div>
               </div>
               <div class="info-item">
@@ -415,9 +382,9 @@
             </div>
             <div class="map-placeholder">
               <div class="map-container">
-                <iframe class="google-map-embed" src="https://maps.google.com/maps?q=Bhopal%2C%20Madhya%20Pradesh%2C%20India&t=&z=12&ie=UTF8&iwloc=&output=embed" title="Google Map" loading="lazy"></iframe>
+                <iframe class="google-map-embed" src="https://maps.google.com/maps?q=51%20Indrapuri,%20Sector%20C.%20Jubali%20Gate,%20Near%20ridtech,%20Bhel,%20Bhopal,%20Huzur,%20Madhya%20Pradesh,%20India&t=&z=12&ie=UTF8&iwloc=&output=embed" title="Google Map" loading="lazy"></iframe>
               </div>
-              <div class="map-note">Mig, 72, Rajiv Nagar, A Sector, Aayodhya bypass Bhopal, Madhya Pradesh, India (462022)</div>
+              <div class="map-note">51 Indrapuri, Sector C. Jubali Gate, Near Croma, Bhel, Bhopal, Huzur, Madhya Pradesh, India, (402022)</div>
             </div>
           </div>
         </div>
@@ -425,111 +392,14 @@
     </div>
   </div>
 
-  <!-- ========== FOOTER (same as all previous tools) ========== -->
-  <footer>
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">
-          <img src="/assets/logo ridtech.jpeg" alt="RID Bharat Logo"
-            onerror="this.src='https://via.placeholder.com/260x70/083d5d/FFFFFF?text=RID+Bharat+Logo'">
-          <p>Mig, 72, Rajiv Nagar, A Sector, Aayodhya bypass Bhopal, Madhya Pradesh, India (462022)</p>
-          <div class="contact-info">
-            <p><i class="fas fa-envelope"></i> <a href="mailto:ridorg.in@gmail.com">ridorg.in@gmail.com</a></p>
-            <p><i class="fas fa-phone"></i> <a href="tel:+919892782728">+91- 9202707903</a></p>
-          </div>
-        </div>
-
-        <div class="footer-links">
-          <h3>Research Topics</h3>
-          <ul>
-            <li><a href="#"><i class="fas fa-chevron-right"></i> Computers & Technology</a></li>
-            <li><a href="#"><i class="fas fa-chevron-right"></i> AI & Machine Learning</a></li>
-            <li><a href="#"><i class="fas fa-chevron-right"></i> Space Engineering</a></li>
-            <li><a href="#"><i class="fas fa-chevron-right"></i> Data Science</a></li>
-            <li><a href="#"><i class="fas fa-chevron-right"></i> Renewable Energy</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="/about"><i class="fas fa-chevron-right"></i> About RID</a></li>
-            <li><a href="/research"><i class="fas fa-chevron-right"></i> Research Papers</a></li>
-            <li><a href="#"><i class="fas fa-chevron-right"></i> Innovation Hub</a></li>
-            <li><a href="#"><i class="fas fa-chevron-right"></i> Join Community</a></li>
-            <li><a href="#"><i class="fas fa-chevron-right"></i> Events & Workshops</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-social">
-          <h3>Follow Us</h3>
-          <ul>
-            <li><a href="#"><i class="fab fa-facebook-f"></i> Facebook</a></li>
-            <li><a href="https://www.linkedin.com/in/rid-bharat-9a4517324"><i class="fab fa-linkedin-in"></i> LinkedIn</a></li>
-            <li><a href="https://youtube.com/@ridbharat"><i class="fab fa-youtube"></i> YouTube</a></li>
-            <li><a href="https://github.com/RID-bharat25"><i class="fab fa-github"></i> GitHub</a></li>
-            <li><a href="https://www.instagram.com/ridbharat"><i class="fab fa-instagram"></i> Instagram</a></li>
-            <li><a href="mailto:ridorg.in@gmail.com"><i class="fas fa-envelope"></i> Email</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <p>Copyright ©2024, RID | TWF (TWKSAA WELFARE FOUNDATION). All Rights Reserved.</p>
-        <div class="footer-links-bottom">
-          <a href="about/about.html">About Us</a>
-          <a href="/terms&conditions">Terms & Conditions</a>
-          <a href="/privacy&policy">Privacy Policy</a>
-          <a href="/Disclaimer">Disclaimer</a>
-          <a href="/contact">Contact</a>
-        </div>
-      </div>
-
-      <a href="#" class="back-to-top">
-        <i class="fas fa-arrow-up"></i>
-      </a>
-    </div>
-  </footer>
-
   <div id="toastMessage" class="toast-msg">✨ Message sent! We'll reply soon.</div>
-
+<%- include("common/footer.ejs") %>
   <script>
     // ========== HEADER / FOOTER INTERACTIONS ==========
-    (function () {
-      const menuIcon = document.getElementById('menuIcon');
-      const menu = document.getElementById('innerCont');
-      if (menuIcon) {
-        menuIcon.addEventListener('click', function (e) {
-          e.stopPropagation();
-          this.classList.toggle('active');
-          if (menu) menu.classList.toggle('active');
-        });
-      }
+  
 
-      const loginBtn = document.getElementById("logInButton");
-      const registerBtn = document.getElementById("signUpBtn");
-      const swapBtn = document.getElementById("swap-btn");
-      if (loginBtn && registerBtn && swapBtn) {
-        loginBtn.addEventListener("click", function () {
-          swapBtn.style.left = "0%";
-          loginBtn.style.color = "white";
-          registerBtn.style.color = "#000";
-        });
-        registerBtn.addEventListener("click", function () {
-          swapBtn.style.left = "50%";
-          registerBtn.style.color = "white";
-          loginBtn.style.color = "#000";
-        });
-      }
-
-      const backToTop = document.querySelector('.back-to-top');
-      if (backToTop) {
-        backToTop.addEventListener('click', (e) => {
-          e.preventDefault();
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-    })();
+     
+  
 
     // ========== CONTACT FORM HANDLING ==========
     const form = document.getElementById('contactForm');

@@ -17,4 +17,11 @@ router.get("/Terms&Conditions",(req,res)=>{
     res.render("footerparts/Terms&Conditions.ejs")
 })
 
+router.get("/disclaimer",(req,res)=>{
+    res.render("footerparts/Disclaimer.ejs")
+})
+router.get("/contact",(req,res)=>{
+    res.render("footerparts/contact.ejs")
+})
+
 module.exports = router;
