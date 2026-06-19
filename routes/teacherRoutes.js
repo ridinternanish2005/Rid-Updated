@@ -29,10 +29,6 @@ router.get("/teacher-dashboard", ensureTeacher, async (req, res) => {
     const students = await Student.find({
       teacherId: teacher._id
     }).lean();
-
-    console.log("Teacher:", teacher.name);
-    console.log("Students Found:", students.length);
-
     const teacherTests = await Test.find({
       teacherId: teacher._id
     });

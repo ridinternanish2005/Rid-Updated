@@ -10,45 +10,48 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
     <link rel="icon" type="image/png" href="/assets/signup.png">
     <style>
-  .modal-overlay{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,.5);
-    z-index: 99999;
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .5);
+            z-index: 99999;
 
-    overflow-y: auto;   /* scroll yahan hoga */
-}
+            overflow-y: auto;
+            /* scroll yahan hoga */
+        }
 
-.modal-box{
-    background: #fff;
-    width: 90%;
-    max-width: 500px;
+        .modal-box {
+            background: #fff;
+            width: 90%;
+            max-width: 500px;
 
-    margin: 30px auto;  /* center */
-    padding: 20px;
-    border-radius: 10px;
-}
-/* Optional: Better scrollbar */
-.modal-box::-webkit-scrollbar {
-    width: 6px;
-}
+            margin: 30px auto;
+            /* center */
+            padding: 20px;
+            border-radius: 10px;
+        }
 
-.modal-box::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-}
+        /* Optional: Better scrollbar */
+        .modal-box::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-box::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
 <body>
-   <script>
-window.TEACHER_ID = "<%= teacher._id %>";
-window.initialStudents = <%- JSON.stringify(students || []) %>;
+    <script>
+        window.TEACHER_ID = "<%= teacher._id %>";
+        window.initialStudents = <% - JSON.stringify(students || []) %>;
 
-</script>
+    </script>
     <div class="main-container">
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <!-- Fixed Header -->
@@ -620,7 +623,7 @@ window.initialStudents = <%- JSON.stringify(students || []) %>;
                         <div id="test-services-main-dashboard">
                             <div class="services-header">
                                 <div class="page-title">
-                                    
+
                                     <h2>Explore Test Services</h2>
                                 </div>
                                 <div class="user-info"
@@ -1461,7 +1464,7 @@ window.initialStudents = <%- JSON.stringify(students || []) %>;
             <label>Subject</label>
             <input type="text" id="subject" placeholder="Math, Science, English...">
 
-            <label>Upload Banner</label>
+            <label>Upload Banner (Optional)</label>
             <input type="file" id="banner" accept=".jpg,.jpeg,.png,.webp"><br><br>
 
             <label>Upload Notes (PDF)</label>

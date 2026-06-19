@@ -10,14 +10,18 @@ function submitRequest() {
     const testName = document.getElementById("testName").value.trim();
     const subject = document.getElementById("subject").value.trim();
 
-    if (!bannerFile) return alert("Please upload banner.");
+    // Banner Optional
     if (!notesFile) return alert("Please upload notes.");
     if (!description) return alert("Please enter description.");
     if (!testName) return alert("Please enter test name.");
     if (!subject) return alert("Please enter subject.");
 
     const formData = new FormData();
-    formData.append("banner", bannerFile);
+
+    if (bannerFile) {
+        formData.append("banner", bannerFile);
+    }
+
     formData.append("notes", notesFile);
     formData.append("description", description);
     formData.append("testName", testName);
@@ -27,23 +31,22 @@ function submitRequest() {
         method: "POST",
         body: formData
     })
-        .then(res => res.json())
-        .then(data => {
-            if (data.success) {
-                alert("Request Sent Successfully!");
-                document.getElementById("banner").value = "";
-                document.getElementById("notes").value = "";
-                document.getElementById("description").value = "";
-                document.getElementById("testName").value = "";
-                document.getElementById("subject").value = "";
-                closeRequestModal();
-            } else {
-                alert(data.message || "Failed to send request");
-            }
-        })
-        .catch(() => alert("Server Error"));
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("Request Sent Successfully!");
+            document.getElementById("banner").value = "";
+            document.getElementById("notes").value = "";
+            document.getElementById("description").value = "";
+            document.getElementById("testName").value = "";
+            document.getElementById("subject").value = "";
+            closeRequestModal();
+        } else {
+            alert(data.message || "Failed to send request");
+        }
+    })
+    .catch(() => alert("Server Error"));
 }
-
 
 
 // Sidebar + Top दोनों के लिए
