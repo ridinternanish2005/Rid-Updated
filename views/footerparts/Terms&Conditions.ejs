@@ -38,6 +38,26 @@ body{
   color:var(--text);
   line-height:1.7;
 }
+@media (max-width: 768px) {
+            .menu {
+                position: fixed;
+                top: 77px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 90px);
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: flex-start;
+                display: none;
+                padding: 30px 20px 20px;
+                overflow-y: auto;
+                z-index: 999;
+                transform: translateX(-100%);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            }
+        }
 
 /* Main Section */
 

@@ -5,8 +5,6 @@ node_modules/
 .env
 .env.*
 
-# Uploads
-uploads/
 
 # Logs
 *.log
@@ -17,5 +15,3 @@ uploads/
 # Archives
 *.zip
 
-# Documents
-*.pdf

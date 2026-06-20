@@ -1,4 +1,4 @@
-    /* ===== FULL CREATIVE FONT STACK – robust for all devices ===== */
+/* ===== FULL CREATIVE FONT STACK – robust for all devices ===== */
     body {
       font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       background-color: #f2f2f2;
@@ -32,6 +32,7 @@
     height: 500px;
     object-fit: cover;
 }
+
 
 @media (max-width:768px){
 
@@ -1001,7 +1002,6 @@
       100% {
         opacity: 1;
       }
-
       50% {
         opacity: 0.3;
       }
@@ -3337,7 +3337,6 @@
     .rh-right {
       height: 275px;
     }
-
     .rh-card-main {
       width: 126px;
       height: 126px;
@@ -4572,7 +4571,6 @@
     align-items: center;
     gap: 10px;
   }
-
   .topics-label::after {
     content: '';
     flex: 1;
@@ -4866,5 +4864,21 @@
 
     .stat-card {
       display: none;
+    }
+  }
+  /* Tablet */
+@media (max-width: 768px) {
+    .bada-video {
+        width: 100%;
+        height: 350px;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .bada-video {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
     }
   }
