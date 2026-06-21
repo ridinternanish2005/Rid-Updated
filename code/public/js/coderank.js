@@ -903,22 +903,6 @@ function showToast(msg) {
           btn.textContent = "▲ Hide Solution";
           Prism.highlightAllUnder(panel);
         }
-
-        // ── Hint events ───────────────────────────────────────────────
-        // function attachHintEvents() {
-        //   document.querySelectorAll(".hint-btn").forEach((btn) => {
-        //     btn.removeEventListener("click", toggleHintHandler);
-        //     btn.addEventListener("click", toggleHintHandler);
-        //   });
-        // }
-
-        // function toggleHintHandler(e) {
-        //   const btn   = e.currentTarget;
-        //   const panel = document.getElementById(btn.dataset.target);
-        //   if (panel.classList.contains("show")) { closeAllPanels(); return; }
-        //   closeAllPanels();
-        //   panel.classList.add("show");
-        //   btn.textContent = "▲ Hide Hint";
         // }
         //ai hint
         function attachHintEvents() {
