@@ -48,10 +48,11 @@
 
 <body>
     <script>
-window.TEACHER_ID = "<%= teacher._id %>";
-window.initialStudents = <%- JSON.stringify(students || []) %>;
-window.totalAttempts = <%= totalAttempts || 0 %>;
-</script>
+        window.TEACHER_ID = "<%= teacher._id %>";
+        window.initialStudents = <%- JSON.stringify(students || []) %>;
+        window.totalAttempts = <%= totalAttempts || 0 %>;
+        window.totalStudents = <%= totalStudents || 0 %>;
+    </script>
     <div class="main-container">
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <!-- Fixed Header -->
@@ -365,7 +366,7 @@ window.totalAttempts = <%= totalAttempts || 0 %>;
                                 <i class="fas fa-chalkboard-teacher"></i>
                             </div>
                             <h1 class="welcome-title">Welcome, <%= teacher.name %> to Your Teaching Dashboard</h1>
-                           
+
                         </div>
 
                         <!-- Animated Stats Cards -->
