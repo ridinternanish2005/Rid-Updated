@@ -27,26 +27,34 @@ router.get("/teacher-dashboard", ensureTeacher, async (req, res) => {
     const teacher = await Teacher.findById(decoded.userId);
 
     const students = await Student.find({
-      teacherId: teacher._id
-    }).lean();
-    const teacherTests = await Test.find({
-      teacherId: teacher._id
-    });
+  teacherId: teacher._id
+}).lean();
 
-    const testIds = teacherTests.map(t => t._id);
+// Total Students
+const totalStudents = students.length;
 
-    const totalAttempts = await TestAttempt.countDocuments({
-      testId: { $in: testIds }
-    });
+// Teacher Tests
+const teacherTests = await Test.find({
+  teacherId: teacher._id
+}).select("_id");
 
-    res.render(
-      "tracher_deshboard/advance-version/teacher-test-version",
-      {
-        teacher,
-        students,
-        totalAttempts
-      }
-    );
+// Test IDs
+const testIds = teacherTests.map(t => t._id);
+
+// Students who actually attempted tests
+const totalAttempts = await TestAttempt.countDocuments({
+  testId: { $in: testIds }
+});
+
+res.render(
+  "tracher_deshboard/advance-version/teacher-test-version",
+  {
+    teacher,
+    students,
+    totalAttempts,
+    totalStudents
+  }
+);
 
   } catch (err) {
     console.log(err);
