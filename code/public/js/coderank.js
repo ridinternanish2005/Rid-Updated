@@ -360,11 +360,28 @@ function showToast(msg) {
             });
 
           // Books button
+          // document
+          //   .getElementById("booksButton")
+          //   ?.addEventListener("click", () => {
+          //     alert(`${langName} books coming soon!`);
+          //   });
           document
-            .getElementById("booksButton")
-            ?.addEventListener("click", () => {
-              alert(`${langName} books coming soon!`);
-            });
+  .getElementById("booksButton")
+  ?.addEventListener("click", () => {
+
+    const bookLinks = {
+      py: "/ebook/?search=python&filter=all&sort=newest",
+      js: "/ebook/?search=java&filter=all&sort=newest",
+    };
+
+    const link = bookLinks[currentLanguage];
+
+    if (link) {
+      window.location.href = link;
+    } else {
+      alert("Books comming soon");
+    }
+  });
 
           // Update questionsList
           questionsList = Array.from(
