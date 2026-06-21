@@ -48,10 +48,10 @@
 
 <body>
     <script>
-        window.TEACHER_ID = "<%= teacher._id %>";
-        window.initialStudents = <% - JSON.stringify(students || []) %>;
-
-    </script>
+window.TEACHER_ID = "<%= teacher._id %>";
+window.initialStudents = <%- JSON.stringify(students || []) %>;
+window.totalAttempts = <%= totalAttempts || 0 %>;
+</script>
     <div class="main-container">
         <div class="sidebar-overlay" id="sidebarOverlay"></div>
         <!-- Fixed Header -->
