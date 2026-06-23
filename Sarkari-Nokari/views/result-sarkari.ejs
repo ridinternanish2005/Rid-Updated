@@ -122,7 +122,7 @@
           <% } %>
           <div class="result-index-list">
             <% results.forEach(function(result, i) { %>
-              <a class="result-index-item" href="#<%= result._id %>"  data-category="<%= result.category || '' %>">
+              <a class="result-index-item" href="/nokari/result/<%= result._id %>/detail">
                 <span class="result-index-num"><%= i + 1 %>.</span>
                 <span class="result-index-title"><%= result.title %></span>
                     <% if (result.totalPosts) { %>

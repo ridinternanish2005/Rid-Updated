@@ -119,11 +119,11 @@
     <div class="sections">
 
       <div class="section-box">
-        <div class="card-header">💼 Latest Jobs</div>
+        <a href="/nokari/jobs" class="card-header">💼 Latest Jobs</a>
         <div class="section-list">
           <% jobs.forEach(job => { %>
             <div class="list-item">
-              <a href="/nokari/jobs#<%= job._id %>"><%= job.title %></a>
+              <a href="/nokari/job/<%= job._id %>/detail"><%= job.title %></a>
             </div>
           <% }) %>
           <% if (jobs.length === 0) { %>
@@ -137,11 +137,11 @@
       
       <!-- ADMIT CARDS -->
       <div class="section-box">
-        <div class="card-header">🎫 Admit Cards</div>
+        <a href="/nokari/admit" class="card-header">🎫 Admit Cards</a>
         <div class="section-list">
           <% admits.forEach(admit => { %>
             <div class="list-item">
-              <a href="/nokari/admit#<%= admit._id %>"><%= admit.title %></a>
+              <a href="/nokari/admit/<%= admit._id %>/detail"><%= admit.title %></a>
             </div>
           <% }) %>
           <% if (admits.length === 0) { %>
@@ -155,11 +155,11 @@
 
       <!-- RESULTS -->
       <div class="section-box">
-        <div class="card-header">📋 Results</div>
+        <a href="/nokari/result" class="card-header">📋 Results</a>
         <div class="section-list">
           <% results.forEach(result => { %>
             <div class="list-item">
-              <a href="/nokari/result#<%= result._id %>"><%= result.title %></a>
+              <a href="/nokari/result/<%= result._id %>/detail"><%= result.title %></a>
             </div>
           <% }) %>
           <% if (results.length === 0) { %>

@@ -35,7 +35,8 @@ router.use(
   "/public",
   express.static(path.join(__dirname, "public"))
 );
-
+const detailRoutes = require("./routes/detailRoutes");
+router.use("/", detailRoutes);
 // =============================================
 // ROUTES
 // =============================================

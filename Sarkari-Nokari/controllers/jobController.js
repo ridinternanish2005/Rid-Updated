@@ -184,10 +184,20 @@ const deleteJob = async (req, res) => {
   }
 };
 
+const getJobDetail = async (req, res) => {
+  try {
+    const job = await Job.findById(req.params.id).lean();
+    if (!job) return res.status(404).render("404");
+    res.render("detail", { data: job, type: "job" });
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+};
 module.exports = {
   addJob,
   getJobs,
   getJobById,
   updateJob,
   deleteJob,
+  getJobDetail
 };

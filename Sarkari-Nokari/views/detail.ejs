@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= data.title %> – Sarkari Naukari</title>
+  <link rel="stylesheet" href="/css/common/navbar.css">
+ <link rel="stylesheet" href="/nokari/css/common/footer.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brand-primary:  #2a3f5f;
+      --brand-dark:     #083d5d;
+      --brand-light:    #e8f0fd;
+      --brand-accent:   #e85c1a;
+
+      --success:        #166534;
+      --success-bg:     #dcfce7;
+      --danger:         #b91c1c;
+      --danger-bg:      #fee2e2;
+      --warning:        #92400e;
+      --warning-bg:     #fef3c7;
+      --info:           #0c4a6e;
+      --info-bg:        #e0f2fe;
+
+      --text-primary:   #1a1a1a;
+      --text-secondary: #475569;
+      --text-muted:     #94a3b8;
+
+      --border-color:   #d1d5db;
+      --border-dark:    #6b7280;
+      --bg-page:        #f1f5fb;
+      --bg-card:        #ffffff;
+      --bg-row-alt:     #f8fafc;
+
+      --radius-sm:      5px;
+      --radius-md:      10px;
+      --radius-xl:      18px;
+
+      --shadow-card:    0 1px 4px rgba(0,0,0,0.08), 0 4px 18px rgba(26,79,160,0.07);
+      --shadow-hover:   0 4px 24px rgba(26,79,160,0.15);
+
+      --font-display:   'Baloo 2', sans-serif;
+      --font-body:      'Noto Sans', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-page);
+      color: var(--text-primary);
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .page-wrapper { padding: 2.5rem 1rem 4rem; }
+
+    .container {
+      max-width: 1050px;
+      margin: 30px auto;
+    }
+
+    /* ── Back Button ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--brand-dark);
+      text-decoration: none;
+      margin-bottom: 14px;
+      padding: 6px 14px;
+      border: 1.5px solid #c7d8f8;
+      border-radius: var(--radius-md);
+      background: var(--brand-light);
+      transition: background 0.18s;
+    }
+    .back-btn:hover { background: #d0e3fb; }
+
+    /* ── Disclaimer — above card, same as jobs intro style ── */
+
+    /* ── Main Card Shell ── */
+    .detail-card {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-dark);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+    }
+    /* ============================================================
+   INTRO CARD
+   ============================================================ */
+/* ── Intro Card — jobs.css se copy ── */
+.intro-card {
+  background: var(--brand-dark);
+  border-radius: var(--radius-xl);
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.intro-text {
+  font-size: 0.93rem;
+  color: rgba(255,255,255,0.88);
+  max-width: 100%;
+  flex: 1;
+  line-height: 1.7;
+}
+
+.intro-text a { color: #93c5fd; font-weight: 600; text-decoration: none; }
+.intro-text a:hover { text-decoration: underline; }
+
+.disclaimer-box {
+  margin-top: 10px;
+  background: rgba(255,255,255,0.07);
+  border-left: 3px solid #fbbf24;
+  border-radius: 0 8px 8px 0;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.6;
+}
+
+.disclaimer-box strong.d-label { color: #fbbf24; }
+.disclaimer-box strong.d-link  { color: #93c5fd; }
+
+.update-btn {
+  white-space: nowrap;
+  background: #25D366;
+  color: #fff;
+  border: 1px solid #1ebe5d;
+  border-radius: 14px;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.update-btn:hover { background: #1ebe5d; }
+
+/* mobile */
+@media (max-width: 640px) {
+  .intro-card { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+}
+
+.intro-text a { color: #93c5fd; font-weight: 600; text-decoration: none; }
+.intro-text a:hover { text-decoration: underline; }
+
+
+    /* ══════════════════════════════════════════
+       CARD HEADER — exact jobs.css .card-header
+    ══════════════════════════════════════════ */
+    .card-header {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 3px;
+      background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-dark) 100%);
+      padding: 0.9rem 8rem 0.8rem 3rem;
+    }
+
+    /* type badge row — sits above title */
+.card-type-badge {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--brand-dark);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  width: fit-content;
+  margin: 0 auto 1px;
+  
+  padding: 2px 8px;
+  text-align: center;
+  
+}
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.35;
+    }
+
+    .card-org {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.65);
+    }
+
+    /* top-right badges — exact jobs.css */
+    .card-badges {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 4px;
+      max-width: 120px;
+    }
+
+    .category-badge {
+      background: rgba(255,255,255,0.18);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: var(--radius-sm);
+      font-size: 0.68rem;
+      font-weight: 600;
+      padding: 2px 9px;
+      white-space: nowrap;
+    }
+
+    /* ── Section blocks ── */
+    .section-block {
+      border-bottom: 1.5px solid var(--border-dark);
+    }
+    .section-block:last-child { border-bottom: none; }
+
+    .section-label {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 750;
+      text-align: justify;
+     
+      color: var(--brand-primary);
+      background-color: #e8f0fd;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 0.8rem 0.3rem;
+      border-bottom: 1.5px solid var(--brand-light);
+    }
+
+    /* ── Info body — exact two-column jobs.css layout ── */
+    .info-body {
+      display: flex;
+      align-items: stretch;
+      border-bottom: none;
+    }
+
+    .info-panel {
+      flex: 1 1 0;
+      min-width: 0;
+      
+    }
+
+    .info-panel--left { border-right: 1.5px solid var(--border-dark); }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.45rem 1rem 0.45rem 0.85rem;
+      border-bottom: 1px solid #e9edf3;
+      min-height: 2.4rem;
+      background: transparent;
+    }
+    .info-item:last-child { border-bottom: none; }
+
+    .info-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      width: 1.4rem;
+      text-align: center;
+      line-height: 1;
+      padding-top: 0.1rem;
+    }
+
+    .info-text {
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .info-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #315285;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .info-value {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      word-break: break-word;
+      line-height: 1.4;
+    }
+
+    .info-value.highlight { color: var(--brand-primary); }
+    .info-value.danger    { color: var(--danger); }
+    .info-value.success   { color: var(--success); }
+
+    /* ── Post Date + Total Posts — top of sections ── */
+    .post-meta-bar {
+      display: flex;
+      align-items: center;
+     
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 0.5rem 1rem;
+      background: var(--bg-row-alt);
+      border-bottom: 1.5px solid var(--border-dark);
+      font-size: 0.8rem;
+    }
+    .post-meta-date {
+      color: var(--text-secondary);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-left: 12px;
+    }
+
+
+    .post-meta-total {
+      background-color: #b1c9ef;
+      color: var(--brand-primary);
+      
+      border: 1px solid #c7d8f8;
+      font-size: 0.90rem;
+      font-weight: 800;
+      justify-content: center;
+    
+      padding: 3px 12px;
+      border-radius: 999px;
+    }
+
+    /* ── Selection Process ── */
+    .selection-steps {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding: 0.6rem 0.85rem;
+    }
+
+    .selection-step {
+      background: var(--info-bg);
+      color: var(--info);
+      border: 1px solid #bae6fd;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 3px 12px;
+      border-radius: var(--radius-sm);
+    }
+
+    .step-arrow {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* ── Vacancy Table ── */
+    .vacancy-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+    }
+    .vacancy-table th {
+      background: var(--brand-light);
+      color: var(--brand-primary);
+      font-weight: 700;
+      padding: 7px 14px;
+      text-align: center;
+      border-bottom: 1.5px solid #c7d8f8;
+    }
+    .vacancy-table td {
+      padding: 7px 14px;
+      text-align: center;
+      border-bottom: 1px solid #e9edf3;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .vacancy-table tr:last-child td { border-bottom: none; }
+    .vacancy-table tbody tr:hover td { background: var(--bg-row-alt); }
+
+    /* ── Note Box ── */
+    .note-box {
+      margin: 0 0.85rem 0.85rem;
+      background: var(--warning-bg);
+      border-left: 3px solid #fbbf24;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 10px 14px;
+      font-size: 0.82rem;
+      color: var(--warning);
+      line-height: 1.6;
+    }
+
+    /* ── Card Footer — exact jobs.css .card-footer ── */
+    .card-footer {
+      padding: 0.6rem 1.25rem;
+      background: var(--bg-row-alt);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+      border-top: 1.5px solid var(--border-dark);
+    }
+
+    .footer-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.38rem 1.1rem;
+      border-radius: var(--radius-md);
+      transition: background 0.2s, transform 0.15s;
+    }
+    .footer-btn:hover { transform: scale(1.02); }
+
+    /* exact same btn classes as jobs.css */
+    .btn-official         { background: #0c4a6e; color: #fff; }
+    .btn-official:hover   { background: var(--brand-dark); }
+    .btn-primary          { background: var(--brand-accent); color: #fff; }
+    .btn-primary:hover    { background: #c94d0f; }
+    .btn-secondary        { background: var(--brand-primary); color: #fff; }
+    .btn-secondary:hover  { background: var(--brand-dark); }
+    .btn-success          { background: #166534; color: #fff; }
+    .btn-success:hover    { background: #14532d; }
+    .btn-purple           { background: #6d28d9; color: #fff; }
+    .btn-purple:hover     { background: #5b21b6; }
+    .btn-teal             { background: #0e7490; color: #fff; }
+    .btn-teal:hover       { background: #0c4a6e; }
+
+    /* Detail Guide — same as jobs.css .btn-guide */
+    .btn-guide {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0.38rem 1.1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.18s ease;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      color: #fff;
+      border: none;
+      box-shadow: 0 2px 8px rgba(99,102,241,0.30);
+      white-space: nowrap;
+    }
+    .btn-guide:hover {
+      box-shadow: 0 4px 16px rgba(99,102,241,0.45);
+      transform: translateY(-1px);
+      opacity: 0.92;
+    }
+
+    .btn-disabled {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #f1f5f9;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 0.38rem 1.1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+      cursor: not-allowed;
+    }
+
+    /* ── RESPONSIVE — same breakpoints as jobs.css ── */
+    @media (max-width: 640px) {
+      .container { margin-top: 30px; }
+
+      .card-header {
+        position: static;
+        padding: 0.85rem 1rem 0.75rem;
+        gap: 5px;
+      }
+      .card-badges {
+        position: static;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        max-width: 100%;
+      }
+      .category-badge { font-size: 0.67rem; padding: 2px 8px; }
+
+      .info-body        { flex-direction: column; }
+      .section-label {
+      font-family: var(--font-display);
+      font-size: 0.95rem;
+      font-weight: 750;
+      text-align: center;
+      
+    }
+
+      .info-panel--left .info-item:last-child { border-bottom: 1px solid #e9edf3; }
+
+      .card-footer {
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      .footer-btn,
+      .btn-guide,
+      .btn-disabled { width: 100%; justify-content: center; }
+
+      .post-meta-bar { flex-direction: column; align-items: flex-start; gap: 5px; }
+    }
+
+    @media (max-width: 400px) {
+      .card-header { padding: 0.8rem 0.85rem 0.7rem; }
+      .card-title  { font-size: 0.95rem; }
+      .info-item   { padding: 0.35rem 0.75rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <%- include('common/navbar') %>
+
+
+  <%
+    function fmtDate(val) {
+      if (!val) return null;
+      const d = new Date(val);
+      if (isNaN(d)) return String(val);
+      return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    function getStateName(code) {
+      if (!code) return null;
+      const states = {
+        central:"Central Govt / All India", ap:"Andhra Pradesh", ar:"Arunachal Pradesh",
+        as:"Assam", br:"Bihar", cg:"Chhattisgarh", ga:"Goa", gj:"Gujarat",
+        hr:"Haryana", hp:"Himachal Pradesh", jh:"Jharkhand", ka:"Karnataka",
+        kl:"Kerala", mp:"Madhya Pradesh", mh:"Maharashtra", mn:"Manipur",
+        ml:"Meghalaya", mz:"Mizoram", nl:"Nagaland", od:"Odisha", pb:"Punjab",
+        rj:"Rajasthan", sk:"Sikkim", tn:"Tamil Nadu", tg:"Telangana", tr:"Tripura",
+        up:"Uttar Pradesh", uk:"Uttarakhand", wb:"West Bengal", dl:"Delhi (NCT)",
+        jk:"Jammu & Kashmir", la:"Ladakh", ch:"Chandigarh",
+        dd:"Dadra & Nagar Haveli", py:"Puducherry"
+      };
+      return states[code] || code.toUpperCase();
+    }
+
+    const isJob    = type === 'job';
+    const isAdmit  = type === 'admit';
+    const isResult = type === 'result';
+
+    const backUrl   = isJob ? '/nokari/jobs' : isAdmit ? '/nokari/admit' : '/nokari/result';
+    const backLabel = isJob ? '← Back to Jobs' : isAdmit ? '← Back to Admit Cards' : '← Back to Results';
+
+    const typeBadgeClass = isJob ? 'badge-job' : isAdmit ? 'badge-admit' : 'badge-result';
+    const typeBadgeText  = isJob ? 'Latest Govt Jobs' : isAdmit ? 'Latest Admit Card' : 'Latest Result';
+
+    /* examGuideSlug for Detail Guide button */
+    const guideSlug = data.examGuideSlug || '';
+    const guideHref = guideSlug ? '/nokari/exam/' + (isJob ? 'job' : isAdmit ? 'admit' : 'result') + '/' + data._id : null;
+  %>
+
+  <div class="page-wrapper">
+    <div class="container">
+      <h1 class="card-type-badge <%= typeBadgeClass %>"><%= typeBadgeText %></h1>
+
+        <!-- Intro Card -->
+  <div class="intro-card">
+    <div class="intro-text">
+      Welcome to <a href="/nokari">Apna Naukari</a> Stay informed about latest government jobs, exam, admit card, and results across India.
+    
+      <div class="disclaimer-box">
+        ⚠️ <strong class="d-label">Disclaimer:</strong>
+        Details shown here are for informational purpose only.
+        Candidates must verify all details on the
+        <strong class="d-link">official website</strong>
+        before applying.
+      </div>
+    </div>
+    <a href="https://whatsapp.com/channel/0029VbCxUkXCMY0PLcmcOt0O" 
+      class="update-btn" 
+      target="_blank" 
+      rel="noopener noreferrer">
+      📢 Join WhatsApp
+    </a>
+  </div>
+
+    
+         <span class="post-meta-date">
+            📆 Post date:
+            <strong><%= fmtDate(data.createdAt) %></strong>
+          </span>
+
+      <!-- ── Main Detail Card ── -->
+      <div class="detail-card">
+
+        <!-- Card Header — exact jobs.css structure -->
+        <div class="card-header">
+          
+          <div class="card-title"><%= data.title %></div>
+          <% if (data.organization) { %>
+            <div class="card-org"><%= data.organization %></div>
+          <% } %>
+          <div class="card-badges">
+            <% if (data.category) { %>
+              <div class="category-badge"><%= data.category %></div>
+            <% } %>
+            <% if (data.state) { %>
+              <div class="category-badge">📌 <%= getStateName(data.state) %></div>
+            <% } %>
+          </div>
+        </div>
+
+
+
+
+        <!-- ═══════════════ JOB FIELDS ═══════════════ -->
+        <% if (isJob) { %>
+
+          <!-- Important Dates -->
+          <% if (data.notificationDate || data.applyStartDate || data.lastDate || data.examDate || data.admitCardInfo) { %>
+          <div class="section-block">
+            <div class="section-label">Important Dates</div>
+            <%
+              const dateItems = [];
+              if (data.notificationDate) dateItems.push({ icon:'📋', label:'Notification Date',   value: fmtDate(data.notificationDate), cls:'' });
+              if (data.applyStartDate)   dateItems.push({ icon:'📅', label:'Apply Start Date',    value: fmtDate(data.applyStartDate),   cls:'' });
+              if (data.lastDate)         dateItems.push({ icon:'⏰', label:'Apply Last Date',     value: fmtDate(data.lastDate),         cls:'danger' });
+              if (data.examDate)         dateItems.push({ icon:'📝', label:'Exam Date',           value: data.examDate,                  cls:'highlight' });
+              if (data.admitCardInfo)    dateItems.push({ icon:'🎫', label:'Admit Card',          value: data.admitCardInfo,             cls:'highlight' });
+              const halfD = Math.ceil(dateItems.length / 2);
+              const leftD  = dateItems.slice(0, halfD);
+              const rightD = dateItems.slice(halfD);
+              const isOddD = dateItems.length % 2 !== 0;
+            %>
+            <div class="info-body">
+              <div class="info-panel info-panel--left">
+                <% leftD.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+              </div>
+              <div class="info-panel info-panel--right">
+                <% rightD.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+                <% if (isOddD) { %>
+                  <div class="info-item" style="visibility:hidden;pointer-events:none;">
+                    <span class="info-icon"></span>
+                    <div class="info-text"><span class="info-label"></span><span class="info-value"></span></div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+          <!-- Fee & Age -->
+          <% if (data.feeGeneral || data.feeSCST || data.ageMin || data.ageMax) { %>
+          <div class="section-block">
+            <div class="section-label">Fee & Age Limit</div>
+            <%
+              const feeItems = [];
+              if (data.feeGeneral) feeItems.push({ icon:'💰', label:'General / OBC / EWS', value:'₹ '+data.feeGeneral+'/-', cls:'' });
+              if (data.feeSCST)    feeItems.push({ icon:'💰', label:'SC / ST / PH',         value:'₹ '+data.feeSCST+'/-',   cls:'' });
+              if (data.ageMin || data.ageMax) {
+                const av = (data.ageMin && data.ageMax) ? data.ageMin+' – '+data.ageMax+' Years'
+                         : data.ageMax ? 'Up to '+data.ageMax+' Years'
+                         : 'Min '+data.ageMin+' Years';
+                feeItems.push({ icon:'👤', label:'Age Limit', value: av, cls:'' });
+              }
+              const halfF = Math.ceil(feeItems.length / 2);
+              const leftF  = feeItems.slice(0, halfF);
+              const rightF = feeItems.slice(halfF);
+              const isOddF = feeItems.length % 2 !== 0;
+            %>
+            <div class="info-body">
+              <div class="info-panel info-panel--left">
+                <% leftF.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+              </div>
+              <div class="info-panel info-panel--right">
+                <% rightF.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+                <% if (isOddF) { %>
+                  <div class="info-item" style="visibility:hidden;pointer-events:none;">
+                    <span class="info-icon"></span>
+                    <div class="info-text"><span class="info-label"></span><span class="info-value"></span></div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+<!-- Vacancy Breakup -->
+<% const vd = data.vacancyDetails || {}; %>
+<% if (data.totalPosts || vd.UR || vd.OBC || vd.EWS || vd.SC || vd.ST) { %>
+<div class="section-block">
+  <div class="section-label"> Vacancy Details</div>
+
+  <!-- ✅ Total Posts — sirf ye line add hui -->
+  <% if (data.totalPosts) { %>
+  <div class="info-item" style="border-bottom: 1px solid #e9edf3;">
+    <span class="info-icon">📈</span>
+    <div class="info-text">
+      <span class="info-label">Total Posts :</span>
+      <span class="info-value highlight"><%= data.totalPosts.toLocaleString('en-IN') %>+</span>
+    </div>
+  </div>
+  <% } %>
+
+  <!-- Category table — same as before -->
+  <% if (vd.UR || vd.OBC || vd.EWS || vd.SC || vd.ST) { %>
+  <table class="vacancy-table">
+    <thead>
+      <tr>
+        <% if (vd.UR)          { %><th>UR</th><% } %>
+        <% if (vd.OBC)         { %><th>OBC</th><% } %>
+        <% if (vd.EWS)         { %><th>EWS</th><% } %>
+        <% if (vd.SC)          { %><th>SC</th><% } %>
+        <% if (vd.ST)          { %><th>ST</th><% } %>
+        <% if (data.totalPosts){ %><th>Total</th><% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% if (vd.UR)          { %><td><%= vd.UR %></td><% } %>
+        <% if (vd.OBC)         { %><td><%= vd.OBC %></td><% } %>
+        <% if (vd.EWS)         { %><td><%= vd.EWS %></td><% } %>
+        <% if (vd.SC)          { %><td><%= vd.SC %></td><% } %>
+        <% if (vd.ST)          { %><td><%= vd.ST %></td><% } %>
+        <% if (data.totalPosts){ %><td><strong><%= data.totalPosts.toLocaleString('en-IN') %></strong></td><% } %>
+      </tr>
+    </tbody>
+  </table>
+  <% } %>
+
+</div>
+<% } %>
+
+          <!-- Eligibility -->
+          <% if (data.eligibility) { %>
+          <div class="section-block">
+            <div class="section-label"> Qualification / Eligibility</div>
+            <div class="info-body">
+              <div class="info-panel" style="padding:0">
+                <div class="info-item">
+                 
+                  <div class="info-text">
+                   
+                    <span class="info-value"><%= data.eligibility %></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+        <% } %>
+        <!-- ═══ END JOB ═══ -->
+
+
+        <!-- ═══════════════ ADMIT CARD FIELDS ═══════════════ -->
+        <% if (isAdmit) { %>
+
+          <!-- Dates -->
+          <% if (data.applyStartDate || data.applyLastDate || data.releaseDate || data.examDate || data.reportingTime) { %>
+          <div class="section-block">
+            <div class="section-label">Important Dates</div>
+            <%
+              const aItems = [];
+              if (data.applyStartDate) aItems.push({ icon:'📅', label:'Apply Start Date',    value: fmtDate(data.applyStartDate), cls:'' });
+              if (data.applyLastDate)  aItems.push({ icon:'⏰', label:'Apply Last Date',     value: fmtDate(data.applyLastDate),  cls:'danger' });
+              if (data.releaseDate)    aItems.push({ icon:'🎫', label:'Admit Card Released', value: fmtDate(data.releaseDate),    cls:'success' });
+              if (data.examDate)       aItems.push({ icon:'📝', label:'Exam Date',           value: data.examDate,                cls:'highlight' });
+              if (data.reportingTime)  aItems.push({ icon:'🕐', label:'Reporting Time',      value: data.reportingTime,           cls:'' });
+              const halfA = Math.ceil(aItems.length / 2);
+              const leftA  = aItems.slice(0, halfA);
+              const rightA = aItems.slice(halfA);
+              const isOddA = aItems.length % 2 !== 0;
+            %>
+            <div class="info-body">
+              <div class="info-panel info-panel--left">
+                <% leftA.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+              </div>
+              <div class="info-panel info-panel--right">
+                <% rightA.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+                <% if (isOddA) { %>
+                  <div class="info-item" style="visibility:hidden;pointer-events:none;">
+                    <span class="info-icon"></span>
+                    <div class="info-text"><span class="info-label"></span><span class="info-value"></span></div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+          <!-- Fee & Age -->
+          <% const af = data.fee || {}; %>
+          <% if (af.general || af.scSt || af.female || (data.ageLimit && (data.ageLimit.min || data.ageLimit.max))) { %>
+          <div class="section-block">
+            <div class="section-label">Fee & Age Limit</div>
+            <%
+              const afItems = [];
+              if (af.general) afItems.push({ icon:'💰', label:'General / OBC / EWS', value:'₹ '+af.general+'/-', cls:'' });
+              if (af.scSt)    afItems.push({ icon:'💰', label:'SC / ST',              value:'₹ '+af.scSt+'/-',   cls:'' });
+              if (af.female)  afItems.push({ icon:'💰', label:'Female',               value:'₹ '+af.female+'/-', cls:'' });
+              if (data.ageLimit && (data.ageLimit.min || data.ageLimit.max)) {
+                const av = (data.ageLimit.min && data.ageLimit.max)
+                  ? data.ageLimit.min+' – '+data.ageLimit.max+' Years'
+                  : data.ageLimit.max ? 'Up to '+data.ageLimit.max+' Years'
+                  : 'Min '+data.ageLimit.min+' Years';
+                afItems.push({ icon:'👤', label:'Age Limit', value: av, cls:'' });
+              }
+              const halfAF = Math.ceil(afItems.length / 2);
+              const leftAF  = afItems.slice(0, halfAF);
+              const rightAF = afItems.slice(halfAF);
+              const isOddAF = afItems.length % 2 !== 0;
+            %>
+            <div class="info-body">
+              <div class="info-panel info-panel--left">
+                <% leftAF.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+              </div>
+              <div class="info-panel info-panel--right">
+                <% rightAF.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+                <% if (isOddAF) { %>
+                  <div class="info-item" style="visibility:hidden;pointer-events:none;">
+                    <span class="info-icon"></span>
+                    <div class="info-text"><span class="info-label"></span><span class="info-value"></span></div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+          <!-- Eligibility -->
+          <% if (data.eligibility) { %>
+          <div class="section-block">
+            <div class="section-label">Eligibility</div>
+            <div class="info-body">
+              <div class="info-panel" style="padding:0">
+                <div class="info-item">
+                 
+                  <div class="info-text">
+                    
+                    <span class="info-value"><%= data.eligibility %></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+          <!-- Note -->
+          <% if (data.note) { %>
+          <div class="section-block">
+            <div class="section-label">📌 Important Note</div>
+            <div class="note-box">⚠️ <%= data.note %></div>
+          </div>
+          <% } %>
+
+        <% } %>
+        <!-- ═══ END ADMIT ═══ -->
+
+
+        <!-- ═══════════════ RESULT FIELDS ═══════════════ -->
+        <% if (isResult) { %>
+          <% if (data.examDate || data.resultDate) { %>
+          <div class="section-block">
+            <div class="section-label">Important Dates</div>
+            <%
+              const rItems = [];
+              if (data.examDate)   rItems.push({ icon:'📝', label:'Exam Date',          value: data.examDate,            cls:'' });
+              if (data.resultDate) rItems.push({ icon:'📊', label:'Result Declared On', value: fmtDate(data.resultDate), cls:'success' });
+              const halfR = Math.ceil(rItems.length / 2);
+              const leftR  = rItems.slice(0, halfR);
+              const rightR = rItems.slice(halfR);
+              const isOddR = rItems.length % 2 !== 0;
+            %>
+            <div class="info-body">
+              <div class="info-panel info-panel--left">
+                <% leftR.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+              </div>
+              <div class="info-panel info-panel--right">
+                <% rightR.forEach(function(it) { %>
+                <div class="info-item">
+                  <span class="info-icon"><%= it.icon %></span>
+                  <div class="info-text">
+                    <span class="info-label"><%= it.label %> :</span>
+                    <span class="info-value <%= it.cls %>"><%= it.value %></span>
+                  </div>
+                </div>
+                <% }); %>
+                <% if (isOddR) { %>
+                  <div class="info-item" style="visibility:hidden;pointer-events:none;">
+                    <span class="info-icon"></span>
+                    <div class="info-text"><span class="info-label"></span><span class="info-value"></span></div>
+                  </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <% } %>
+        <% } %>
+        <!-- ═══ END RESULT ═══ -->
+
+
+        <!-- ═══ COMMON: Selection Process ═══ -->
+        <% if (data.selectionProcess && data.selectionProcess.length) { %>
+        <div class="section-block">
+          <div class="section-label"> Selection Process</div>
+          <div class="selection-steps">
+            <% data.selectionProcess.forEach(function(step, i) { %>
+              <span class="selection-step"><%= step %></span>
+              <% if (i < data.selectionProcess.length - 1) { %>
+                <span class="step-arrow">→</span>
+              <% } %>
+            <% }); %>
+          </div>
+        </div>
+        <% } %>
+
+
+        <!-- ═══ COMMON: Card Footer Buttons ═══ -->
+        <div class="card-footer">
+
+          <% if (data.officialSite) { %>
+            <a class="footer-btn btn-official" href="<%= data.officialSite %>" target="_blank" rel="noopener">
+              <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+              </svg>
+              Official Site
+            </a>
+          <% } %>
+
+          <!-- JOB buttons -->
+          <% if (isJob) { %>
+            <% if (data.notificationLink) { %>
+              <a class="footer-btn btn-secondary" href="<%= data.notificationLink %>" target="_blank" rel="noopener">📄 Notification</a>
+            <% } %>
+            <% if (data.applyLink) { %>
+              <a class="footer-btn btn-primary" href="<%= data.applyLink %>" target="_blank" rel="noopener">✏️ Apply Now</a>
+            <% } else { %>
+              <span class="btn-disabled">🔒 Not Active</span>
+            <% } %>
+          <% } %>
+
+          <!-- ADMIT buttons -->
+          <% if (isAdmit) { %>
+            <% if (data.applyLink) { %>
+              <a class="footer-btn btn-secondary" href="<%= data.applyLink %>" target="_blank" rel="noopener">✏️ Apply Link</a>
+            <% } %>
+            <% if (data.downloadLink) { %>
+              <a class="footer-btn btn-success" href="<%= data.downloadLink %>" target="_blank" rel="noopener">⬇️ Download Admit Card</a>
+            <% } else { %>
+              <span class="btn-disabled">🔒 Not Released Yet</span>
+            <% } %>
+          <% } %>
+
+          <!-- RESULT buttons -->
+          <% if (isResult) { %>
+            <% if (data.resultLink) { %>
+              <a class="footer-btn btn-purple" href="<%= data.resultLink %>" target="_blank" rel="noopener">📊 Check Result</a>
+            <% } else { %>
+              <span class="btn-disabled">🔒 Result Not Available</span>
+            <% } %>
+            <% if (data.meritListLink) { %>
+              <a class="footer-btn btn-teal" href="<%= data.meritListLink %>" target="_blank" rel="noopener">🏆 Merit List</a>
+            <% } %>
+          <% } %>
+
+          <!-- Detail Guide button — always show -->
+          <a class="footer-btn btn-guide" href="/nokari/exam/<%= isJob ? 'job' : isAdmit ? 'admit' : 'result' %>/<%= data._id %>">
+            📘 Detail Guide
+          </a>
+
+        </div>
+
+      </div>
+      <!-- /detail-card -->
+
+    </div>
+  </div>
+
+  <%- include('common/footer') %>
+<script>
+  window.addEventListener('load', () => {
+    if (window.innerWidth <= 768) {
+      setTimeout(() => {
+        window.scrollTo({ top: 165, behavior: 'smooth' });
+      }, 150);
+    }
+  });
+</script>
+</body>
+</html>

@@ -155,11 +155,21 @@ const deleteResult = async (req, res) => {
   }
 };
 
-
+// ── Get Result Detail Page (SSR) ──────────────────────────────────────────────
+const getResultDetail = async (req, res) => {
+  try {
+    const result = await Result.findById(req.params.id).lean();
+    if (!result) return res.status(404).render("404");
+    res.render("detail", { data: result, type: "result" });
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+};
 module.exports = {
   addResult,
   getResults,
   getResultById,
   updateResult,
   deleteResult,
+  getResultDetail
 };
