@@ -645,3 +645,41 @@
   padding-right: 12px;
   margin-top: 12px;
 }
+/* card-header textdec=none */
+/* ===== CARD HEADER ===== */
+.card-header {
+  background: #0c476c;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* default — state section upar */
+.state-section-box {
+  order: 0;
+}
+.sections {
+  order: 1;
+}
+
+/* mobile pe state section neeche */
+@media (max-width: 768px) {
+  .main-content {
+    display: flex;
+    flex-direction: column;
+  }
+  .state-section-box {
+    order: 2;
+  }
+  .sections {
+    order: 1;
+  }
+   .faq-section {
+    order: 3;
+  }
+}

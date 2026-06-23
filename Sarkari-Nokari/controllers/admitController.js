@@ -140,7 +140,16 @@ const getAdmitPage = async (req, res) => {
     res.status(500).send("Server error: " + err.message);
   }
 };
-
+// ── Get Admit Detail Page (SSR) ───────────────────────────────────────────────
+const getAdmitDetail = async (req, res) => {
+  try {
+    const admit = await Admit.findById(req.params.id).lean();
+    if (!admit) return res.status(404).render("404");
+    res.render("detail", { data: admit, type: "admit" });
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+};
 module.exports = {
   addAdmit,
   getAdmits,
@@ -148,4 +157,5 @@ module.exports = {
   updateAdmit,
   deleteAdmit,
   getAdmitPage,
+  getAdmitDetail
 };

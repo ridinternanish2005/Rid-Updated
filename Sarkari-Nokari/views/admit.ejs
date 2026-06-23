@@ -110,8 +110,8 @@
   <% } %>
   <div class="admit-index-list">
     <% admits.forEach(function(admit, i) { %>
-      <a class="admit-index-item" href="#<%= admit._id %>" data-category="<%= admit.category || '' %>">
-        <span class="admit-index-num"><%= i + 1 %>.</span>
+          <a class="admit-index-item" href="/nokari/admit/<%= admit._id %>/detail">
+          <span class="admit-index-num"><%= i + 1 %>.</span>
         <span class="admit-index-title"><%= admit.title %></span>
              <% if (admit.totalPosts) { %>
                 <span class="admit-index-posts"><%= admit.totalPosts.toLocaleString('en-IN') %> Posts</span>

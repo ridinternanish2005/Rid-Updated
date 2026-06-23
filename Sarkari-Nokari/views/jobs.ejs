@@ -111,7 +111,7 @@
       <% } %>
       <div class="job-index-list">
             <% jobs.forEach(function(job, i) { %>
-              <a class="job-index-item" href="#<%= job._id %>" data-category="<%= job.category || '' %>">
+              <a class="job-index-item" href="/nokari/job/<%= job._id %>/detail">
               <span class="job-index-num"><%= i + 1 %>.</span>
               <span class="job-index-title"><%= job.title %></span>
               <% if (job.totalPosts) { %>
