@@ -19,7 +19,7 @@ async function handleAIHint(questionId) {
 
   // HINT 1: Static
  // 👉 HINT 1 & 2: AI
-if (nextLevel === 1 || nextLevel === 2) {
+if (nextLevel === 2 || nextLevel === 3) {
   hintState[questionId] = nextLevel;
 
   const loadingEl = document.createElement('div');
@@ -42,11 +42,11 @@ if (nextLevel === 1 || nextLevel === 2) {
 }
 
 // 👉 HINT 3: STATIC (FINAL)
-if (nextLevel === 3) {
-  hintState[questionId] = 3;
+if (nextLevel === 1) {
+  hintState[questionId] = 1;
 
   hintContent.innerHTML += buildHintHTML(
-    3,
+    1,
     question.hint || 'Think carefully about the problem.'
   );
 

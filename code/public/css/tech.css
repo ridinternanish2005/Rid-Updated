@@ -1526,3 +1526,157 @@
   }
 }
 /* ===== END: RESPONSIVE BUTTON LAYOUT ===== */
+/* ===== CODE ARENA NAVBAR BUTTON ===== */
+@keyframes arena-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(83,74,183,0.6); }
+  50%      { box-shadow: 0 0 0 8px rgba(83,74,183,0); }
+}
+@keyframes dot-blink {
+  0%,100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+@keyframes bounce-in {
+  0%   { transform: scale(0.5) translateY(20px); opacity: 0; }
+  70%  { transform: scale(1.06) translateY(0); }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.arena-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #534AB7;
+  color: #fff;
+  border-radius: 99px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  animation: arena-pulse 2s ease-in-out infinite;
+  white-space: nowrap;
+}
+.arena-nav-btn:hover { background: #3C3489; }
+
+.arena-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #FAC775;
+  animation: dot-blink 1.5s infinite;
+  flex-shrink: 0;
+}
+
+/* ===== FLOATING BADGE ===== */
+@keyframes arena-pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(83,74,183,0.6); }
+  50%      { box-shadow: 0 0 0 10px rgba(83,74,183,0); }
+}
+@keyframes dot-blink {
+  0%,100% { opacity:1; } 50% { opacity:0.3; }
+}
+@keyframes bounce-in {
+  0%   { transform: scale(0.5) translateY(20px); opacity:0; }
+  70%  { transform: scale(1.06) translateY(0); }
+  100% { transform: scale(1) translateY(0); opacity:1; }
+}
+
+.floating-arena {
+  position: fixed;
+  bottom: 24px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  z-index: 9999;
+  animation: bounce-in 0.7s ease both;
+}
+
+.float-label {
+  background: #D85A30;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 99px;
+  padding: 2px 10px;
+  letter-spacing: 0.04em;
+}
+
+.float-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #534AB7;
+  color: #fff;
+  border-radius: 14px;
+  padding: 11px 16px;
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  animation: arena-pulse 2s ease-in-out infinite;
+  box-shadow: 0 4px 18px rgba(83,74,183,0.4);
+  transition: background 0.15s, transform 0.1s;
+}
+.float-btn:hover {
+  background: #3C3489;
+  transform: scale(1.03);
+}
+
+.float-icon { font-size: 20px; }
+
+.float-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.35;
+}
+.float-text span {
+  font-size: 10px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+.live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #FAC775;
+  animation: dot-blink 1.2s infinite;
+  flex-shrink: 0;
+}
+
+/* Mobile pe completely hide */
+@media (max-width: 768px) {
+  .floating-arena {
+    display: none !important;
+  }
+}
+#codeArenaButton {
+  background: linear-gradient(135deg, #7c3aed, #2563eb) !important;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  border-radius: 40px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(124,58,237,0.4);
+  animation: arena-pulse 2s ease-in-out infinite;
+  transition: all 0.2s;
+}
+
+#codeArenaButton:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+/* Mobile pe books-btn ke saath same size */
+@media (max-width: 768px) {
+  #codeArenaButton {
+    flex: 1;
+    font-size: 0.85rem;
+    padding: 0.6rem 0.8rem;
+    text-align: center;
+  }
+}

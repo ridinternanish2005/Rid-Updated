@@ -48,16 +48,12 @@ QuizData.topics.push(
   { id: "js_objects", name: "Objects", langId: "js" },
   { id: "js_strings", name: "Strings", langId: "js" },
   { id: "js_array_methods", name: "Array Methods", langId: "js" },
-  //   { id: 'js_dom', name: 'DOM Manipulation', langId: 'js' },
-  //   { id: 'js_events', name: 'Events', langId: 'js' },
   { id: "js_promises", name: "Promises", langId: "js" },
   { id: "js_async", name: "Async / Await", langId: "js" },
-//   { id: "js_fetch", name: "Fetch API", langId: "js" },
   { id: "js_json", name: "JSON Handling", langId: "js" },
   { id: "js_error", name: "Error Handling", langId: "js" },
   { id: "js_closure", name: "Closures", langId: "js" },
   { id: "js_oop", name: "OOP in JavaScript", langId: "js" },
-  // { id: "js_modules", name: "Modules", langId: "js" },
   { id: "js_es6", name: "ES6 Features", langId: "js" },
   { id: "js_recursion", name: "Recursion", langId: "js" },
   { id: "js_dsa", name: "DSA Basics", langId: "js" },
@@ -117,11 +113,8 @@ QuizData.topics.push(
   { id: "cpp_encapsulation", name: "Encapsulation", langId: "cpp" },
   { id: "cpp_interfaces", name: "Interfaces", langId: "cpp" },
   { id: "cpp_exceptions", name: "Exception Handling", langId: "cpp" },
-//   { id: "cpp_stl_containers", name: "STL Containers", langId: "cpp" },
   { id: "cpp_templates", name: "Templates", langId: "cpp" },
   { id: "cpp_filehandling", name: "File Handling", langId: "cpp" },
-  // { id: "cpp_multithreading", name: "Multithreading", langId: "cpp" },
-//   { id: "cpp_stl_algorithms", name: "STL Algorithms", langId: "cpp" },
   { id: "cpp_lambdas", name: "Lambda Expressions", langId: "cpp" },
   { id: "cpp_dsa", name: "DSA Basics", langId: "cpp" },
 
@@ -184,7 +177,4 @@ QuizData.topics.push(
   { id: "cs_lambda", name: "Lambda Expressions", langId: "cs" },
   { id: "cs_linq", name: "LINQ", langId: "cs" },
 
-  //ts
-  // { id: "go_input_output", name: "Input&Output", langId: "go" },
-  //   { id: "cs_datatypes", name: "Data Types", langId: "go" },
 );
