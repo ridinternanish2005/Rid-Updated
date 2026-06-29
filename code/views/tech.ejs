@@ -127,7 +127,18 @@
         </div>
       </main>
     </div>
-
+<!-- Floating Code Arena Badge -->
+<div class="floating-arena" id="floatingArena">
+  <span class="float-label">🏆 Interview Prep</span>
+  <a href="/tech-interview/code-arena" class="float-btn">
+    <span class="float-icon">⚔️</span>
+    <div class="float-text">
+      Code Arena
+      <span>Problem Solving . DSA · Mock Interview </span>
+    </div>
+    <span class="live-dot"></span>
+  </a>
+</div>
     <footer class="footer">
       <div class="footer-container">
         <div class="footer-col">
@@ -152,7 +163,7 @@
               <a href="#"><i class="fas fa-book"></i> All Tutorials</a>
             </li>
             <li>
-              <a href="#"><i class="fas fa-code"></i> Code Runner</a>
+              <a href="/tech-interview/code-arena"><i class="fas fa-code"></i> Code Runner</a>
             </li>
             <li>
               <a href="#"><i class="fas fa-blog"></i> Blog</a>
@@ -175,10 +186,6 @@
               <a href="mailto:ridorg.in@gmail.com">ridorg.in@gmail.com</a>
             </li>
             <li>
-              <i class="fas fa-phone-alt"></i>
-              <a href="tel:+919202707903">+91 9202707903</a>
-            </li>
-            <li>
               <i class="fas fa-clock"></i>
               <span>Monday - Saturday: 10:00 AM - 8:00 PM</span>
             </li>
@@ -189,15 +196,13 @@
           <h3>🌐 Follow Us</h3>
           <p>Stay connected through social media</p>
           <div class="social-links">
-            <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
-            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" aria-label="LinkedIn"
+            <a href="https://m.facebook.com/rid.bharat/"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.linkedin.com/in/rid-bharat-9a4517324" aria-label="LinkedIn"
               ><i class="fab fa-linkedin-in"></i
             ></a>
             <a href="https://www.youtube.com/@RidBharat" aria-label="YouTube"
               ><i class="fab fa-youtube"></i
             ></a>
-            <a href="#" aria-label="Discord"><i class="fab fa-discord"></i></a>
             <a
               href="https://www.instagram.com/ridtech.in/"
               aria-label="Instagram"
@@ -231,199 +236,127 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-csharp.min.js"></script>
 
-    <!-- CodeMirror core -->
+  <!-- CodeMirror core -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
-
-    <!-- CodeMirror language modes -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
-
-    <!-- ✅ CodeMirror addons - auto close brackets/quotes + comments -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/edit/closebrackets.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/addon/comment/comment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.16/addon/display/placeholder.min.js"></script>
 
     <!-- Data files (ensure paths are correct) -->
     <script src="/js/data/00-init.js"></script>
-    <script src="/js/data/01-languages.js"></script>
+    <script src="/js/data/languages.js"></script>
     <script src="/js/data/topics.js"></script>
+ <!-- ✅ STEP 2: Smart Language Loader - localStorage check karke priority language pehle load karta hai -->
+    <script>
+      (function () {
+        // ── localStorage se priority language decide karo ──
+        const STORAGE_LANG = "codeques_lang";
+        const supportedLanguages = ["py", "java", "cpp", "c", "js", "cs"];
+        let priorityLang = localStorage.getItem(STORAGE_LANG) || "py";
+        if (!supportedLanguages.includes(priorityLang)) priorityLang = "py";
 
-    <script src="/js/data/python/variables.js"></script>
-    <script src="/js/data/python/loops.js"></script>
+        // ── Har language ki JS files ka map ──
+        const langScripts = {
+          py: [
+             "/js/data/python/python-question1.js",
+             "/js/data/python/python-question2.js",
+             "/js/data/python/python-question3.js",
+             "/js/data/python/python-question4.js",
+             "/js/data/python/python-question5.js",
+             "/js/data/python/python-question6.js",
+             "/js/data/python/python-question7.js",
+             "/js/data/python/python-question8.js",
+          ],
+          java: [
+            "/js/data/java/java-question1.js",
+            "/js/data/java/java-question2.js",
+            "/js/data/java/java-question3.js",
+            "/js/data/java/java-question4.js",
+            "/js/data/java/java-question5.js",
+           "/js/data/java/java-question6.js",
+           "/js/data/java/java-question7.js"
+          ],
+          cpp: [
+            "/js/data/C++/cpp-question1.js",
+            "/js/data/C++/cpp-question2.js",
+            "/js/data/C++/cpp-question3.js",
+            "/js/data/C++/cpp-question4.js",
+            "/js/data/C++/cpp-question5.js",
+            "/js/data/C++/cpp-question6.js",
+          ],
+          c: [
+             "/js/data/cp/c-question1.js",
+             "/js/data/cp/c-question2.js",
+             "/js/data/cp/c-question3.js",
+             "/js/data/cp/c-question4.js",
+            "/js/data/cp/c-question5.js",
+            "/js/data/cp/c-question6.js",
+             "/js/data/cp/c-question7.js", 
+            ],
+          js: [
+            "/js/data/javascript/js-question1.js",
+            "/js/data/javascript/js-question2.js",
+            "/js/data/javascript/js-question3.js",
+            "/js/data/javascript/js-question4.js",
+            "/js/data/javascript/js-question5.js",
+            "/js/data/javascript/js-question6.js",
+          ],
+          cs: [
+     "/js/data/csharp/csharpe-question1.js",
+     "/js/data/csharp/csharpe-question2.js",
+     "/js/data/csharp/csharpe-question3.js",
+     "/js/data/csharp/csharpe-question4.js",
+     "/js/data/csharp/csharpe-question5.js",
+     "/js/data/csharp/csharpe-question6.js",
+          ],
+        };
 
-    <!-- java -->
-    <script src="/js/data/java/introductions.js"></script>
-    <script src="/js/data/java/loops.js"></script>
-    <script src="/js/data/java/arrays.js"></script>
-    <script src="/js/data/java/dsa.js"></script>
-    <script src="/js/data/java/method.js"></script>
-    <script src="/js/data/java/oops.js"></script>
-    <script src="/js/data/java/multithreding.js"></script>
-    <script src="/js/data/java/variables.js"></script>
-    <script src="/js/data/java/operators.js"></script>
-    <script src="/js/data/java/datatypes.js"></script>
-    <script src="/js/data/java/loops.js"></script>
-    <script src="/js/data/java/InOp.js"></script>
-    <script src="/js/data/java/conditionalStatement.js"></script>
-    <script src="/js/data/java/strings.js"></script>
-    <script src="/js/data/java/constructors.js"></script>
-    <script src="/js/data/java/inheritence.js"></script>
-    <script src="/js/data/java/polymorphism.js"></script>
-    <script src="/js/data/java/abstract.js"></script>
-    <script src="/js/data/java/encapsulation.js"></script>
-    <script src="/js/data/java/interface.js"></script>
-    <script src="/js/data/java/packages.js"></script>
-    <script src="/js/data/java/exception.js"></script>
-    <script src="/js/data/java/collectionsF.js"></script>
-    <script src="/js/data/java/generics.js"></script>
-    <script src="/js/data/java/fileHandling.js"></script>
-    <script src="/js/data/java/streamAPI.js"></script>
-    <script src="/js/data/java/lambda.js"></script>
+        // ── Ek script load karne ka function (Promise return karta hai) ──
+        function loadScript(src) {
+          return new Promise((resolve) => {
+            // Already loaded? Skip karo
+            if (document.querySelector('script[src="' + src + '"]')) {
+              resolve();
+              return;
+            }
+            const s = document.createElement("script");
+            s.src = src;
+            s.onload = resolve;
+            s.onerror = resolve; // Error pe bhi resolve - ek file miss hone se sab ruke nahi
+            document.head.appendChild(s);
+          });
+        }
 
-    <!-- c++ -->
-    <script src="/js/data/C++/loop.js"></script>
-    <script src="/js/data/C++/introduction.js"></script>
-    <script src="/js/data/C++/variable.js"></script>
-    <script src="/js/data/C++/datatype.js"></script>
-    <script src="/js/data/C++/operator.js"></script>
-    <script src="/js/data/C++/inputoutput.js"></script>
-    <script src="/js/data/C++/conditional.js"></script>
-    <script src="/js/data/C++/array.js"></script>
-    <script src="/js/data/C++/string.js"></script>
-    <script src="/js/data/C++/function.js"></script>
-    <script src="/js/data/C++/oops.js"></script>
-    <script src="/js/data/C++/constructor.js"></script>
-    <script src="/js/data/C++/inheritance.js"></script>
-    <script src="/js/data/C++/polymorphism.js"></script>
-    <script src="/js/data/C++/abstraction.js"></script>
-    <script src="/js/data/C++/encapsulation.js"></script>
-    <script src="/js/data/C++/interface.js"></script>
-    <script src="/js/data/C++/exceptionhandling.js"></script>
-    <script src="/js/data/C++/containers.js"></script>
-    <script src="/js/data/C++/template.js"></script>
-    <script src="/js/data/C++/filehandling.js"></script>
-    <script src="/js/data/C++/multithreading.js"></script>
-    <script src="/js/data/C++/lambdaexpression.js"></script>
-    <script src="/js/data/C++/DSABasic.js"></script>
+        // ── Saari scripts parallel load karo ──
+        function loadAllScripts(scripts) {
+          return Promise.all(scripts.map(loadScript));
+        }
 
-    <!-- c -->
-    <script src="/js/data/cp/loop.js"></script>
-    <script src="/js/data/cp/break_continue.js"></script>
-    <script src="/js/data/cp/intro.js"></script>
-    <script src="/js/data/cp/structure.js"></script>
-    <script src="/js/data/cp/variables.js"></script>
-    <script src="/js/data/cp/datatypes.js"></script>
-    <script src="/js/data/cp/constants.js"></script>
-    <script src="/js/data/cp/operators.js"></script>
-    <script src="/js/data/cp/input_output.js"></script>
-    <script src="/js/data/cp/conditional.js"></script>
-    <script src="/js/data/cp/goto.js"></script>
-    <script src="/js/data/cp/functions.js"></script>
-    <script src="/js/data/cp/recursion.js"></script>
-    <script src="/js/data/cp/arrays.js"></script>
-    <script src="/js/data/cp/strings.js"></script>
-    <script src="/js/data/cp/pointers.js"></script>
-    <script src="/js/data/cp/pointer_array.js"></script>
-    <script src="/js/data/cp/structure.js"></script>
-    <script src="/js/data/cp/unions.js"></script>
-    <script src="/js/data/cp/enum.js"></script>
-    <script src="/js/data/cp/typedef.js"></script>
-    <script src="/js/data/cp/storage_classes.js"></script>
-    <script src="/js/data/cp/dynamic_memory.js"></script>
-    <script src="/js/data/cp/file_handling.js"></script>
-    <script src="/js/data/cp/preprocessor.js"></script>
-    <script src="/js/data/cp/command_line.js"></script>
-    <script src="/js/data/cp/dsa_basic.js"></script>
+        // ── Main loading logic ──
+        // window._langLoadPromise ko IIFE await karega
+        window._priorityLang = priorityLang; // IIFE ko bataao konsi language priority hai
 
-    <!-- Python -->
-    <script src="/js/data/python/introduction.js"></script>
-    <script src="/js/data/python/AsyncProgramming.js"></script>
-    <script src="/js/data/python/ConditionalStatements.js"></script>
-    <script src="/js/data/python/variables.js"></script>
-    <script src="/js/data/python/loops.js"></script>
-    <script src="/js/data/python/DataTypes.js"></script>
-    <script src="/js/data/python/Date&Time.js"></script>
-    <script src="/js/data/python/Decorators.js"></script>
-    <script src="/js/data/python/Dict.js"></script>
-    <script src="/js/data/python/DSABasics.js"></script>
-    <script src="/js/data/python/Recursion.js"></script>
-    <script src="/js/data/python/Sets.js"></script>
-    <script src="/js/data/python/ExceptionHandling.js"></script>
-    <script src="/js/data/python/FileHandling.js"></script>
-    <script src="/js/data/python/Functions.js"></script>
-    <script src="/js/data/python/Generators.js"></script>
-    <script src="/js/data/python/Input&Output.js"></script>
-    <script src="/js/data/python/LambdaFunctions.js"></script>
-    <script src="/js/data/python/ListComprehension.js"></script>
-    <script src="/js/data/python/Lists.js"></script>
-    <script src="/js/data/python/Modules&Packages.js"></script>
-    <script src="/js/data/python/Multithreading.js"></script>
-    <script src="/js/data/python/ObjectOrientedProgramming.js"></script>
-    <script src="/js/data/python/Operators.js"></script>
-    <script src="/js/data/python/RegularExpressions.js"></script>
-    <script src="/js/data/python/Strings.js"></script>
-    <script src="/js/data/python/Tuples.js"></script>
+        window._langLoadPromise = (async function () {
+          // STEP A: Priority language ki files PEHLE load karo (await - zaroor wait karo)
+          const priorityScripts = langScripts[priorityLang] || langScripts["py"];
+          await loadAllScripts(priorityScripts);
 
-    <!-- C# scripts -->
-    <script src="/js/data/csharp/Arrays.js"></script>
-    <script src="/js/data/csharp/Classes_Objects.js"></script>
-    <script src="/js/data/csharp/ConditionalStatements.js"></script>
-    <script src="/js/data/csharp/DataTypes.js"></script>
-    <script src="/js/data/csharp/Delegates.js"></script>
-    <script src="/js/data/csharp/Enumerations.js"></script>
-    <script src="/js/data/csharp/Events.js"></script>
-    <script src="/js/data/csharp/ExceptionHandling.js"></script>
-    <script src="/js/data/csharp/File.js"></script>
-    <script src="/js/data/csharp/Inheritance.js"></script>
-    <script src="/js/data/csharp/Input_Output.js"></script>
-    <script src="/js/data/csharp/Interfaces.js"></script>
-    <script src="/js/data/csharp/LambdaExpressions.js"></script>
-    <script src="/js/data/csharp/LINQ.js"></script>
-    <script src="/js/data/csharp/Lists_Collections.js"></script>
-    <script src="/js/data/csharp/Loops.js"></script>
-    <script src="/js/data/csharp/Methods.js"></script>
-    <script src="/js/data/csharp/Multithreading.js"></script>
-    <script src="/js/data/csharp/Namespaces.js"></script>
-    <script src="/js/data/csharp/ObjectOrientedProgramming.js"></script>
-    <script src="/js/data/csharp/Operators.js"></script>
-    <script src="/js/data/csharp/Polymorphism.js"></script>
-    <script src="/js/data/csharp/Strings.js"></script>
-    <script src="/js/data/csharp/Variables.js"></script>
+          // STEP B: Baaki saari languages BACKGROUND mein load karo (await nahi - fire and forget)
+          const otherLangs = Object.keys(langScripts).filter(
+            (l) => l !== priorityLang
+          );
+          for (const lang of otherLangs) {
+            loadAllScripts(langScripts[lang]); // NO await - background mein chalte raho
+          }
 
-    <!-- JavaScript -->
-    <script src="/js/data/javascript/array.js"></script>
-    <script src="/js/data/javascript/arraymethod.js"></script>
-    <script src="/js/data/javascript/arrowfunction.js"></script>
-    <script src="/js/data/javascript/closures.js"></script>
-    <script src="/js/data/javascript/async.js"></script>
-    <script src="/js/data/javascript/conditionalstatement.js"></script>
-    <script src="/js/data/javascript/datatype.js"></script>
-    <script src="/js/data/javascript/DSABasic.js"></script>
-    <script src="/js/data/javascript/dommanipulation.js"></script>
-    <script src="/js/data/javascript/errorhandling.js"></script>
-    <script src="/js/data/javascript/es6feature.js"></script>
-    <script src="/js/data/javascript/event.js"></script>
-    <script src="/js/data/javascript/function.js"></script>
-    <script src="/js/data/javascript/fetchapi.js"></script>
-    <script src="/js/data/javascript/introduction.js"></script>
-    <script src="/js/data/javascript/jsonhandling.js"></script>
-    <script src="/js/data/javascript/loop.js"></script>
-    <script src="/js/data/javascript/modules.js"></script>
-    <script src="/js/data/javascript/object.js"></script>
-    <script src="/js/data/javascript/oop.js"></script>
-    <script src="/js/data/javascript/operator.js"></script>
-    <script src="/js/data/javascript/promises.js"></script>
-    <script src="/js/data/javascript/scope_hoisting.js"></script>
-    <script src="/js/data/javascript/recursion.js"></script>
-    <script src="/js/data/javascript/string.js"></script>
-    <script src="/js/data/javascript/variables.js"></script>
-    <!-- ai hints-->
-    <script src="/js/data/aiHint.js"></script>
-
-    <!-- go -->
-    <script src="/js/data/go/Input_output.js"></script>
-    <!-- Main Logi cof thids code -->
-    <script src="/js/coderank.js"></script>
+          // STEP C: AI hint aur Go bhi background mein
+          loadScript("/js/data/aiHint.js");
+        })();
+      })();
+    </script>
+  <script src="/js/coderank.js"></script>
   </body>
 </html>
